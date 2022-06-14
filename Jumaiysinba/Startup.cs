@@ -1,11 +1,13 @@
+using Infrastructure.Data;
+using Jumaiysinba.Inits;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Jumaiysinba
 {
@@ -28,6 +30,24 @@ namespace Jumaiysinba
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Include;
+                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            });
+
+            services.UseDatabaseContext(Configuration);
+
+            services.UseAuthJWT(Configuration);
+
+            services.UseServices();
+
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
+            services.UseSwaggerGen();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,12 +63,21 @@ namespace Jumaiysinba
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
+
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+
+            app.UseSwagger();
+            app.UseSwaggerUI();
+
+            app.UseAppStaticFiles();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -66,6 +95,8 @@ namespace Jumaiysinba
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+            app.SeedData();
         }
     }
 }
