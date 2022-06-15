@@ -62,6 +62,11 @@ namespace Jumaiysinba.Inits
                 });
                 var fileDoc = Path.Combine(AppContext.BaseDirectory, $"{assemblyName}.xml");
                 c.IncludeXmlComments(fileDoc);
+
+                // include view models comments
+                string nameClassLib = "Core";
+                fileDoc = Path.Combine(AppContext.BaseDirectory, $"{nameClassLib}.xml");
+                c.IncludeXmlComments(fileDoc);
             });
         }
     }
