@@ -1,5 +1,5 @@
 ﻿using Core.Entities.Identity;
-using Core.Interfaces.Service;
+using Core.Interfaces.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -8,7 +8,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Infrastructure.Services
+namespace Core.Services
 {
     public class TokenService : ITokenService
     {

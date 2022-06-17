@@ -38,16 +38,14 @@ namespace Jumaiysinba
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
             });
 
-            services.UseDatabaseContext(Configuration);
-
-            services.UseAuthJWT(Configuration);
-
-            services.UseServices();
-
-            services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
-            services.UseSwaggerGen();
-
+            services
+                .UseDatabaseContext(Configuration)
+                .UseUsefulNuGets()
+                .UseAuthJWT(Configuration)
+                .UseServices()
+                .AddEndpointsApiExplorer()
+                .AddSwaggerGen()
+                .UseSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,19 +63,21 @@ namespace Jumaiysinba
             }
             app.UseHttpsRedirection();
 
-            app.UseStaticFiles();
-
-            app.UseSpaStaticFiles();
+            app
+                .UseStaticFiles()
+                .UseSpaStaticFiles();
 
             app.UseRouting();
 
-            app.UseSwagger();
-            app.UseSwaggerUI();
+            app
+                .UseSwagger()
+                .UseSwaggerUI();
 
             app.UseAppStaticFiles();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            app
+                .UseAuthentication()
+                .UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

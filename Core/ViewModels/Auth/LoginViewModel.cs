@@ -1,4 +1,4 @@
-﻿namespace Jumaiysinba.ViewModels
+﻿namespace Core.ViewModels.Auth
 {
     public class LoginViewModel
     {

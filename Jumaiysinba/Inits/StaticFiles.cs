@@ -6,7 +6,7 @@ namespace Jumaiysinba.Inits
 {
     public static class StaticFiles
     {
-        public static void UseAppStaticFiles(this IApplicationBuilder app)
+        public static IApplicationBuilder UseAppStaticFiles(this IApplicationBuilder app)
         {
             var dir = Path.Combine(Directory.GetCurrentDirectory(), "uploads");
             if (!Directory.Exists(dir))
@@ -18,6 +18,7 @@ namespace Jumaiysinba.Inits
                 FileProvider = new PhysicalFileProvider(dir),
                 RequestPath = "/images"
             });
+            return app;
         }
     }
 }

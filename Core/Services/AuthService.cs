@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Core.Entities.Identity;
-using Core.Interfaces.Service;
-using Jumaiysinba.ViewModels;
+using Core.Helpers;
+using Core.Interfaces.Services;
+using Core.ViewModels.Auth;
 using Microsoft.AspNetCore.Identity;
+using System.Drawing.Imaging;
 
-namespace Infrastructure.Services
+namespace Core.Services
 {
     public class AuthService : IAuthService
     {
@@ -26,6 +28,27 @@ namespace Infrastructure.Services
                 if (await _userManager.CheckPasswordAsync(user, model.Password))
                     return _jwtTokenService.CreateToken(user);
             return null;
+        }
+
+        public async Task<string> Register(RegisterViewModel model)
+        {
+            var img = ImageWorker.FromBase64StringToImage(model.Photo);
+            
+            string randomFilename = Path.GetRandomFileName() + ".jpeg";
+            var dir = Path.Combine(Directory.GetCurrentDirectory(), "uploads", randomFilename);
+
+            img.Save(dir, ImageFormat.Jpeg);
+            
+            var user = _mapper.Map<User>(model);
+            user.Photo = randomFilename;
+
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+                return null;
+
+            await _userManager.AddToRoleAsync(user, Roles.User);
+            return _jwtTokenService.CreateToken(user);
         }
     }
 }

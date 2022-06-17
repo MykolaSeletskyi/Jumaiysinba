@@ -1,7 +1,7 @@
 ﻿using Core.Entities.Identity;
 using System.Security.Claims;
 
-namespace Core.Interfaces.Service
+namespace Core.Interfaces.Services
 {
     public interface ITokenService
     {
