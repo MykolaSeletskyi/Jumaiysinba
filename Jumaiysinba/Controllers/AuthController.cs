@@ -25,7 +25,7 @@ namespace Jumaiysinba.Controllers
         /// <summary>
         /// Реєстрація [Unauthorize]
         /// </summary>
-        /// <param name="model">Пошта, ім'я, прізвище, фотографія (base64), номер телефону, пароль, повторний пароль</param>
+        /// <param name="model">Пошта, ім'я, прізвище, фотографія (base64), номер телефону, пароль, повторний пароль, recaptcha token</param>
         /// <returns>Jwt token sha256</returns>
         [HttpPost]
         [AllowAnonymous]
@@ -49,7 +49,7 @@ namespace Jumaiysinba.Controllers
         /// <summary>
         /// Вхід [Unauthorize]
         /// </summary>
-        /// <param name="model">Пошта, пароль</param>
+        /// <param name="model">Пошта, пароль, recaptcha token</param>
         /// <returns>Jwt token</returns>
         [HttpPost]
         [AllowAnonymous]
@@ -80,6 +80,22 @@ namespace Jumaiysinba.Controllers
         public IActionResult Logout()
         {
             return Ok(new { token = "" });
+        }
+
+        /// <summary>
+        /// Авторизація (реєстрація/логін) через Google account [Unauthorize]
+        /// </summary>
+        /// <param name="model">Номер токену</param>
+        /// <returns>Jwt token</returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("auth-by-google-account")]
+        public async Task<IActionResult> AuthByGoogleAccount([FromBody] GoogleAuthViewModel model)
+        {
+            string token = await _authService.AuthByGoogleAccount(model);
+            if (!string.IsNullOrEmpty(token))
+                return Ok(new { token = token });
+            return BadRequest(new { errors = new { authError = "Авторизація неуспішна" } });
         }
 
         private async Task<ReCaptchaResponse> getResponseFromReCaptcha(string token)

@@ -1,4 +1,6 @@
 ﻿using Core.Entities.Identity;
+using Core.ViewModels.Auth;
+using Google.Apis.Auth;
 using System.Security.Claims;
 
 namespace Core.Interfaces.Services
@@ -7,6 +9,7 @@ namespace Core.Interfaces.Services
     {
         string CreateToken(User user);
         string GenerateRefreshToken();
-        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
+        Task<GoogleJsonWebSignature.Payload> VerifyGoogleToken(GoogleAuthViewModel request);
+        //ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
     }
 }

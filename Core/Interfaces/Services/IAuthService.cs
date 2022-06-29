@@ -6,5 +6,6 @@ namespace Core.Interfaces.Services
     {
         Task<string> Login(LoginViewModel model);
         Task<string> Register(RegisterViewModel model);
+        Task<string> AuthByGoogleAccount(GoogleAuthViewModel model);
     }
 }

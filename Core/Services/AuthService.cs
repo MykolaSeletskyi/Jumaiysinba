@@ -10,11 +10,11 @@ namespace Core.Services
     {
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
-        private readonly ITokenService _jwtTokenService;
-        public AuthService(UserManager<User> userManager, ITokenService jwtTokenService,
+        private readonly ITokenService _tokenService;
+        public AuthService(UserManager<User> userManager, ITokenService tokenService,
             IMapper mapper)
         {
-            _jwtTokenService = jwtTokenService;
+            _tokenService = tokenService;
             _userManager = userManager;
             _mapper = mapper;
         }
@@ -25,7 +25,7 @@ namespace Core.Services
          
             if (user != null)
                 if (await _userManager.CheckPasswordAsync(user, model.Password))
-                    return _jwtTokenService.CreateToken(user);
+                    return _tokenService.CreateToken(user);
             
             return null;
         }
@@ -48,7 +48,48 @@ namespace Core.Services
                 return null;
 
             await _userManager.AddToRoleAsync(user, ENV.Roles.User);
-            return _jwtTokenService.CreateToken(user);
+            return _tokenService.CreateToken(user);
+        }
+
+        public async Task<string> AuthByGoogleAccount(GoogleAuthViewModel model)
+        {
+            var payload = await _tokenService.VerifyGoogleToken(model);
+            if (payload == null)
+            {
+                return null;
+            }
+            var info = new UserLoginInfo("Google", payload.Subject, "Google");
+            var user = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
+
+            if (user == null)
+            {
+                user = await _userManager.FindByEmailAsync(payload.Email);
+
+                if (user == null)
+                {
+                    user = new User
+                    {
+                        Email = payload.Email,
+                        UserName = payload.Email,
+                        FirstName = payload.GivenName,
+                        SecondName = payload.FamilyName
+                    };
+                    var resultCreate = await _userManager.CreateAsync(user);
+                    if (!resultCreate.Succeeded)
+                    {
+                        return null;
+                    }
+                }
+
+                var resultAddLogin = await _userManager.AddLoginAsync(user, info);
+                if (!resultAddLogin.Succeeded)
+                {
+                    return null;
+                }
+            }
+
+            string token = _tokenService.CreateToken(user);
+            return token;
         }
     }
 }

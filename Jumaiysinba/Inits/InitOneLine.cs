@@ -1,4 +1,5 @@
-﻿using Core.Validators;
+﻿using Core.Settings;
+using Core.Validators;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,10 @@ namespace Jumaiysinba.Inits
             // Add FluentValidation
             services.AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<LoginValidator>());
 
+            // Add Google OAuth2.0 ClientId
+            services.AddSingleton(
+                configuration.GetSection("GoogleAuthSettings")
+                .Get<GoogleAuthSettings>());
 
             return services;
         }
