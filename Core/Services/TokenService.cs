@@ -34,7 +34,8 @@ namespace Core.Services
             List<Claim> claims = new List<Claim>()
             {
                 new Claim("id", user.Id.ToString()),
-                new Claim("email", user.Email)
+                new Claim("email", user.Email),
+                new Claim("name", user.FirstName),
             };
             if (roles.Any())
             {
