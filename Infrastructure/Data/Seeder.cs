@@ -39,7 +39,7 @@ namespace Infrastructure.Data
                 //var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
                 var result = roleManager.CreateAsync(new Role
                 {
-                    Name = Roles.Admin
+                    Name = ENV.Roles.Admin
                 }).Result;
                 //if (result.Succeeded)
                 //    logger.LogWarning($"Create role {Roles.Admin}");
@@ -47,7 +47,7 @@ namespace Infrastructure.Data
                 //    logger.LogError($"Problem crate role {Roles.Admin}");
                 result = roleManager.CreateAsync(new Role
                 {
-                    Name = Roles.User
+                    Name = ENV.Roles.User
                 }).Result;
 
             }
@@ -62,13 +62,13 @@ namespace Infrastructure.Data
                     FirstName = "Qwerty",
                     SecondName = "Qwerty",
                     PhoneNumber = "+38(098)232 34 22",
-                    Photo = "1.jpg"
+                    //Photo = "1.jpg"
                 };
                 var result = userManager.CreateAsync(user, "qwerty").Result;
                 if (result.Succeeded)
                 {
                     //logger.LogWarning("Create user " + user.UserName);
-                    result = userManager.AddToRoleAsync(user, Roles.Admin).Result;
+                    result = userManager.AddToRoleAsync(user, ENV.Roles.Admin).Result;
                 }
                 else
                 {

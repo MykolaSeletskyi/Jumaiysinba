@@ -1,5 +1,6 @@
 ﻿using Core.Validators;
 using FluentValidation.AspNetCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -7,15 +8,16 @@ namespace Jumaiysinba.Inits
 {
     public static class InitOneLine
     {
-        public static IServiceCollection UseUsefulNuGets(this IServiceCollection builder)
+        public static IServiceCollection UseUsefulNuGets(this IServiceCollection services, IConfiguration configuration)
         {
             // Add AutoMapper
-            builder.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             // Add FluentValidation
-            builder.AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<LoginValidator>());
-            
-            return builder;
+            services.AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<LoginValidator>());
+
+
+            return services;
         }
     }
 }

@@ -38,9 +38,22 @@ namespace Jumaiysinba
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
             });
 
+            // remove after all test
+            #region Add Cors
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin()
+                                                             .AllowAnyHeader()
+                                                             .AllowAnyMethod());
+            });
+            
+            #endregion
+            
+            services.AddRouting(options => options.LowercaseUrls = true);
+
             services
                 .UseDatabaseContext(Configuration)
-                .UseUsefulNuGets()
+                .UseUsefulNuGets(Configuration)
                 .UseAuthJWT(Configuration)
                 .UseServices()
                 .AddEndpointsApiExplorer()
@@ -61,13 +74,17 @@ namespace Jumaiysinba
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
 
             app
                 .UseStaticFiles()
                 .UseSpaStaticFiles();
 
             app.UseRouting();
+
+            // remove after all test
+            app.UseCors("AllowOrigin");
+
+            app.UseHttpsRedirection();
 
             app
                 .UseSwagger()

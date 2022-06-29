@@ -6,12 +6,12 @@ namespace Jumaiysinba.Inits
 {
     public static class InitService
     {
-        public static IServiceCollection UseServices(this IServiceCollection builder)
+        public static IServiceCollection UseServices(this IServiceCollection services)
         {
-            builder.AddScoped<ITokenService, TokenService>();
-            builder.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IAuthService, AuthService>();
 
-            return builder;
+            return services;
         }
     }
 }

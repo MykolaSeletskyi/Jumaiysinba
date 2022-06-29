@@ -27,8 +27,8 @@ namespace Core.Services
             var roles = _userManager.GetRolesAsync(user).Result;
             List<Claim> claims = new List<Claim>()
             {
-                new Claim("email", user.Email)//,
-                //new Claim("image", user.Photo)
+                new Claim("id", user.Id.ToString()),
+                new Claim("email", user.Email)
             };
             if (roles.Any())
             {

@@ -32,8 +32,8 @@ namespace Core.Validators
                 .NotEmpty().WithName("ConfirmPassword").WithMessage("Поле є обов'язковим!")
                  .Equal(x => x.Password).WithMessage("Поролі не співпадають!");
 
-            RuleFor(x => x.Photo)
-               .NotEmpty().WithName("Photo").WithMessage("Поле пароль є обов'язковим!");
+            //RuleFor(x => x.Photo)
+            //   .NotEmpty().WithName("Photo").WithMessage("Поле фото є обов'язковим!");
         }
         private bool BeUniqueEmail(string email)
         {

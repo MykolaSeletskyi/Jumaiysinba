@@ -9,12 +9,12 @@ namespace Jumaiysinba.Inits
 {
     public static class InitDbContext
     {
-        public static IServiceCollection UseDatabaseContext(this IServiceCollection builder, IConfiguration configuration)
+        public static IServiceCollection UseDatabaseContext(this IServiceCollection services, IConfiguration configuration)
         {
-            builder.AddDbContext<JumaiysinbaDatabaseContext>(options =>
+            services.AddDbContext<JumaiysinbaDatabaseContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
-            builder.AddIdentity<User, Role>(options =>
+            services.AddIdentity<User, Role>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 5;
@@ -22,7 +22,7 @@ namespace Jumaiysinba.Inits
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
             }).AddEntityFrameworkStores<JumaiysinbaDatabaseContext>().AddDefaultTokenProviders();
-            return builder;
+            return services;
         }
     }
 }

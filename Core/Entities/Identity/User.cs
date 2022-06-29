@@ -17,11 +17,11 @@ namespace Core.Entities.Identity
         [StringLength(100)]
         public string SecondName { get; set; }
 
-        /// <summary>
-        /// Назва фото
-        /// </summary>
-        [StringLength(100)]
-        public string Photo { get; set; }
+        ///// <summary>
+        ///// Назва фото
+        ///// </summary>
+        //[StringLength(100)]
+        //public string Photo { get; set; }
 
         public virtual ICollection<UserRole> UserRoles { get; set; }
     }

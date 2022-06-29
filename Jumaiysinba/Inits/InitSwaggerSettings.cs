@@ -9,10 +9,10 @@ namespace Jumaiysinba.Inits
 {
     public static class InitSwaggerSettings
     {
-        public static IServiceCollection UseSwaggerGen(this IServiceCollection builder)
+        public static IServiceCollection UseSwaggerGen(this IServiceCollection services)
         {
             var assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
-            builder.AddSwaggerGen(c =>
+            services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = assemblyName, Version = "v1" });
                 c.AddSecurityDefinition("Bearer",
@@ -41,7 +41,7 @@ namespace Jumaiysinba.Inits
                 c.IncludeXmlComments(fileDoc);
             });
 
-            return builder;
+            return services;
         }
     }
 }
