@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const urlBackend = "https://localhost:5001/";
+export const urlBackend = "https://localhost:44378/";
 
 export const bearer = (token: string) => {
     return axios.create({
