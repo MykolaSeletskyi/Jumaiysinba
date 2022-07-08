@@ -1,0 +1,54 @@
+@import "antd/dist/antd.min.css";
+@import "antd/dist/antd.dark.min.css";
+@import "antd/dist/antd.compact.min.css";
+@import "antd/dist/antd.variable.min.css";
+@import "antd/dist/antd.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+@import "cropperjs/dist/cropper.min.css";
+
+.footer{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:60px;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.layout
+{
+  height: 100%;
+}
+
+.site-layout-content {
+  height: 100%;
+  min-height: 280px;
+  padding: 24px;
+  background: #fff;
+}
+
+#components-layout-demo-top .logo {
+  float: left;
+  width: 120px;
+  height: 31px;
+  margin: 16px 24px 16px 0;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.ant-row-rtl #components-layout-demo-top .logo {
+  float: right;
+  margin: 16px 0 16px 24px;
+}
