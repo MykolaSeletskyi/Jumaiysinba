@@ -35,6 +35,8 @@
 			  Command="npm install"
 			  Condition="  !Exists('$(SpaRoot)node_modules') " />
 		<Exec WorkingDirectory="$(SpaRoot)"
+              Command="ls" />
+		<Exec WorkingDirectory="$(SpaRoot)"
               Command="npm run build" />
 
 		<!-- Include the newly-built files in the publish output -->
