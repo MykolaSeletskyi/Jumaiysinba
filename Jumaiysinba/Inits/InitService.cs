@@ -10,6 +10,7 @@ namespace Jumaiysinba.Inits
         {
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IEmailSender, EmailSenderService>();
 
             return services;
         }
