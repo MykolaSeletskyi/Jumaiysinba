@@ -20,12 +20,10 @@ namespace Jumaiysinba
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
 
-            // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
@@ -38,16 +36,12 @@ namespace Jumaiysinba
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
             });
 
-            // remove after all test
-            #region Add Cors
             services.AddCors(c =>
             {
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin()
                                                              .AllowAnyHeader()
                                                              .AllowAnyMethod());
             });
-            
-            #endregion
             
             services.AddRouting(options => options.LowercaseUrls = true);
 
@@ -61,7 +55,6 @@ namespace Jumaiysinba
                 .UseSwaggerGen();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -71,7 +64,6 @@ namespace Jumaiysinba
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -81,7 +73,6 @@ namespace Jumaiysinba
 
             app.UseRouting();
 
-            // remove after all test
             app.UseCors("AllowOrigin");
 
             app.UseHttpsRedirection();

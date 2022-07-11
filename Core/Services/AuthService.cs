@@ -119,7 +119,7 @@ namespace Core.Services
         public async Task<bool> SendEmailConfirmationTokenAsync(string id, string token)
         {
             var user = await _userManager.FindByIdAsync(id);
-            if (!string.IsNullOrEmpty(token) && user != null)
+            if (!string.IsNullOrEmpty(token) && !user.EmailConfirmed && user != null)
             {
                 string domain = _configuration.GetSection("Email:Domain").Value;
                 string link = _configuration.GetSection("Email:ConfirmationLink").Value;
