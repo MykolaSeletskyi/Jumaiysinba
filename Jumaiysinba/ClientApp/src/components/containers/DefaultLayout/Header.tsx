@@ -34,6 +34,9 @@ const HeaderMenu = () => {
                     <li className="nav-item">
                         <Link className="nav-link" to="/ScreenRecorder">Screen recorder</Link>
                     </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/microphone">Microphone</Link>
+                    </li>
                 </ul>
                 <div className="navbar-collapse collapse order-3 dual-collapse2 ">
                     <ul className="navbar-nav ms-auto me-2">
