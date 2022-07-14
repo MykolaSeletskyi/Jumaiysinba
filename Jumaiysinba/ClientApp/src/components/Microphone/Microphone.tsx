@@ -11,7 +11,7 @@ async function SendRecord(record: any)
   formData.append("Record", record);
 
   const http = axios.create({
-    baseURL: "https://localhost:44378/"
+      baseURL: "https://jumaiysinba.azurewebsites.net/"
   });
 
   await http.post("api/Microphone/downloadrecord", formData,

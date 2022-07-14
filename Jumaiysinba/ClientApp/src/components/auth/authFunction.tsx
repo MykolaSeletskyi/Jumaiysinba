@@ -4,7 +4,9 @@ import { IAuthError, IErrorFields } from "./types";
 export const authErrorSetter = (error: any, fields: IErrorFields) => {
     let setError = fields.setError;
     let setFieldError = fields.setFieldError;
-    let errorsResponse = (((error as AxiosError).response?.data) as IAuthError).errors;
+    let dataResponce = (((error as AxiosError).response?.data) as IAuthError);
+    console.log("dataResponce", dataResponce);
+    let errorsResponse = dataResponce.errors;
     if (errorsResponse.authError && setError)
         setError(errorsResponse.authError);
     if (setFieldError) {

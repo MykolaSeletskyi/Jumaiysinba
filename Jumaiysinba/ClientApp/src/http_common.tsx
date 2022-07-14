@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const urlBackend = "https://localhost:44378/";
+export const urlBackend = "https://jumaiysinba.azurewebsites.net/";
 
 export const bearer = (token: string) => {
     return axios.create({
