@@ -32,6 +32,7 @@ import DefaultLayout from './components/containers/DefaultLayout';
 import LoginPage from './components/auth/Login';
 import RegisterPage from './components/auth/Register';
 import ScreenRecorder from './components/ScreenRecorder/ScreenRecorder';
+import Microphone from './components/Microphone/Microphone';
 
 import { useTypedSelector } from './hooks/useTypedSelector';
 import { Navigate } from "react-router";
@@ -54,6 +55,7 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={<DefaultLayout />}>
+        <Route path='/microphone' element={<Microphone/>} />
         <Route path='/camera-recorder' element={<CameraRecorderPage />} />
         <Route path='/ScreenRecorder' element={<ScreenRecorder />} />
         {!isAuth ?
