@@ -12,7 +12,7 @@ namespace Jumaiysinba.Inits
         public static IServiceCollection UseDatabaseContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<JumaiysinbaDatabaseContext>(options =>
-                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User, Role>(options =>
             {
