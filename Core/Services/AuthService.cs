@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Core.Entities.Identity;
+using Core.Helpers;
 using Core.Interfaces.Services;
 using Core.ViewModels.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using System.Drawing.Imaging;
 
 namespace Core.Services
 {
@@ -28,6 +30,7 @@ namespace Core.Services
         }
 
         #region Authorize
+
         public async Task<string> LoginAsync(LoginViewModel model)
         {
             User user = await _userManager.FindByEmailAsync(model.Email);
@@ -41,15 +44,17 @@ namespace Core.Services
 
         public async Task<string> RegisterAsync(RegisterViewModel model)
         {
-            //var img = ImageWorker.FromBase64StringToImage(model.Photo);
-
-            //string randomFilename = Path.GetRandomFileName() + ".jpeg";
-            //var dir = Path.Combine(Directory.GetCurrentDirectory(), "uploads", randomFilename);
-
-            //img.Save(dir, ImageFormat.Jpeg);
-
             var user = _mapper.Map<User>(model);
-            //user.Photo = randomFilename;
+            //if (!string.IsNullOrEmpty(model.Photo))
+            //{
+            //    var img = ImageWorker.FromBase64StringToImage(model.Photo);
+
+            //    string randomFilename = Path.GetRandomFileName() + ".jpeg";
+            //    var dir = Path.Combine(Directory.GetCurrentDirectory(), "uploads", randomFilename);
+            //    user.Photo = randomFilename;
+
+            //    img.Save(dir, ImageFormat.Jpeg);
+            //}
 
             var result = await _userManager.CreateAsync(user, model.Password);
 
@@ -79,9 +84,10 @@ namespace Core.Services
                     user = new User
                     {
                         Email = payload.Email,
-                        UserName = payload.Email,
+                        UserName = payload.Name,
                         FirstName = payload.GivenName,
-                        SecondName = payload.FamilyName
+                        SecondName = payload.FamilyName,
+                        Photo = payload.Picture
                     };
                     var resultCreate = await _userManager.CreateAsync(user);
                     if (!resultCreate.Succeeded)
@@ -95,6 +101,13 @@ namespace Core.Services
                 {
                     return null;
                 }
+
+                var resultAddRole = await _userManager.AddToRoleAsync(user, ENV.Roles.User);
+                if (!resultAddRole.Succeeded)
+                {
+                    return null;
+                }
+
             }
 
             string token = _tokenService.CreateToken(user);
@@ -104,6 +117,7 @@ namespace Core.Services
 
         ////////////////////
         #region EmailConfirm
+
         public async Task<string> GenerateEmailConfirmationTokenAsync(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -124,17 +138,17 @@ namespace Core.Services
                 string domain = _configuration.GetSection("Email:Domain").Value;
                 string link = _configuration.GetSection("Email:ConfirmationLink").Value;
 
-                EmailConfirmationViewModel model = new EmailConfirmationViewModel
+                EmailViewModel model = new EmailViewModel
                 {
                     Email = user.Email,
                     PlaceHolders = new List<KeyValuePair<string, string>>()
                     {
                         new KeyValuePair<string, string>("{{Body}}", "Натисніть на посилання, щоб підтвердити пошту"),
-                        new KeyValuePair<string, string>("{{Button}}", "Підтвердити"),
+                        new KeyValuePair<string, string>("{{ButtonContent}}", "Підтвердити"),
                         new KeyValuePair<string, string>("{{Link}}", string.Format(domain + link, user.Id, token))
                     }
                 };
-                return await _emailSender.SendEmailConfirmationAsync(model);
+                return await _emailSender.SendEmailAsync(model, "Підтвердіть пошту");
             }
             return false;
         }
@@ -143,6 +157,52 @@ namespace Core.Services
         {
             return await _userManager.ConfirmEmailAsync(await _userManager.FindByIdAsync(uid), token);
         }
+
+        #endregion
+
+        ////////////////////
+        #region PasswordReset
+
+        public async Task<string> GeneratePasswordResetTokenAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user != null)
+            {
+                string token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                return token;
+            }
+            return null;
+        }
+
+        public async Task<bool> SendPasswordResetTokenAsync(string email, string token)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (!string.IsNullOrEmpty(token) && user != null)
+            {
+                string domain = _configuration.GetSection("Email:Domain").Value;
+                string link = _configuration.GetSection("Email:ForgotLink").Value;
+
+                EmailViewModel model = new EmailViewModel
+                {
+                    Email = user.Email,
+                    PlaceHolders = new List<KeyValuePair<string, string>>()
+                    {
+                        new KeyValuePair<string, string>("{{Body}}", "Натисніть на посилання, щоб зайти на сайти через аккаунт"),
+                        new KeyValuePair<string, string>("{{ButtonContent}}", "Зайти"),
+                        new KeyValuePair<string, string>("{{Link}}", string.Format(domain + link, user.Id, token))
+                    }
+                };
+                return await _emailSender.SendEmailAsync(model, "Зайти через пошту");
+            }
+            return false;
+        }
+
+        public async Task<IdentityResult> PasswordResetAsync(string email, string token, string newPassword)
+        {
+            return await _userManager.ResetPasswordAsync(await _userManager.FindByEmailAsync(email), token, newPassword);
+        }
+
         #endregion
 
     }

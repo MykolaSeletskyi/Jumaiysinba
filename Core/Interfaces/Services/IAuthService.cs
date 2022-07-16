@@ -15,6 +15,12 @@ namespace Core.Interfaces.Services
         Task<string> GenerateEmailConfirmationTokenAsync(string id);
         Task<bool> SendEmailConfirmationTokenAsync(string id, string token);
         Task<IdentityResult> ConfirmEmailAsync(string uid, string token);
+        #endregion  
+        
+        #region PasswordReset
+        Task<string> GeneratePasswordResetTokenAsync(string email);
+        Task<bool> SendPasswordResetTokenAsync(string email, string token);
+        Task<IdentityResult> PasswordResetAsync(string email, string token, string newPassword);
         #endregion    
     }
 }
