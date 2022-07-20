@@ -60,7 +60,7 @@ export default function Microphone() {
   }
 
   return (
-    <div>
+      <div>
       <ReactMic
         record={record}
         className="sound-wave"

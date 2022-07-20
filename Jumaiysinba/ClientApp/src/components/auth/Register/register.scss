@@ -1,0 +1,287 @@
+.MainDivRegister {
+    width: 100%;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../../background.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #FAFAFA;
+}
+
+.MainDivRegister * {
+    font-family: 'Inter';
+}
+
+.FormRegister {
+    position: absolute;
+    width: 514px;
+    height: 605px;
+    background: white;
+    border-radius: 32.8759px;
+}
+
+.JubaTextRegister {
+    position: absolute;
+    background: 0;
+    top: 9.0%;
+    left: 30.7%;
+    font-size: 39px;
+}
+
+.LabelOfUserNameRegister {
+    position: absolute;
+    left: 11.3%;
+    right: 49.91%;
+    top: 22.1%;
+    bottom: 63.75%;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #282828;
+}
+
+.UserNameInputRegister {
+    box-sizing: border-box;
+    position: absolute;
+    left: 11.3%;
+    right: 12.72%;
+    top: 26.17%;
+    bottom: 67.02%;
+    border: 1.6438px solid #B5B5B5;
+    border-radius: 8.21898px;
+}
+
+.LabelOfEmailRegister {
+    position: absolute;
+    left: 11.7%;
+    right: 49.91%;
+    top: 36.0%;
+    bottom: 63.75%;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #282828;
+}
+
+.EmailInputRegister {
+    box-sizing: border-box;
+    position: absolute;
+    left: 11.73%;
+    right: 12.72%;
+    top: 40.17%;
+    bottom: 53.3%;
+    border: 1.6438px solid #B5B5B5;
+    border-radius: 8.21898px;
+}
+
+.EmailIconRegister {
+
+    background-image: url('../../../Email.svg');
+    background-repeat: no-repeat;
+    background-position: 352px 12px;
+}
+
+.PasswordIconRegister {
+
+    background-image: url('../../../Password.svg');
+    background-repeat: no-repeat;
+    background-position: 355px 12px;
+}
+
+.UserNameInputIconRegister {
+
+    background-image: url('../../../Man.svg');
+    background-repeat: no-repeat;
+    background-position: 357px 12px;
+}
+
+.PasswordInputRegister {
+    box-sizing: border-box;
+    position: absolute;
+    left: 11.9%;
+    right: 12.5%;
+    top: 54.1%;
+    bottom: 39.1%;
+    border: 1.6438px solid #B5B5B5;
+    border-radius: 8.21898px;
+}
+
+.LabelOfPasswordRegister {
+    position: absolute;
+    left: 11.7%;
+    right: 0.91%;
+    top: 50%;
+    bottom: 0.75%;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #282828;
+}
+
+.LabelOfPasswordConfirmationRegister {
+    position: absolute;
+    left: 11.7%;
+    right: 0.91%;
+    top: 64%;
+    bottom: 0.75%;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #282828;
+}
+
+.PasswordConfirmationInputRegister {
+    box-sizing: border-box;
+    position: absolute;
+    left: 11.9%;
+    right: 12.5%;
+    top: 68.1%;
+    bottom: 25.1%;
+    border: 1.6438px solid #B5B5B5;
+    border-radius: 8.21898px;
+}
+
+.SignInButtonRegister {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 9.04088px 37.8073px;
+    gap: 8.22px;
+    position: absolute;
+    left: 11.7%;
+    right: 12.4%;
+    top: 64%;
+    bottom: 29.3%;
+    background: #74C8F4;
+    box-shadow: -2.46569px 3.28759px 3.28759px rgb(0 0 0 / 10%);
+    border-radius: 8.21898px;
+    border: 0px;
+}
+
+.SignInTextRegister {
+    width: 311px;
+    height: 2px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 19px;
+    color: #FFFFFF;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.LinkForPasswordRegister {
+    position: absolute;
+    left: 36.30%;
+    right: 45.81%;
+    top: 57%;
+    bottom: 42.67%;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #0096E4;
+    white-space: nowrap;
+}
+
+.hr-textRegister {
+    line-height: 1em;
+    position: relative;
+    outline: 0;
+    border: 0;
+    color: black;
+    text-align: center;
+    height: 1.5em;
+    opacity: 0.5;
+    top: 368px;
+    width: 381px;
+    left: 12.6%;
+}
+
+.hr-textRegister:before {
+    content: '';
+    background: gray;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+}
+
+.hr-textRegister:after {
+    content: attr(data-content);
+    position: relative;
+    display: inline-block;
+    color: black;
+
+    padding: 0 .5em;
+    line-height: 1.5em;
+    color: #818078;
+    background-color: #fcfcfa;
+}
+
+.GoogleButtonRegister {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 9.04088px 37.8073px;
+    gap: 8.22px;
+    position: absolute;
+    left: 12.1%;
+    right: 12.2%;
+    top: 80.5%;
+    bottom: 12.95%;
+    background: #FCC016;
+    box-shadow: -2.46569px 3.28759px 3.28759px rgb(0 0 0 / 10%);
+    border-radius: 0px 8.21898px 8.21898px 0px;
+    border: 0px;
+}
+
+.TextInGoogleRegister {
+    width: 354px;
+    height: 3px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 19px;
+    color: #FFFFFF;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    white-space: nowrap;
+}
+
+.LoginTextRegister {
+    position: absolute;
+    bottom: 42.67%;
+    top: 90.1%;
+    left: 17%;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #B5B5B5;
+    width: 327px;
+    white-space: nowrap;
+}
+
+.ForSpanRegister {
+    color: #0096E4;
+}
