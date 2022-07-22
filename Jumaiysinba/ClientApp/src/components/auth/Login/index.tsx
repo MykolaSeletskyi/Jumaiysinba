@@ -50,7 +50,7 @@ const LoginPage = () => {
             <div className="MainDivLogin">
                 <div className="FormLogin">
                     <div className="JubaTextLogin">
-                        <img src={require('../../../Logo.svg').default} alt="Logotype" />
+                        <img src={require('../../../images/Logo.svg').default} alt="Logotype" />
                     </div>
                     {
                         error ?
@@ -88,16 +88,21 @@ const LoginPage = () => {
                                 />
                             </div>
                             <div className="">
-                                <button type="submit" className="SignInButtonLogin"><p className="SignInTextLogin">Sign In</p></button>
+                                <button type="submit" className="SignInButtonLogin"><p className="SignInTextLogin">Sign in</p></button>
                             </div>
                             <p className="LinkForPasswordLogin">Forgot password?</p>
-                            <hr className="hr-textLogin" data-content="OR"/>
-                            <div className="">
-                                <button className="GoogleButtonLogin"><p className="TextInGoogleLogin">Continue with Google</p></button>
-                            </div>
-                            <p className="SignUpTextLogin">If you dont have an account, you can easily create it by <Link to="/register" style={{ textDecoration: 'none' }} className="ForSpanLogin">Signing Up</Link></p>
+                            <hr className="hr-textLogin" data-content="OR" />
                         </Form>
                     </FormikProvider>
+                    <div className="">
+                        <button className="GoogleButtonLogin">
+                            <div className="DivForGoogleIconLogin">
+                                <img src={require('../../../images/Google.svg').default} className="GoogleIconLogin" alt="Google" />
+                            </div>
+                            <p className="TextInGoogleLogin">Continue with Google</p></button>
+                    </div>
+                    <p className="SignUpTextLogin">If you dont have an account, you can easily create it by <Link to="/register" style={{ textDecoration: 'none' }} className="ForSpanLogin">Signing Up</Link></p>
+                    
                     {/* <div className="Row">
                         <img src={require('./g.png')} className="GoogleImg"></img>
                         <div className="GoogleButton">

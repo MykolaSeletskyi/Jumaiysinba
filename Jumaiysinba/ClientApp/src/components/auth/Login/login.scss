@@ -4,7 +4,7 @@
     height: 100%;
     justify-content: center;
     align-items: center;
-    background-image: url('../../../background.svg');
+    background-image: url('../../../images/Background.svg');
     background-repeat: no-repeat;
     background-size: cover;
     background-color: #FAFAFA;
@@ -158,7 +158,7 @@
     position: relative;
     display: inline-block;
     color: black;
-
+    top: -10px;
     padding: 0 .5em;
     line-height: 1.5em;
     color: #818078;
@@ -169,21 +169,32 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 9.04088px 37.8073px;
+    padding: 0px;
     gap: 8.22px;
     position: absolute;
     left: 11.73%;
-    right: 12.3%;
+    right: 12.24%;
     top: 71.8%;
     bottom: 21.5%;
     background: #FCC016;
     box-shadow: -2.46569px 3.28759px 3.28759px rgb(0 0 0 / 10%);
     border-radius: 0px 8.21898px 8.21898px 0px;
-    border: 0px;
+    border: 0px
+}
+
+.DivForGoogleIconLogin {
+    background: white;
+    height: 40px;
+    filter: drop-shadow(-2.39562px 3.19416px 3.19416px rgba(0, 0, 0, 0.1));
+}
+.GoogleIconLogin {
+    background: white;
+    padding: 7px;
+    height: 41px;
 }
 
 .TextInGoogleLogin {
-    width: 360px;
+    width: 333px;
     height: 4px;
     font-family: "Inter";
     font-style: normal;
@@ -219,14 +230,14 @@
 
 .EmailIconLogin {
 
-    background-image: url('../../../Man.svg');
+    background-image: url('../../../images/Man.svg');
     background-repeat: no-repeat;
     background-position: 364px 12px
 }
 
 .PasswordIconLogin {
 
-    background-image: url('../../../Password.svg');
+    background-image: url('../../../images/Password.svg');
     background-repeat: no-repeat;
     background-position: 363px 11px
 }

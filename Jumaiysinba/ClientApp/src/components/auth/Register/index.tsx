@@ -51,7 +51,7 @@ const RegisterPage = () => {
             <div className="MainDivRegister">
                 <div className="FormRegister">
                     <div className="JubaTextRegister">
-                        <img src={require('../../../Logo.svg').default} alt="Logotype" />
+                        <img src={require('../../../images/Logo.svg').default} alt="Logotype" />
                     </div>
                     {
                         error ?
@@ -118,13 +118,17 @@ const RegisterPage = () => {
                             </div> */}
 
                             <div className="">
-                                <button className="SignInButtonRegister"><p className="SignInTextRegister">Sign In</p></button>
+                                <button className="SignInButtonRegister"><p className="SignInTextRegister">Sign in</p></button>
                             </div>
                             <hr className="hr-textRegister" data-content="OR" />
                         </Form>
                     </FormikProvider>
                     <div className="">
-                        <button className="GoogleButtonRegister"><p className="TextInGoogleRegister">Register with Google</p></button>
+                        <button className="GoogleButtonRegister">
+                            <div className="DivForGoogleIconRegister">
+                                <img src={require('../../../images/Google.svg').default} className="GoogleIconRegister" alt="asd" />
+                            </div>
+                            <p className="TextInGoogleRegister">Register with Google</p></button>
                     </div>
                     <p className="LoginTextRegister">If you have an account, you can easily <Link to="/login" style={{ textDecoration: 'none' }} className="ForSpanRegister">Login</Link></p>
 

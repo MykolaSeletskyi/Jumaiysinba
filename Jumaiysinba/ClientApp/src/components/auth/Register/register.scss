@@ -4,7 +4,7 @@
     height: 100%;
     justify-content: center;
     align-items: center;
-    background-image: url('../../../background.svg');
+    background-image: url('../../../images/Background.svg');
     background-repeat: no-repeat;
     background-size: cover;
     background-color: #FAFAFA;
@@ -82,21 +82,21 @@
 
 .EmailIconRegister {
 
-    background-image: url('../../../Email.svg');
+    background-image: url('../../../images/Email.svg');
     background-repeat: no-repeat;
     background-position: 352px 12px;
 }
 
 .PasswordIconRegister {
 
-    background-image: url('../../../Password.svg');
+    background-image: url('../../../images/Password.svg');
     background-repeat: no-repeat;
     background-position: 355px 12px;
 }
 
 .UserNameInputIconRegister {
 
-    background-image: url('../../../Man.svg');
+    background-image: url('../../../images/Man.svg');
     background-repeat: no-repeat;
     background-position: 357px 12px;
 }
@@ -227,7 +227,7 @@
     position: relative;
     display: inline-block;
     color: black;
-
+    top: -10px;
     padding: 0 .5em;
     line-height: 1.5em;
     color: #818078;
@@ -238,11 +238,11 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 9.04088px 37.8073px;
+    padding: 0;
     gap: 8.22px;
     position: absolute;
-    left: 12.1%;
-    right: 12.2%;
+    left: 11.73%;
+    right: 12.6%;
     top: 80.5%;
     bottom: 12.95%;
     background: #FCC016;
@@ -251,8 +251,20 @@
     border: 0px;
 }
 
+.DivForGoogleIconRegister {
+    background: white;
+    height: 40px;
+    filter: drop-shadow(-2.39562px 3.19416px 3.19416px rgba(0, 0, 0, 0.1));
+    border-radius: 8.21898px 0px 0px 8.21898px;
+}
+.GoogleIconRegister {
+    background: white;
+    padding: 7px;
+    height: 41px
+}
+
 .TextInGoogleRegister {
-    width: 354px;
+    width: 333px;
     height: 3px;
     font-family: "Inter";
     font-style: normal;
@@ -280,6 +292,7 @@
     color: #B5B5B5;
     width: 327px;
     white-space: nowrap;
+    
 }
 
 .ForSpanRegister {
