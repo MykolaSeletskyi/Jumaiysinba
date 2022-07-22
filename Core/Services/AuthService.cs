@@ -181,19 +181,19 @@ namespace Core.Services
             if (!string.IsNullOrEmpty(token) && user != null)
             {
                 string domain = _configuration.GetSection("Email:Domain").Value;
-                string link = _configuration.GetSection("Email:ForgotLink").Value;
+                string link = _configuration.GetSection("Email:ResetLink").Value;
 
                 EmailViewModel model = new EmailViewModel
                 {
                     Email = user.Email,
                     PlaceHolders = new List<KeyValuePair<string, string>>()
                     {
-                        new KeyValuePair<string, string>("{{Body}}", "Натисніть на посилання, щоб зайти на сайти через аккаунт"),
-                        new KeyValuePair<string, string>("{{ButtonContent}}", "Зайти"),
-                        new KeyValuePair<string, string>("{{Link}}", string.Format(domain + link, user.Id, token))
+                        new KeyValuePair<string, string>("{{Body}}", "Натисніть на посилання, щоб змінити пароль"),
+                        new KeyValuePair<string, string>("{{ButtonContent}}", "Змінити"),
+                        new KeyValuePair<string, string>("{{Link}}", string.Format(domain + link, user.Email, token))
                     }
                 };
-                return await _emailSender.SendEmailAsync(model, "Зайти через пошту");
+                return await _emailSender.SendEmailAsync(model, "Змінити пароль");
             }
             return false;
         }

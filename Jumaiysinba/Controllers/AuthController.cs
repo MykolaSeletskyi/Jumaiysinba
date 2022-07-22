@@ -152,7 +152,6 @@ namespace Jumaiysinba.Controllers
         public async Task<IActionResult> SendPasswordResetToken(string email)
         {
             string token = await _authService.GeneratePasswordResetTokenAsync(email);
-            return Ok(new { token = token });
             if (!string.IsNullOrEmpty(token))
             {
                 bool success = await _authService.SendPasswordResetTokenAsync(email, token);
