@@ -103,8 +103,8 @@
     height: 4px;
     font-family: "Inter";
     font-style: normal;
-    font-weight: 700;
-    font-size: 17px;
+    font-weight: 600;
+    font-size: 16px;
     line-height: 19px;
     color: #FFFFFF;
     flex: none;
@@ -134,7 +134,7 @@
     position: relative;
     outline: 0;
     border: 0;
-    color: black;
+    background: #B5B5B5;
     text-align: center;
     height: 1.5em;
     opacity: .5;
@@ -166,46 +166,44 @@
 }
 
 .GoogleButtonLogin {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     padding: 0px;
-    gap: 8.22px;
     position: absolute;
     left: 11.73%;
     right: 12.24%;
     top: 71.8%;
     bottom: 21.5%;
-    background: #FCC016;
-    box-shadow: -2.46569px 3.28759px 3.28759px rgb(0 0 0 / 10%);
-    border-radius: 0px 8.21898px 8.21898px 0px;
-    border: 0px
+    box-shadow: -2.46569px 3.28759px 3.28759px rgba(0, 0, 0, 0.1);
+    border-radius: 8.21898px;
+    border: 0px;
+    height: 41.09px;
+    overflow: hidden;
+    background-color: white;
 }
 
 .DivForGoogleIconLogin {
-    background: white;
+    display: flex;
     height: 40px;
-    filter: drop-shadow(-2.39562px 3.19416px 3.19416px rgba(0, 0, 0, 0.1));
 }
+
 .GoogleIconLogin {
-    background: white;
+    background-image: url('../../../images/Google.svg');
+    background-repeat: no-repeat;
+    background-color: white;
     padding: 7px;
-    height: 41px;
+    background-position: center;
+    width: 43.09px;
+    height: 41.09px;
 }
 
 .TextInGoogleLogin {
-    width: 333px;
-    height: 4px;
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 19px;
+    font-weight: 600;
+    height: 41.09px;
     color: #FFFFFF;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    white-space: nowrap;
+    background: #FCC016;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .SignUpTextLogin {

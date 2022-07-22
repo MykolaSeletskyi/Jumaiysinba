@@ -94,13 +94,14 @@ const LoginPage = () => {
                             <hr className="hr-textLogin" data-content="OR" />
                         </Form>
                     </FormikProvider>
-                    <div className="">
-                        <button className="GoogleButtonLogin">
-                            <div className="DivForGoogleIconLogin">
-                                <img src={require('../../../images/Google.svg').default} className="GoogleIconLogin" alt="Google" />
+                    <button className="GoogleButtonLogin">
+                        <div className="DivForGoogleIconLogin">
+                            <div className="GoogleIconLogin"/>
+                            <div className="TextInGoogleLogin">
+                                <span>Continue with Google</span>
                             </div>
-                            <p className="TextInGoogleLogin">Continue with Google</p></button>
-                    </div>
+                        </div>
+                    </button>
                     <p className="SignUpTextLogin">If you dont have an account, you can easily create it by <Link to="/register" style={{ textDecoration: 'none' }} className="ForSpanLogin">Signing Up</Link></p>
                     
                     {/* <div className="Row">
