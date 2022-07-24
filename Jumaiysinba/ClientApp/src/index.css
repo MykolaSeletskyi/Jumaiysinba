@@ -7,6 +7,10 @@
 
 @import "cropperjs/dist/cropper.min.css";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .footer{
   position:absolute;
   bottom:0;
