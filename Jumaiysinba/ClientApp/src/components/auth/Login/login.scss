@@ -15,7 +15,7 @@
 }
 
 .FormLogin {
-    position: absolute;
+    display: flex;
     width: 519px;
     height: 615px;
     background: white;
@@ -23,44 +23,37 @@
 }
 
 .JubaTextLogin {
-    position: absolute;
     background: 0;
-    top: 6.5%;
-    left: 30.9%;
+    margin-left: 172px;
+    margin-top: 8px;
     font-size: 39px;
 }
 
 .LabelOfEmailLogin {
-    position: absolute;
-    left: 11.7%;
-    right: 49.91%;
-    top: 20.7%;
-    bottom: 63.75%;
     font-family: "Inter";
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
     color: #282828;
+    margin-left: -293px;
+    margin-top: 95px;
 }
 
 .EmailInputLogin {
     box-sizing: border-box;
-    position: absolute;
-    left: 11.5%;
-    right: 12.5%;
-    top: 24.9%;
-    bottom: 68.5%;
+    padding-right: 39px;
+    height: 41px;
+    width: 394px;
+    margin-left: -293px;
+    margin-top: -10px;
     border: 1.6438px solid #B5B5B5;
     border-radius: 8.21898px;
 }
 
 .LabelOfPasswordLogin {
-    position: absolute;
-    left: 11.7%;
-    right: 0.91%;
-    top: 34.8%;
-    bottom: 0.75%;
+    margin-left: -293px;
+    margin-top: 19px;
     font-family: "Inter";
     font-style: normal;
     font-weight: 400;
@@ -71,11 +64,11 @@
 
 .PasswordInputLogin {
     box-sizing: border-box;
-    position: absolute;
-    left: 11.50%;
-    right: 12.1%;
-    top: 39%;
-    bottom: 54.5%;
+    padding-right: 39px;
+    margin-left: -293px;
+    margin-top: -10px;
+    height: 40px;
+    width: 394px;
     border: 1.6438px solid #B5B5B5;
     border-radius: 8.21898px;
 }
@@ -87,11 +80,10 @@
     align-items: center;
     padding: 9.04088px 37.8073px;
     gap: 8.22px;
-    position: absolute;
-    left: 11.8%;
-    right: 12.3%;
-    top: 48.7%;
-    bottom: 44.4%;
+    margin-top: 18px;
+    margin-left: -293px;
+    height: 42px;
+    width: 395px;
     background: #74C8F4;
     box-shadow: -2.46569px 3.28759px 3.28759px rgb(0 0 0 / 10%);
     border-radius: 8.21898px;
@@ -114,11 +106,8 @@
 }
 
 .LinkForPasswordLogin {
-    position: absolute;
-    left: 36.6%;
-    right: 45.81%;
-    top: 58.6%;
-    bottom: 42.67%;
+    margin-left: -293px;
+    margin-top: 20px;
     font-family: "Inter";
     font-style: normal;
     font-weight: 500;
@@ -131,48 +120,44 @@
 
 .hr-textLogin {
     line-height: 1em;
-    position: relative;
     outline: 0;
     border: 0;
-    background: #B5B5B5;
+    color: black;
     text-align: center;
     height: 1.5em;
-    opacity: .5;
-    top: 346px;
+    opacity: 0.5;
     width: 392px;
-    left: 12.1%;
+    margin-top: 30px;
+    margin-left: -290px;
 }
 
 .hr-textLogin:before {
     content: '';
     background: gray;
-    position: absolute;
-    left: 0;
-    top: 50%;
     width: 100%;
-    height: 1px;
+    height: 0px;
 }
 
 .hr-textLogin:after {
     content: attr(data-content);
-    position: relative;
     display: inline-block;
     color: black;
-    top: -10px;
-    padding: 0 .5em;
+    position: absolute;
+    margin-top: -11px;
+    padding: 0 0.5em;
     line-height: 1.5em;
     color: #818078;
     background-color: #fcfcfa;
+    margin-left: -21px;
 }
 
 .GoogleButtonLogin {
     padding: 0px;
-    position: absolute;
-    left: 11.73%;
-    right: 12.24%;
-    top: 71.8%;
-    bottom: 21.5%;
-    box-shadow: -2.46569px 3.28759px 3.28759px rgba(0, 0, 0, 0.1);
+    width: 393px;
+    margin-left: -293px;
+    margin-right: -12px;
+    margin-top: 13px;
+    box-shadow: -2.46569px 3.28759px 3.28759px rgb(0 0 0 / 10%);
     border-radius: 8.21898px;
     border: 0px;
     height: 41.09px;
@@ -207,11 +192,8 @@
 }
 
 .SignUpTextLogin {
-    position: absolute;
-    left: 14.2%;
-    right: 45.81%;
-    top: 81.6%;
-    bottom: 42.67%;
+    margin-left: -281px;
+    margin-top: 15px;
     font-family: "Inter";
     font-style: normal;
     font-weight: 400;
@@ -230,12 +212,12 @@
 
     background-image: url('../../../images/Man.svg');
     background-repeat: no-repeat;
-    background-position: 364px 12px
+    background-position: 362px 10px
 }
 
 .PasswordIconLogin {
 
     background-image: url('../../../images/Password.svg');
     background-repeat: no-repeat;
-    background-position: 363px 11px
+    background-position: 361px 8px;
 }
