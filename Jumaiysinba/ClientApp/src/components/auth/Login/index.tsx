@@ -63,30 +63,28 @@ const LoginPage = () => {
                             <div className="LabelOfEmailLogin">
                                 <p>Username or email:</p>
                             </div>
-                            <div className="">
-                                <InputGroup
-                                    className="EmailInputLogin EmailIconLogin"
-                                    label=""
-                                    field="email"
-                                    error={errors.email}
-                                    touched={touched.email}
-                                    onChange={handleChange}
-                                />
-                            </div>
+
+                            <InputGroup
+                                className="EmailInputLogin EmailIconLogin"
+                                label=""
+                                field="email"
+                                error={errors.email}
+                                touched={touched.email}
+                                onChange={handleChange}
+                            />
                             <div className="LabelOfPasswordLogin">
                                 <p>Password:</p>
                             </div>
-                            <div className="">
-                                <InputGroup
-                                    className="PasswordInputLogin PasswordIconLogin"
-                                    label=""
-                                    field="password"
-                                    type="password"
-                                    error={errors.password}
-                                    touched={touched.password}
-                                    onChange={handleChange}
-                                />
-                            </div>
+
+                            <InputGroup
+                                className="PasswordInputLogin PasswordIconLogin"
+                                label=""
+                                field="password"
+                                type="password"
+                                error={errors.password}
+                                touched={touched.password}
+                                onChange={handleChange}
+                            />
                             <div className="">
                                 <button type="submit" className="SignInButtonLogin"><p className="SignInTextLogin">Sign in</p></button>
                             </div>

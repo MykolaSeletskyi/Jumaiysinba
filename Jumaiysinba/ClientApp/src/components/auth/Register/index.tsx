@@ -62,43 +62,37 @@ const RegisterPage = () => {
                     <FormikProvider value={formik}>
                         <Form onSubmit={handleSubmit}>
                             <div className="LabelOfUserNameRegister">
-                                <span>Create a username:</span>
+                                <p>Create a username:</p>
                             </div>
-                            <div className="">
-                                <InputGroup
-                                    className="UserNameInputRegister UserNameInputIconRegister"
-                                    label=""
-                                    field="name"
-                                    error={errors.name}
-                                    touched={touched.name}
-                                    onChange={handleChange} />
-                            </div>
+                            <InputGroup
+                                className="UserNameInputRegister UserNameInputIconRegister"
+                                label=""
+                                field="name"
+                                error={errors.name}
+                                touched={touched.name}
+                                onChange={handleChange} />
                             <div className="LabelOfEmailRegister">
                                 <p>Email:</p>
                             </div>
-                            <div className="">
-                                <InputGroup
-                                    className="EmailInputRegister EmailIconRegister"
-                                    label=""
-                                    field="email"
-                                    error={errors.email}
-                                    touched={touched.email}
-                                    onChange={handleChange}
-                                />
-                            </div>
+                            <InputGroup
+                                className="EmailInputRegister EmailIconRegister"
+                                label=""
+                                field="email"
+                                error={errors.email}
+                                touched={touched.email}
+                                onChange={handleChange}
+                            />
                             <div className="LabelOfPasswordRegister">
                                 <p>Create a password:</p>
                             </div>
-                            <div className="">
-                                <InputGroup
-                                    className="PasswordInputRegister PasswordIconRegister"
-                                    label=""
-                                    field="password"
-                                    type="password"
-                                    error={errors.password}
-                                    touched={touched.password}
-                                    onChange={handleChange} />
-                            </div>
+                            <InputGroup
+                                className="PasswordInputRegister PasswordIconRegister"
+                                label=""
+                                field="password"
+                                type="password"
+                                error={errors.password}
+                                touched={touched.password}
+                                onChange={handleChange} />
                             {/* <div className="LabelOfPasswordConfirmationRegister">
                                 <p>Confirm the password:</p>
                             </div>
