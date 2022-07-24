@@ -62,7 +62,7 @@ const RegisterPage = () => {
                     <FormikProvider value={formik}>
                         <Form onSubmit={handleSubmit}>
                             <div className="LabelOfUserNameRegister">
-                                <p>Create a username:</p>
+                                <span>Create a username:</span>
                             </div>
                             <div className="">
                                 <InputGroup

@@ -15,16 +15,16 @@
 }
 
 .FormLogin {
+    padding-top: 34px;
     display: flex;
-    width: 519px;
-    height: 615px;
+    width: 514px;
+    height: 605px;
     background: white;
     border-radius: 32.8759px;
 }
 
 .JubaTextLogin {
-    background: 0;
-    margin-left: 172px;
+    margin-left: 161px;
     margin-top: 8px;
     font-size: 39px;
 }
@@ -122,7 +122,7 @@
     line-height: 1em;
     outline: 0;
     border: 0;
-    color: black;
+    background: #B5B5B5;
     text-align: center;
     height: 1.5em;
     opacity: 0.5;
@@ -141,7 +141,7 @@
 .hr-textLogin:after {
     content: attr(data-content);
     display: inline-block;
-    color: black;
+    background: #B5B5B5;
     position: absolute;
     margin-top: -11px;
     padding: 0 0.5em;

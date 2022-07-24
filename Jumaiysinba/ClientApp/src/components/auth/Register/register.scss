@@ -17,21 +17,22 @@
 .FormRegister {
     display: flex;
     width: 514px;
-    height: 605px;
+    height: 613px;
     background: white;
     border-radius: 32.8759px;
+    margin-top: 32px;
 }
 
 .JubaTextRegister {
     background: 0;
-    margin-top: 55px;
-    margin-left: 158px;
+    margin-top: 43px;
+    margin-left: 157px;
     font-size: 39px;
 }
 
 .LabelOfUserNameRegister {
-    margin-left: -291px;
-    margin-top: 133px;
+    margin-left: -290px;
+    margin-top: 121px;
     font-family: "Inter";
     font-style: normal;
     font-weight: 400;
@@ -161,20 +162,21 @@
     height: 2px;
     font-family: "Inter";
     font-style: normal;
-    font-weight: 700;
-    font-size: 17px;
+    font-weight: 600;
+    font-size: 16px;
     line-height: 19px;
     color: #FFFFFF;
     flex: none;
     order: 0;
     flex-grow: 0;
+    white-space: nowrap;
 }
 
 .hr-textRegister {
     line-height: 1em;
     outline: 0;
     border: 0;
-    color: black;
+    background: #B5B5B5;
     text-align: center;
     height: 1.5em;
     opacity: 0.5;
@@ -196,7 +198,7 @@
     content: attr(data-content);
     position: relative;
     display: inline-block;
-    color: black;
+    background: #B5B5B5;
     top: -10px;
     padding: 0 .5em;
     line-height: 1.5em;
@@ -205,23 +207,22 @@
 }
 
 .GoogleButtonRegister {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0;
-    gap: 8.22px;
-    width: 390px;
-    margin-left: -290px;
-    margin-top: 31px;
-    background: #FCC016;
+    padding: 0px;
+    width: 393px;
+    margin-left: -292px;
+    margin-right: -12px;
+    margin-top: 14px;
     box-shadow: -2.46569px 3.28759px 3.28759px rgb(0 0 0 / 10%);
-    border-radius: 0px 8.21898px 8.21898px 0px;
+    border-radius: 8.21898px;
     border: 0px;
+    height: 41.09px;
+    overflow: hidden;
+    background-color: white;
 }
 
 .DivForGoogleIconRegister {
-    background: white;
-    height: 40px;
+    display: flex;
+    height: 0px;
 }
 .GoogleIconRegister {
     background-image: url('../../../images/Google.svg');
@@ -234,18 +235,15 @@
 }
 
 .TextInGoogleRegister {
-    width: 343px;
-    height: 3px;
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 17px;
-    line-height: 19px;
+    font-weight: 600;
+    height: 41.09px;
     color: #FFFFFF;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    white-space: nowrap;
+    margin-left: 19px;
+    background: #FCC016;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .LoginTextRegister {
@@ -259,8 +257,7 @@
     width: 327px;
     white-space: nowrap;
     margin-left: -262px;
-    margin-top: 20px;
-    
+    margin-top: 14px;
 }
 
 .ForSpanRegister {
