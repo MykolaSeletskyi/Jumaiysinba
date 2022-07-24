@@ -13,12 +13,12 @@ const DefaultLayout = () => {
     return (
         <Layout className="layout">
             <HeaderMenu />
-            <Content style={{ padding: '0 50px' }}>
-                <Breadcrumb style={{ margin: '16px 0' }}>
+            <Content style={{ padding: '0px' }}>
+                {/* <Breadcrumb style={{ margin: '16px 0' }}>
                     <Breadcrumb.Item>Home</Breadcrumb.Item>
                     <Breadcrumb.Item>List</Breadcrumb.Item>
                     <Breadcrumb.Item>App</Breadcrumb.Item>
-                </Breadcrumb>
+                </Breadcrumb> */}
                 <div className="site-layout-content">
                     {
                         !isAuth ? <ReCaptcha />
@@ -27,7 +27,7 @@ const DefaultLayout = () => {
                     <Outlet />
                 </div>
             </Content>
-            <Footer className="footer">Ant Design ©2018 Created by Ant UED</Footer>
+            {/* <Footer className="footer">Ant Design ©2018 Created by Ant UED</Footer> */}
         </Layout>
     );
 }
