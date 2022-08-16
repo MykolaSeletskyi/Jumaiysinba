@@ -1,5 +1,5 @@
 import { FC, InputHTMLAttributes } from "react";
-import classNames from 'classnames';
+// import classNames from 'classnames';
 
 interface InputGroupProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string,
@@ -19,10 +19,10 @@ const InputGroup: FC<InputGroupProps> = ({ label, field, onChange, touched = nul
             <input
                 type={type}
                 name={field}
-                className={classNames("form-control",
-                    { "is-invalid": touched && error },
-                    { "is-valid": touched && !error }
-                )}
+                // className={classNames("form-control",
+                //     { "is-invalid": touched && error },
+                //     { "is-valid": touched && !error }
+                // )}
                 id={field}
                 onChange={onChange}
             />

@@ -38,6 +38,7 @@ import { useTypedSelector } from './hooks/useTypedSelector';
 import { Navigate } from "react-router";
 import { useEffect } from 'react';
 import CameraRecorderPage from './components/camera-access/camera-recorder-page';
+import HomePage from './components/HomePage/HomePage';
 
 function App() {
   const { isAuth } = useTypedSelector(state => state.auth);
@@ -55,7 +56,8 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={<DefaultLayout />}>
-        <Route path='/microphone' element={<Microphone/>} />
+        <Route path='/' element={<HomePage />} />
+        <Route path='/microphone' element={<Microphone />} />
         <Route path='/camera-recorder' element={<CameraRecorderPage />} />
         <Route path='/ScreenRecorder' element={<ScreenRecorder />} />
         {!isAuth ?

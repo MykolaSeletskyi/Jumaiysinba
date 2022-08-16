@@ -1,34 +1,31 @@
 import { Outlet } from "react-router";
-import HeaderMenu from "./Header";
+import HeaderMenu from "../Header/Header";
 
-import { Layout, Breadcrumb } from 'antd';
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import ReCaptcha from "../../common/ReCaptcha";
 
-const { Content, Footer } = Layout;
+import styles from "./DefaultLayout.module.scss"
 
 const DefaultLayout = () => {
     const { isAuth } = useTypedSelector(state => state.auth);
 
     return (
-        <Layout className="layout">
+        <div className="layout">
             <HeaderMenu />
-            <Content style={{ padding: '0 50px' }}>
-                <Breadcrumb style={{ margin: '16px 0' }}>
+                {/* <Breadcrumb style={{ margin: '16px 0' }}>
                     <Breadcrumb.Item>Home</Breadcrumb.Item>
                     <Breadcrumb.Item>List</Breadcrumb.Item>
                     <Breadcrumb.Item>App</Breadcrumb.Item>
-                </Breadcrumb>
-                <div className="site-layout-content">
+                </Breadcrumb> */}
+                <div className={styles.layout} style={{display: "flex", justifyContent: "center", backgroundColor:"#FAFAFA"}}>
                     {
                         !isAuth ? <ReCaptcha />
                             : <></>
                     }
                     <Outlet />
                 </div>
-            </Content>
-            <Footer className="footer">Ant Design ©2018 Created by Ant UED</Footer>
-        </Layout>
+            {/* <Footer className="footer">Ant Design ©2018 Created by Ant UED</Footer> */}
+        </div>
     );
 }
 
