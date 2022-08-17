@@ -90,24 +90,12 @@ const LoginPage = () => {
                             </div>
                             <p className="LinkForPasswordLogin">Forgot password?</p>
                             <hr className="hr-textLogin" data-content="OR" />
-                            <button className="GoogleButtonLogin">
-                                <div className="DivForGoogleIconLogin">
-                                    <div className="GoogleIconLogin" />
-                                    <div className="TextInGoogleLogin">
-                                        <span>Continue with Google</span>
-                                    </div>
-                                </div>
-                            </button>
+                            <div className="">
+                                <SignWithGoogleAccount buttonText="Continue with Google" setError={setError} />
+                            </div>
                             <p className="SignUpTextLogin">If you dont have an account, you can easily create it by <Link to="/register" style={{ textDecoration: 'none' }} className="ForSpanLogin">Signing Up</Link></p>
                         </Form>
                     </FormikProvider>
-
-                    {/* <div className="Row">
-                        <img src={require('./g.png')} className="GoogleImg"></img>
-                        <div className="GoogleButton">
-                            <SignWithGoogleAccount buttonText="Sign with Google" setError={setError} />
-                        </div>
-                    </div> */}
                 </div>
             </div>
         </>
