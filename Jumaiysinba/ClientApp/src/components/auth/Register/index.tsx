@@ -116,18 +116,11 @@ const RegisterPage = () => {
                             </div>
                             <hr className="hr-textRegister" data-content="OR" />
                             <div className="">
-                                <button className="GoogleButtonRegister">
-                                    <div className="DivForGoogleIconRegister">
-                                        <img src={require('../../../images/Google.svg').default} className="GoogleIconRegister" alt="asd" />
-                                    </div>
-                                    <p className="TextInGoogleRegister">Register with Google</p></button>
+                                <SignWithGoogleAccount buttonText="Register with Google" setError={setError} />
                             </div>
                             <p className="LoginTextRegister">If you have an account, you can easily <Link to="/login" style={{ textDecoration: 'none' }} className="ForSpanRegister">Login</Link></p>
                         </Form>
                     </FormikProvider>
-                    {/* <div className="mt-3 text-center">
-                        <SignWithGoogleAccount buttonText="Sign with Google" setError={setError} />
-                    </div> */}
                 </div>
             </div>
         </>

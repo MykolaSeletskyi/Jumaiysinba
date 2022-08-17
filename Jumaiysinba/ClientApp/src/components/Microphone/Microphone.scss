@@ -1,0 +1,353 @@
+.MainDivMicro {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: #FAFAFA;
+}
+
+.UpperRow {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.Confirm {
+    display: flex;
+    width: 654px;
+    height: 216px;
+    margin-top: 322px;
+    margin-left: 145px;
+}
+
+.DivOfTextMicro {
+    display: flex;
+    margin-top: -163px;
+    margin-left: 0px;
+}
+
+.TextOfMicro {
+    width: 651px;
+    height: 42px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 42px;
+
+    color: #000000;
+}
+
+.DivSecurityText {
+    width: 622px;
+    margin-top: -81px;
+    margin-left: -650px;
+}
+
+.SecurityText {
+    width: 638px;
+    height: 39px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #282828;
+}
+
+.DivOfPromtText {
+    box-sizing: border-box;
+    width: 652px;
+    margin-top: -2px;
+    margin-left: -622px;
+    border: 3px solid #EE706C;
+    border-radius: 10px;
+}
+
+.PromptText {
+    width: 483.29px;
+    height: 71px;
+    margin-top: 37px;
+    margin-left: 81px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #000000;
+}
+
+.HelpClassForSecrText {
+    font-weight: bold;
+}
+
+.ConfirmSecurity {
+    width: 182px;
+    height: 46px;
+    margin-left: -412px;
+    margin-top: 161px;
+}
+
+.TextOfConfirmSecr {
+    width: 126.96px;
+    height: 24px;
+    margin-top: 149px;
+    margin-left: -414px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #000000;
+}
+
+
+.CheckBox {
+    margin-top: 105px;
+    margin-left: 24px;
+    width: 30px;
+    border: 2px solid #282828;
+    border-radius: 5px;
+    filter: hue-rotate(140deg);
+}
+
+.MicrophoneHeart {
+    margin-left: 303px;
+    margin-top: 160px;
+}
+
+.ButtonsRow {
+    margin-top: 126px;
+    margin-left: 832px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.DivForMicroButton {
+    filter: drop-shadow(-3px 4px 4px rgba(0, 0, 0, 0.1));
+    width: 58px;
+    height: 59px;
+    background: #FFFFFF;
+    border: 1px;
+    border-radius: 26px;
+    margin-left: -15px;
+    margin-top: -5px;
+}
+
+.MicroButton {
+    background-image: url('../../images/MicrophoneRecorder.svg');
+    width: 28px;
+    height: 45px;
+    border: 0px;
+    margin-left: 15px;
+    margin-top: 7px;
+    background-size: contain;
+    background-color: #FFFFFF;
+}
+
+.DivForStartButton {
+    filter: drop-shadow(-3px 4px 4px rgba(0, 0, 0, 0.1));
+    width: 58px;
+    height: 59px;
+    background: #FFFFFF;
+    border-radius: 25px;
+    margin-left: 31px;
+    margin-top: -5px;
+}
+
+.StartButton {
+    background-image: url('../../images/PauseMicrophone.svg');
+    width: 21px;
+    height: 26px;
+    margin-top: 16px;
+    margin-left: 19px;
+    border: 0px;
+    background-size: contain;
+    background-color: #FFFFFF;
+}
+
+.DivForDownloadButton {
+    filter: drop-shadow(-3px 4px 4px rgba(0, 0, 0, 0.1));
+    background: #FFFFFF;
+    margin-left: 32px;
+    margin-top: -6px;
+    width: 58px;
+    height: 59px;
+    border: 0px;
+    border-radius: 27px
+}
+
+.DownloadButton {
+    background-image: url('../../images/DownloadMicrophone.svg');
+    width: 42px;
+    height: 36px;
+    margin-top: 13px;
+    margin-left: 8px;
+    border: 0px;
+    background-size: contain;
+    background-color: #FFFFFF;
+}
+
+.DivOfSwithcer {
+    display: flex;
+    margin-top: 83px;
+    margin-left: 798px;
+}
+
+.Switcher {
+    width: 65px;
+    margin-left: 47px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 55px;
+    height: 34px;
+    margin-left: 40px;
+    margin-top: -4px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider-red {
+    position: absolute;
+    cursor: pointer;
+    top: 7px;
+    left: 0;
+    right: 0;
+    bottom: 4px;
+    background-color: #F7D7D7;
+    transition: 0.4s;
+    -webkit-transition: .4s;
+}
+
+.slider-red:before {
+    position: absolute;
+    content: "";
+    height: 33px;
+    width: 33px;
+    left: 0px;
+    bottom: 0px;
+    top: -6px;
+    background-color: #EE706C;
+    transition: 0.4s;
+    -webkit-transition: .4s;
+}
+
+input:checked+.slider-red {
+    background-color: #F7D7D7;
+}
+
+input:focus+.slider-red {
+    box-shadow: 0 0 1px #F7D7D7;
+}
+
+input:checked+.slider-red:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider-red.round {
+    border-radius: 34px;
+}
+
+.slider-red.round:before {
+    border-radius: 50%;
+}
+
+
+.WaveText {
+    margin-left: -68px;
+    margin-top: -3px;
+}
+
+.FrequencyText {
+    margin-left: 39px;
+    margin-top: -1px;
+}
+
+.FooterRow {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.FirstHint {
+    margin-top: 151px;
+    margin-left: 140px;
+    width: 569px;
+    height: 240px;
+}
+
+.MainHint {
+    width: 470px;
+    height: 36px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
+    color: #282828;
+    margin-left: 6px;
+}
+
+.Hint1 {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #282828;
+    margin-top: 32px;
+    margin-left: 3px;
+}
+
+.Hint2 {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #282828;
+    margin-top: 19px;
+    margin-left: 5px;
+}
+
+.SecondHint {
+    width: 750px;
+    height: 303.5px;
+    margin-left: 267px;
+    margin-top: 120px;
+    background: rgba(138, 202, 97, 0.4);
+    border-radius: 30px;
+}
+
+.TextForSecondHint {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
+    color: #282828;
+    margin-top: 40px;
+    margin-left: 40px;
+    width: 559px
+}
+
+.TextForSecondHint2 {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #282828;
+    margin-top: 25px;
+    margin-left: 40px;
+    width: 673px;
+}
