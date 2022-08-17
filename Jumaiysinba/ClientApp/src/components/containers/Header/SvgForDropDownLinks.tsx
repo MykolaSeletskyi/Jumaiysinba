@@ -226,4 +226,4 @@ SVGforLinks.SendVoiceMessagesSVG = class SendVoiceMessagesSVG extends React.Comp
   }
 }
 
-export default  SVGforLinks;
+export default SVGforLinks;

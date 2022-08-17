@@ -33,6 +33,7 @@
 
 .introductionBackground{
     width: 100%;
+    height: 100%;
 }
 
 .detailsContainer{
@@ -72,4 +73,28 @@
     font-size: 16px;
     line-height: 19px;
     color: #282828;
+}
+
+.Background{
+    width: 100%;
+}
+
+.detailBackground_1{
+    left: 0px;
+    position: absolute;
+    width: 22%;
+    margin-top: 184px;
+    margin-left: -3%;
+}
+
+.detailBackground_2{
+    right: 0px;
+    position: absolute;
+    width: 62%;
+    margin-top: 722px;
+    margin-right: -1%;
+}
+
+.Person{
+    z-index: 5;
 }
