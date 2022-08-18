@@ -1,0 +1,35 @@
+h3 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 42px;
+}
+
+.policy {
+    width: 652px;
+    height: 218px;
+    border: 3px solid #74C8F4;
+    border-radius: 10px;
+}
+
+.policy p {
+    text-align: center;
+}
+
+.acceptPolicy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 24px;
+    text-align: center;
+}
+
+.acceptPolicy label {
+    font-size: 20px;
+}
+
+input[id=check] {
+    width: 30px;
+    height: 30px;
+}
