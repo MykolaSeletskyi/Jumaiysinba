@@ -1,5 +1,7 @@
 import { Outlet } from "react-router";
 import HeaderMenu from "../Header/Header";
+import Footer from "../Footer/Footer";
+
 
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import ReCaptcha from "../../common/ReCaptcha";
@@ -24,6 +26,7 @@ const DefaultLayout = () => {
                     }
                     <Outlet />
                 </div>
+                <Footer/>
             {/* <Footer className="footer">Ant Design ©2018 Created by Ant UED</Footer> */}
         </div>
     );
