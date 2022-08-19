@@ -7,6 +7,7 @@ import { useFormik, Form, FormikProvider, FormikHelpers } from "formik";
 import { LoginSchema } from './validation';
 import { IErrorFields } from "../types";
 import SignWithGoogleAccount from "../../common/SignWithGoogleAccount";
+import './login.scss'
 
 const LoginPage = () => {
     const initialState: ILoginModel = {
@@ -46,49 +47,55 @@ const LoginPage = () => {
 
     return (
         <>
-            <h1 className="text-center mt-3">Вхід</h1>
-            <div className="container">
-                <div className="row justify-content-center align-items-center">
-                    <div className="col-md-10 col-lg-8 col-xl-5 bg-light shadow-lg p-3 bg-white rounded p-4">
-                        {
-                            error ?
-                                <div className="text-center alert-danger m-1 p-2 rounded shadow-lg">
-                                    {error}
-                                </div> : null
-                        }
-                        <FormikProvider value={formik}>
-                            <Form onSubmit={handleSubmit}>
-                                <div className="form-group mt-3">
-                                    <InputGroup
-                                        label="Електронна пошта"
-                                        field="email"
-                                        error={errors.email}
-                                        touched={touched.email}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <div className="form-group mt-3">
-                                    <InputGroup
-                                        label="Пароль"
-                                        field="password"
-                                        type="password"
-                                        error={errors.password}
-                                        touched={touched.password}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <div className="my-2 text-center">
-                                    <button type="submit" className="btn btn-outline-primary btn-lg m-auto px-5">Вхід</button>
-                                </div>
-                                <div className="my-1 text-center ">
-                                    <Link to="/register" className="btn btn btn-outline-success px-3">Створити акаунт</Link>
-                                </div>
-                            </Form>
-                        </FormikProvider>
-                        <div className="mt-3 text-center">
-                            <SignWithGoogleAccount buttonText="Sign with Google" setError={setError} />
-                        </div>
+            <div className="MainDivLogin">
+                <div className="FormLogin">
+                    <div className="JubaTextLogin">
+                        <img src={require('../../../images/Logo.svg').default} alt="Logotype" />
                     </div>
+                    {
+                        error ?
+                            <div className="text-center alert-danger m-1 p-2 rounded shadow-lg">
+                                {error}
+                            </div> : null
+                    }
+                    <FormikProvider value={formik}>
+                        <Form onSubmit={handleSubmit}>
+                            <div className="LabelOfEmailLogin">
+                                <p>Username or email:</p>
+                            </div>
+
+                            <InputGroup
+                                className="EmailInputLogin EmailIconLogin"
+                                label=""
+                                field="email"
+                                error={errors.email}
+                                touched={touched.email}
+                                onChange={handleChange}
+                            />
+                            <div className="LabelOfPasswordLogin">
+                                <p>Password:</p>
+                            </div>
+
+                            <InputGroup
+                                className="PasswordInputLogin PasswordIconLogin"
+                                label=""
+                                field="password"
+                                type="password"
+                                error={errors.password}
+                                touched={touched.password}
+                                onChange={handleChange}
+                            />
+                            <div className="">
+                                <button type="submit" className="SignInButtonLogin"><p className="SignInTextLogin">Sign in</p></button>
+                            </div>
+                            <p className="LinkForPasswordLogin">Forgot password?</p>
+                            <hr className="hr-textLogin" data-content="OR" />
+                            <div className="">
+                                <SignWithGoogleAccount buttonText="Continue with Google" setError={setError} />
+                            </div>
+                            <p className="SignUpTextLogin">If you dont have an account, you can easily create it by <Link to="/register" style={{ textDecoration: 'none' }} className="ForSpanLogin">Signing Up</Link></p>
+                        </Form>
+                    </FormikProvider>
                 </div>
             </div>
         </>

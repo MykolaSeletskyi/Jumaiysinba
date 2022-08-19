@@ -14,6 +14,14 @@ export interface IUser {
     roles: []
 }
 
+export interface IUserToken {
+    id: internal,
+    email: string,
+    name: string,
+    exp: number,
+    roles: []
+}
+
 export interface AuthState {
     user: IUser | null,
     isAuth: boolean;

@@ -1,0 +1,231 @@
+﻿.MainDivLogin {
+    width: 100%;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../../images/Background.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #FAFAFA;
+}
+
+.MainDivLogin * {
+    font-family: 'Inter';
+}
+
+.FormLogin {
+    padding-top: 34px;
+    display: flex;
+    width: 514px;
+    height: 605px;
+    background: white;
+    border-radius: 32.8759px;
+}
+
+.invalid-feedback
+{
+    position: absolute;
+    right: 12px;
+    top: -40px;
+    white-space: nowrap;
+}
+
+.JubaTextLogin {
+    margin-left: 161px;
+    margin-top: 8px;
+    font-size: 39px;
+}
+
+.LabelOfEmailLogin {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #282828;
+    margin-left: -293px;
+    margin-top: 95px;
+}
+
+.EmailInputLogin {
+    box-sizing: border-box;
+    padding-right: 39px;
+    height: 41px;
+    width: 394px;
+    margin-left: -293px;
+    margin-top: -10px;
+    border: 1.6438px solid #B5B5B5;
+    border-radius: 8.21898px;
+}
+
+.LabelOfPasswordLogin {
+    margin-left: -293px;
+    margin-top: 19px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #282828;
+}
+
+.PasswordInputLogin {
+    box-sizing: border-box;
+    padding-right: 39px;
+    margin-left: -293px;
+    margin-top: -10px;
+    height: 40px;
+    width: 394px;
+    border: 1.6438px solid #B5B5B5;
+    border-radius: 8.21898px;
+}
+
+.SignInButtonLogin {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 9.04088px 37.8073px;
+    gap: 8.22px;
+    margin-top: 18px;
+    margin-left: -293px;
+    height: 42px;
+    width: 395px;
+    background: #74C8F4;
+    box-shadow: -2.46569px 3.28759px 3.28759px rgb(0 0 0 / 10%);
+    border-radius: 8.21898px;
+    border: 0px;
+}
+
+.SignInTextLogin {
+    width: 53px;
+    height: 4px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    color: #FFFFFF;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    white-space: nowrap;
+}
+
+.LinkForPasswordLogin {
+    margin-left: -293px;
+    margin-top: 20px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #0096E4;
+    white-space: nowrap;
+}
+
+.hr-textLogin {
+    line-height: 1em;
+    outline: 0;
+    border: 0;
+    background: #B5B5B5;
+    text-align: center;
+    height: 1.5em;
+    opacity: 0.5;
+    width: 392px;
+    margin-top: 30px;
+    margin-left: -290px;
+}
+
+.hr-textLogin:before {
+    content: '';
+    background: gray;
+    width: 100%;
+    height: 0px;
+}
+
+.hr-textLogin:after {
+    content: attr(data-content);
+    display: inline-block;
+    background: #B5B5B5;
+    position: absolute;
+    margin-top: -11px;
+    padding: 0 0.5em;
+    line-height: 1.5em;
+    color: #818078;
+    background-color: #fcfcfa;
+    margin-left: -21px;
+}
+
+.GoogleButtonLogin {
+    padding: 0px;
+    width: 393px;
+    margin-left: -293px;
+    margin-right: -12px;
+    margin-top: 13px;
+    box-shadow: -2.46569px 3.28759px 3.28759px rgb(0 0 0 / 10%);
+    border-radius: 8.21898px;
+    border: 0px;
+    height: 41.09px;
+    overflow: hidden;
+    background-color: white;
+}
+
+.DivForGoogleIconLogin {
+    display: flex;
+    height: 40px;
+}
+
+.GoogleIconLogin {
+    background-image: url('../../../images/Google.svg');
+    background-repeat: no-repeat;
+    background-color: white;
+    padding: 7px;
+    background-position: center;
+    width: 43.09px;
+    height: 41.09px;
+}
+
+.TextInGoogleLogin {
+    font-weight: 600;
+    height: 41.09px;
+    color: #FFFFFF;
+    background: #FCC016;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.SignUpTextLogin {
+    margin-left: -281px;
+    margin-top: 15px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #B5B5B5;
+    width: 371px;
+}
+
+.ForSpanLogin {
+    color: #0096E4;
+}
+
+.EmailIconLogin {
+
+    background-image: url('../../../images/Man.svg');
+    background-repeat: no-repeat;
+    background-position: 362px 10px
+}
+
+.PasswordIconLogin {
+
+    background-image: url('../../../images/Password.svg');
+    background-repeat: no-repeat;
+    background-position: 361px 8px;
+}
