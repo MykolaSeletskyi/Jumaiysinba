@@ -77,45 +77,17 @@ const HeaderMenu = () => {
                     <img src={require('../../../images/Logo.svg').default} alt="Logo" />
                 </Link>
                 <div className={styles.containerLinks}>
-                    <DropDownLinks Links={locationLinks}>Місцезнаходження</DropDownLinks>
-                    <DropDownLinks Links={audioLinks}>Аудіо</DropDownLinks>
-                    <DropDownLinks Links={videoLinks}>Відео</DropDownLinks>
-                    <DropDownLinks Links={textLinks}>Текст</DropDownLinks>
+                    <DropDownLinks className={styles.locationDropDown} Links={locationLinks}>Місцезнаходження</DropDownLinks>
+                    <DropDownLinks className={styles.audioDropDown} Links={audioLinks}>Аудіо</DropDownLinks>
+                    <DropDownLinks className={styles.videoDropDown} Links={videoLinks}>Відео</DropDownLinks>
+                    <DropDownLinks className={styles.textDropDown} Links={textLinks}>Текст</DropDownLinks>
                 </div>
-                {/* <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                    <li>
-                    <Link to="/">Home page</Link>
-                    </li>
-                    <li>
-                    <Link to="/camera-recorder">Camera recorder</Link>
-                    </li>
-                    <li>
-                    <Link to="/ScreenRecorder">Screen recorder</Link>
-                    </li>
-                    <li>
-                    <Link to="/microphone">Microphone</Link>
-                    </li>
-                </ul> */}
                 <div className={styles.containerProfile}>
                     <div className={styles.containerLanguage}>
                         <button className={styles.currentLanguage}>UA</button>
                         <button>ENG</button>
                     </div>
                     <img src={require('../../../images/Profile.svg').default} alt="Profile"/>
-                    {/* <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                        {isAuth ?
-                            <li>
-                            <LogoutModal />
-                            </li> :
-                            <>
-                            <li>
-                            <Link to="/login">Login</Link>
-                            </li>
-                            <li>
-                            <Link to="/register">Register</Link>
-                            </li>
-                            </>}
-                        </ul> */}
                 </div>
             </div>
         </header>
