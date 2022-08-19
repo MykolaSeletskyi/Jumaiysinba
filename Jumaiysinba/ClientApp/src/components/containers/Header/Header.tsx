@@ -88,10 +88,10 @@ const HeaderMenu = () => {
                     </svg>
                 </Link>
                 <div className={styles.containerLinks}>
-                    <DropDownLinks Links={locationLinks}>Місцезнаходження</DropDownLinks>
-                    <DropDownLinks Links={audioLinks}>Аудіо</DropDownLinks>
-                    <DropDownLinks Links={videoLinks}>Відео</DropDownLinks>
-                    <DropDownLinks Links={textLinks}>Текст</DropDownLinks>
+                    <DropDownLinks className={styles.locationDropDown} Links={locationLinks}>Місцезнаходження</DropDownLinks>
+                    <DropDownLinks className={styles.audioDropDown} Links={audioLinks}>Аудіо</DropDownLinks>
+                    <DropDownLinks className={styles.videoDropDown} Links={videoLinks}>Відео</DropDownLinks>
+                    <DropDownLinks className={styles.textDropDown} Links={textLinks}>Текст</DropDownLinks>
                 </div>
                 <div className={styles.containerProfile}>
                     <div className={styles.containerLanguage}>
