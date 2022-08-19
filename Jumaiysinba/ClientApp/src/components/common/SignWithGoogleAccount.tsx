@@ -47,8 +47,17 @@ const SignWithGoogleAccount: FC<SignWithGoogleAccountProps> = ({ buttonText, set
             <GoogleLogin
                 clientId={"207335147785-dccv6vjmvttes3cmqg7n25lpkklhmho3.apps.googleusercontent.com"}
                 buttonText={buttonText}
+                render={renderProps => (
+                    <div className="">
+                        <button className="GoogleButtonRegister">
+                            <div className="DivForGoogleIconRegister">
+                                <img src={require('../../images/Google.svg').default} className="GoogleIconRegister" alt="asd" />
+                            </div>
+                            <p className="TextInGoogleRegister">{buttonText}</p></button>
+                    </div>
+                )}
                 onSuccess={handleSuccess}
-                onFailure={handleFailure} >
+                onFailure={handleFailure}>
             </GoogleLogin>
         </>
     )

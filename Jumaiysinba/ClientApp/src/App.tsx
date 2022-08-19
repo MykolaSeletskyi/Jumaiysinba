@@ -1,31 +1,3 @@
-// import React from 'react';
-// import logo from './logo.svg';
-// import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.tsx</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-// export default App;
-
-
 import './App.css';
 import { Routes, Route, useLocation } from 'react-router';
 import DefaultLayout from './components/containers/DefaultLayout';
@@ -38,6 +10,8 @@ import { useTypedSelector } from './hooks/useTypedSelector';
 import { Navigate } from "react-router";
 import { useEffect } from 'react';
 import CameraRecorderPage from './components/camera-access/camera-recorder-page';
+import SpeakerTest from './components/SpeakerTest/SpeakerTest';
+import WordCounter from './components/text/word-counter';
 
 function App() {
   const { isAuth } = useTypedSelector(state => state.auth);
@@ -55,9 +29,11 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={<DefaultLayout />}>
-        <Route path='/microphone' element={<Microphone/>} />
+        <Route path='/microphone' element={<Microphone />} />
         <Route path='/camera-recorder' element={<CameraRecorderPage />} />
         <Route path='/ScreenRecorder' element={<ScreenRecorder />} />
+        <Route path='/speaker-test' element={<SpeakerTest />} />
+        <Route path='/word-counter' element={<WordCounter />} />
         {!isAuth ?
           (<>
             <Route path='/login' element={<LoginPage />} />

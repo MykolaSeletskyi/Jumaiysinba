@@ -1,0 +1,81 @@
+.footer {
+    min-height: 478px;
+    display: flex;
+    padding: 0 170px;
+    flex-direction: column;
+
+    .logo {
+        margin-top: 80px;
+    }
+
+    .footerInfo {
+        display: flex;
+        flex-direction: column;
+        margin-top: 90px;
+
+        .title {
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 19px;
+            color: #282828;
+            width: 45%;
+            margin-top: 32px;
+        }
+    }
+
+    .footerContacts {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        font-family: 'Inter', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;
+        align-items: end;
+
+        .contacts {
+            display: flex;
+            margin-top: 22px;
+        }
+
+        a {
+            flex-basis: 100%;
+            margin-left: 28px;
+            margin-bottom: 40px;
+        }
+    }
+
+    .footerPoliticy {
+        border-top: 1px solid #B5B5B5;
+        max-height: 132px;
+        min-width: 100%;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+
+        .footerPoliticyText {
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 19px;
+            color: #282828;
+            margin-top: 40px;
+        }
+
+        .copyright {
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+            color: #B5B5B5;
+            margin-top: 20px;
+        }
+    }
+}
