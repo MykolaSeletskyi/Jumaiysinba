@@ -1,3 +1,5 @@
-.layout > div:first-child{
-    // display: contents;
+.layout{
+    display: flex;
+    justify-content: center;
+    background-color: #FAFAFA;
 }

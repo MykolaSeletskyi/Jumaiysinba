@@ -3,7 +3,7 @@ import { Routes, Route, useLocation } from 'react-router';
 import DefaultLayout from './components/containers/DefaultLayout';
 import LoginPage from './components/auth/Login';
 import RegisterPage from './components/auth/Register';
-import ScreenRecorder from './components/ScreenRecorder/ScreenRecorder';
+import ScreenRecorder from './components/VideoPages/ScreenRecorder/ScreenRecorder';
 import Microphone from './components/Microphone/Microphone';
 
 import { useTypedSelector } from './hooks/useTypedSelector';

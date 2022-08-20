@@ -246,11 +246,12 @@ h3 {
 
     .responseForm {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: wrap;
         justify-content: center;
         margin-top: 3.8%;
         width: 100%;
+        align-items: center;
 
         .groupUserData {
             max-width: 960px;
