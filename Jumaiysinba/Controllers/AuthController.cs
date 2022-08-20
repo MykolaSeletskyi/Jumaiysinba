@@ -26,8 +26,8 @@ namespace Jumaiysinba.Controllers
         /// <summary>
         /// Реєстрація [Unauthorize]
         /// </summary>
-        /// <param name="model">Пошта, ім'я, прізвище, фотографія (base64), номер телефону, пароль, повторний пароль, recaptcha token</param>
-        /// <returns>Jwt token sha256</returns>
+        /// <param name="model">Пошта, ім'я, пароль, повторний пароль, recaptcha token</param>
+        /// <returns>Jwt token</returns>
         [HttpPost]
         [AllowAnonymous]
         [Route("register")]
@@ -37,7 +37,6 @@ namespace Jumaiysinba.Controllers
             if (recaptchaResponse.success)
             {
                 var token = await _authService.RegisterAsync(model);
-
                 if (string.IsNullOrEmpty(token))
                     return BadRequest(new { errors = new { authError = "Реєстрація неуспішна" } });
 
@@ -84,7 +83,7 @@ namespace Jumaiysinba.Controllers
                 return Ok(new { token = token });
             return BadRequest(new { errors = new { authError = "Авторизація неуспішна" } });
         }
-      
+
         /// <summary>
         /// Вихід [Authorize]
         /// </summary>
@@ -112,7 +111,7 @@ namespace Jumaiysinba.Controllers
             {
                 bool success = await _authService.SendEmailConfirmationTokenAsync(id, token);
                 if (success)
-                    return Ok(new { isSended = true});
+                    return Ok(new { isSended = true });
             }
             return BadRequest(new { isSended = false });
         }
@@ -138,6 +137,54 @@ namespace Jumaiysinba.Controllers
             }
             return BadRequest(new { isSucceededConfirm = false });
         }
+        #endregion
+
+        #region PasswordReset
+
+        /// <summary>
+        /// Відправити на пошту запит [Unauthorize]
+        /// </summary>
+        /// <param name="email">Пошта для зміни пароля</param>
+        /// <returns>Стан відправки</returns>
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("send-reset-password-token")]
+        public async Task<IActionResult> SendPasswordResetToken(string email)
+        {
+            string token = await _authService.GeneratePasswordResetTokenAsync(email);
+            if (!string.IsNullOrEmpty(token))
+            {
+                bool success = await _authService.SendPasswordResetTokenAsync(email, token);
+                if (success)
+                    return Ok(new { isSended = true });
+            }
+            return BadRequest(new { isSended = false });
+        }
+
+        /// <summary>
+        /// Перевірка та підтвердження [Unauthorize]
+        /// </summary>
+        /// <param name="email">Пошта для зміни пароля</param>
+        /// <param name="token">Токен підтвердження</param>
+        /// <param name="newPassword">Новий пароль</param>
+        /// <returns>Успіх підтвердження</returns>
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("reset-password")]
+        public async Task<IActionResult> PasswordReset(string email, string token, string newPassword)
+        {
+            if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(token) && !string.IsNullOrEmpty(token))
+            {
+                token = token.Replace(' ', '+');
+                var result = await _authService.PasswordResetAsync(email, token, newPassword);
+                if (result.Succeeded)
+                {
+                    return Ok(new { isSucceededReset = true });
+                }
+            }
+            return BadRequest(new { isSucceededReset = false });
+        }
+
         #endregion
 
         private async Task<ReCaptchaResponse> getResponseFromReCaptcha(string token)
