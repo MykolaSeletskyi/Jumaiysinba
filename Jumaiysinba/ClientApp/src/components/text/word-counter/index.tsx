@@ -51,13 +51,16 @@ const WordCounter = () => {
     }
 
     return (
-        <div className="container word-counter">
+        <div className="word-counter">
             <Policy onChangePolicy={onChangePolicy}
                 header={"Кількість Слів І Символів"}
                 explain={
                     "Використовуйте наш лічильник слів і інструмент аналізатора тексту," +
                     " щоб підрахувати символи, слова, рядки та частоту кожного слова у вашому тексті."
                 } />
+            <br />
+            <br />
+            <br />
             {
                 policy ?
                     <>
