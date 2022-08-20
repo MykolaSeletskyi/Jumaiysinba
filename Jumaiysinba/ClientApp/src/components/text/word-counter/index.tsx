@@ -51,7 +51,7 @@ const WordCounter = () => {
     }
 
     return (
-        <div className="container word-counter">
+        <div className="word-counter">
             <Policy onChangePolicy={onChangePolicy}
                 header={"Кількість Слів І Символів"}
                 explain={
