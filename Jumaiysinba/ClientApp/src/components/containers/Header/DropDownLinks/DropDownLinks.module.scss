@@ -24,13 +24,18 @@
 /* Dropdown Content (Hidden by Default) */
 .dropdownContent {
   position: absolute;
-  height: 0;
   z-index: 1;
+  height: 0;
   opacity: 0%;
-  overflow: hidden;
-  background: #FFFFFF;
-  box-shadow: -3px 4px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
+  padding-top: 0px;
+
+  .dropdownItems {
+    height: 0;
+    overflow: hidden;
+    background: #FFFFFF;
+    box-shadow: -3px 4px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+  }
 }
 
 /* Links inside the dropdown */
@@ -44,10 +49,17 @@
 /* Change color of dropdown links on hover */
 // .dropdownContent a:hover {background-color: #ddd;}
 
-.dropdown:hover .dropdownContent {
-  height: auto;
-  opacity: 100%;
-  transition: opacity 0.5s;
+.dropdown:hover {
+  .dropdownContent {
+    height: auto;
+    padding-top: 20px;
+    opacity: 100%;
+    transition: opacity 0.5s;
+  }
+
+  .dropdownItems {
+    height: auto;
+  }
 }
 
 .dropdown:hover .dropbtn svg {
@@ -55,7 +67,7 @@
   transition: transform 0.25s;
 }
 
-.link{
+.link {
   display: flex;
   align-items: center;
   white-space: nowrap;
@@ -69,7 +81,7 @@
   color: #000000;
 }
 
-.link svg{
+.link svg {
   margin-right: 15px;
 }
 

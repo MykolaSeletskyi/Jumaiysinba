@@ -35,7 +35,7 @@ h3 {
             color: #282828;
             width: 40%;
             max-width: 710px;
-            margin-top: 5%;
+            margin-top: 2%;
             margin-bottom: 2%;
         }
 
@@ -246,11 +246,12 @@ h3 {
 
     .responseForm {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: wrap;
         justify-content: center;
         margin-top: 3.8%;
         width: 100%;
+        align-items: center;
 
         .groupUserData {
             max-width: 960px;

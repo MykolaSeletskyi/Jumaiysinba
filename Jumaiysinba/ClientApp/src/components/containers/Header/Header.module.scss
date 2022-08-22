@@ -7,53 +7,81 @@
     position: sticky;
     top: 0px;
     z-index: 10;
-}
 
-.containerHeader {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    max-width: 1820px;
-    width: 100%;
-}
+    .containerHeader {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 1820px;
+        width: 100%;
+    }
 
-.containerLanguage{
-    width: 100px;
-    display: flex;
-    margin-right: 40px;
-    justify-content: space-between;
-}
+    .containerLinks {
+        display: flex;
+        justify-content: space-around;
+        width: 60%;
+        max-width: 750px;
 
-.containerLanguage button{
-    background: none;
-    border: none;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 24px;
-    color: rgba(0, 0, 0, 0.5);
-}
+        .locationDropDown:hover {
+            button {
+                color: #FCC016;
+                transition: 0.20s;
+            }
+        }
 
-.currentLanguage{
-    color: #282828 !important;
-}
+        .audioDropDown:hover {
+            button {
+                color: #EE706C;
+                transition: 0.20s;
+            }
+        }
 
-.currentLanguage::after{
-    content: "";
-    display: block;
-    background: #FCC324;
-    height: 2px;
-    margin-top: -2px;
-}
+        .videoDropDown:hover {
+            button {
+                color: #FFC8E2;
+                transition: 0.20s;
+            }
+        }
 
-.containerProfile{
-    display: flex;
-}
+        .textDropDown:hover {
+            button {
+                color: #74C8F4;
+                transition: 0.20s;
+            }
+        }
+    }
 
-.containerLinks{
-    display: flex;
-    justify-content: space-around;
-    width: 60%;
-    max-width: 750px;
+    .containerProfile {
+        display: flex;
+
+        .containerLanguage {
+            width: 100px;
+            display: flex;
+            margin-right: 40px;
+            justify-content: space-between;
+
+            button {
+                background: none;
+                border: none;
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 600;
+                font-size: 20px;
+                line-height: 24px;
+                color: rgba(0, 0, 0, 0.5);
+            }
+
+            .currentLanguage {
+                color: #282828 !important;
+            }
+
+            .currentLanguage::after {
+                content: "";
+                display: block;
+                background: #FCC324;
+                height: 2px;
+                margin-top: -2px;
+            }
+        }
+    }
 }
