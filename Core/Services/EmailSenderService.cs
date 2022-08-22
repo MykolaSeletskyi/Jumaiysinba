@@ -16,12 +16,12 @@ namespace Core.Services
         private const string template = @"Templates/{0}.html";
         public static MailjetClient client = new MailjetClient("4747a4ba164ca6c5bc8eb00c0e7fcec5", "2788097148d9636d86009c2667719ba0");
 
-        public async Task<bool> SendEmailConfirmationAsync(EmailConfirmationViewModel model)
+        public async Task<bool> SendEmailAsync(EmailViewModel model, string subject)
         {
             try
             {
-                model.Subject = UpdatePlaceHolders("Підтвердіть пошту", model.PlaceHolders);
-                model.Body = UpdatePlaceHolders(GetEmailBody("EmailConfirmation"), model.PlaceHolders);
+                model.Subject = UpdatePlaceHolders(subject, model.PlaceHolders);
+                model.Body = UpdatePlaceHolders(GetEmailBody("EmailTemplate"), model.PlaceHolders);
 
                 var request = new MailjetRequest
                 {
