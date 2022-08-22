@@ -20,7 +20,7 @@
             max-width: 652px;
             min-width: 385px;
             width: 60%;
-            
+
             >p {
                 margin-top: 6%;
                 margin-bottom: 6% !important;
@@ -129,30 +129,39 @@
     }
 
     .infoContainer {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 4%;
+        
         div {
             background: rgba(116, 200, 244, 0.25);
             border-radius: 30px;
+            padding: 41px;
+            width: 49%;
+            max-width: 770px;
+        }
 
-            h4 {
-                font-family: 'Inter';
-                font-style: normal;
-                font-weight: 700;
-                font-size: 30px;
-                line-height: 36px;
-                color: #282828;
-            }
+        h4 {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 30px;
+            line-height: 36px;
+            color: #282828;
+        }
 
-            p {
-                font-family: 'Inter';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 16px;
-                line-height: 19px;
-                color: #282828;
-            }
+        p {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 19px;
+            color: #282828;
         }
     }
 }
+
 
 
 
