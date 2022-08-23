@@ -38,12 +38,12 @@ const HeaderMenu = () => {
     ];
     const locationLinks: IDropDownLink[] = [
         {
-            To: "",
+            To: "/get-location",
             Title: "My Current Location",
             Icon: SVGforLinks.MyCurrentLocationSVG
         },
         {
-            To: "",
+            To: "/share-location",
             Title: "Share My Location",
             Icon: SVGforLinks.ShareMyLocationSVG
         }

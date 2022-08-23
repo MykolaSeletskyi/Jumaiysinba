@@ -13,6 +13,7 @@ import CameraRecorderPage from './components/camera-access/camera-recorder-page'
 import SpeakerTest from './components/SpeakerTest/SpeakerTest';
 import WordCounter from './components/text/word-counter';
 import HomePage from './components/HomePage/HomePage';
+import GetLocation from './components/geolocation/my-location';
 
 function App() {
   const { isAuth } = useTypedSelector(state => state.auth);
@@ -36,6 +37,8 @@ function App() {
         <Route path='/ScreenRecorder' element={<ScreenRecorder />} />
         <Route path='/speaker-test' element={<SpeakerTest />} />
         <Route path='/word-counter' element={<WordCounter />} />
+        <Route path='/share-location' element={<WordCounter />} />
+        <Route path='/get-location' element={<GetLocation />} />
         {!isAuth ?
           (<>
             <Route path='/login' element={<LoginPage />} />
