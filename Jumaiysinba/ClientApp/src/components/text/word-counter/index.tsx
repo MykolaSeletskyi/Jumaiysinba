@@ -1,5 +1,6 @@
 import { useState } from "react";
-import Policy from "../policy";
+import Policy from "../../common/policy";
+import Logo from "../../../images/TextLogo.svg";
 import "./index.css";
 import "../index.css";
 
@@ -52,12 +53,16 @@ const WordCounter = () => {
 
     return (
         <div className="word-counter">
-            <Policy onChangePolicy={onChangePolicy}
+            <Policy
+                onChangePolicy={onChangePolicy}
                 header={"Кількість Слів І Символів"}
                 explain={
                     "Використовуйте наш лічильник слів і інструмент аналізатора тексту," +
                     " щоб підрахувати символи, слова, рядки та частоту кожного слова у вашому тексті."
-                } />
+                }
+                borderColor={"#74C8F4"}
+                logo={Logo}
+                isLeft />
             <br />
             <br />
             <br />
