@@ -17,7 +17,7 @@ const Policy = ({ onChangePolicy, header, explain, borderColor, logo, isLeft = t
                     </div>
                     <br />
                     <div className="row pt-3">
-                        <p className="p-0 pe-4">
+                        <p className="p-0">
                             {explain}
                         </p>
                     </div>
