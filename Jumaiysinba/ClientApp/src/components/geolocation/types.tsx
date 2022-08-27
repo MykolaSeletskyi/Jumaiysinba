@@ -1,6 +1,9 @@
 export interface ICoords {
     lat: number,
     lng: number,
+}
+
+export interface IShareCoords {
     inDegree: string
 }
 
@@ -41,5 +44,6 @@ export interface IInfoIp {
     country_area: number,
     country_population: number,
     asn: string,
-    org: string
+    org: string,
+    error: boolean | false
 }

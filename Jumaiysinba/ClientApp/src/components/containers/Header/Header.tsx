@@ -43,7 +43,7 @@ const HeaderMenu = () => {
             Icon: SVGforLinks.MyCurrentLocationSVG
         },
         {
-            To: "/share-location",
+            To: "",
             Title: "Share My Location",
             Icon: SVGforLinks.ShareMyLocationSVG
         }

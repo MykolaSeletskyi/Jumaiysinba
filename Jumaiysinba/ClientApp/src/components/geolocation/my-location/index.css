@@ -9,6 +9,7 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
+
     padding: 0;
     margin: 7.2% 9%;
     width: 81%;
@@ -21,6 +22,66 @@
     font-weight: 700;
     line-height: 36px;
     letter-spacing: 0em;
+
     text-align: center;
     margin-top: 7.5rem;
+}
+
+.input-ip-address {
+    border-radius: 10px;
+    border: #74C8F4 solid 3px;
+
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.input-clear {
+    font-weight: 700;
+    color: #74C8F4;
+}
+
+.input-clear:hover {
+    color: #2ab4ff;
+}
+
+.btn-location {
+    width: max-content;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: 700;
+    color: white;
+
+    box-shadow: -3px 4px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border-width: 0;
+}
+
+.btn-location:hover {
+    color: white;
+}
+
+.btn-get-my-ip {
+    background: #8AC167;
+}
+
+.btn-get-my-ip:hover {
+    background: #70c167;
+}
+
+.btn-get-location {
+    background: #74C8F4;
+}
+
+.btn-get-location:hover {
+    background: #4fb6ed;
+}
+
+.address-map {
+    border-radius: 15px;
+    border-width: 0;
+}
+
+.address {
+    margin-top: 7.8%
 }
