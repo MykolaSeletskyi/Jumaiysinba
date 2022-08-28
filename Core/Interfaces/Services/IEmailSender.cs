@@ -9,6 +9,6 @@ namespace Core.Interfaces.Services
 {
     public interface IEmailSender
     {
-        Task<bool> SendEmailConfirmationAsync(EmailConfirmationViewModel model);
+        Task<bool> SendEmailAsync(EmailViewModel model, string subject);
     }
 }

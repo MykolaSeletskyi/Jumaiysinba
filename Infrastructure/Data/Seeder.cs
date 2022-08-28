@@ -53,15 +53,16 @@ namespace Infrastructure.Data
             }
             if (!userManager.Users.Any())
             {
-                var logger = scope.ServiceProvider.GetRequiredService<ILogger<RoleManager<User>>>();
+                //var logger = scope.ServiceProvider.GetRequiredService<ILogger<RoleManager<User>>>();
                 string email = "qwerty@qwe.rty";
+                string username = "qwerty";
                 var user = new User
                 {
                     Email = email,
-                    UserName = email,
-                    FirstName = "Qwerty",
-                    SecondName = "Qwerty",
-                    PhoneNumber = "+38(098)232 34 22",
+                    UserName = username,
+                    //FirstName = "Qwerty",
+                    //SecondName = "Qwerty",
+                    //PhoneNumber = "+38(098)232 34 22",
                     //Photo = "1.jpg"
                 };
                 var result = userManager.CreateAsync(user, "qwerty").Result;

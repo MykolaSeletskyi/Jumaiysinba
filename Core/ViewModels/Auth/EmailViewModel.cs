@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.ViewModels.Auth
 {
-    public class EmailConfirmationViewModel
+    public class EmailViewModel
     {
         /// <summary>
         /// Пошта для відправки
