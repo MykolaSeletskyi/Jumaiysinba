@@ -7,12 +7,15 @@ import { style } from "wavesurfer.js/src/util";
 // import { FFmpegWorker } from '../../FFmpegWorker/FFmpegWorker';
 interface IScreenRecorderState {
   IsAgree: boolean;
+  IsShared: boolean;
 }
 class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
   state: IScreenRecorderState = {
     IsAgree: true, //before publish change to false
+    IsShared: false,
   };
-  videoContainer: React.RefObject<HTMLVideoElement> = React.createRef<HTMLVideoElement>();
+  videoContainer: React.RefObject<HTMLVideoElement> =
+    React.createRef<HTMLVideoElement>();
   captureStream?: MediaStream;
   // FFmpegWorker:FFmpegWorker = FFmpegWorker.get();
 
@@ -20,13 +23,7 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
     return (
       <div className={styles.ScreenRecorder}>
         {this.getIntroduction()}
-        <div className={styles.screenContainer}>
-          <video
-            id="screenVideo"
-            autoPlay={true}
-            ref={this.videoContainer}
-          ></video>
-        </div>
+        {this.getVideo()}
         {this.state.IsAgree && this.getControls()}
         {this.getInfo()}
       </div>
@@ -42,7 +39,11 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
       this.captureStream = await navigator.mediaDevices.getDisplayMedia(
         displayMediaOptions
       );
-      (this.videoContainer.current as HTMLVideoElement).srcObject = this.captureStream;
+      const [track] = this.captureStream.getVideoTracks();
+      track.onended = () => console.log("track onended");
+      //   this.captureStream.getVideoTracks().addEventListener('ended', () => console.log('track ended'));
+      (this.videoContainer.current as HTMLVideoElement).srcObject =
+        this.captureStream;
     } catch (error) {
       // this.captureStream=undefined;
     }
@@ -72,6 +73,16 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
           </div>
         </div>
       </div>
+    </div>
+  );
+
+  getVideo = () => (
+    <div className={styles.screenContainer}>
+      <video
+        className={styles.screenVideo}
+        autoPlay={true}
+        ref={this.videoContainer}
+      />
     </div>
   );
 

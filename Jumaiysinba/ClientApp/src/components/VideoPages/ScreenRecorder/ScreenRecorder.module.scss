@@ -86,7 +86,12 @@
         }
     }
 
-    .screenContainer {}
+    .screenContainer {
+        max-width: 1580px;
+        .screenVideo{
+            width: 100%;
+        }
+    }
 
     .controlsContainer {
         display: flex;
