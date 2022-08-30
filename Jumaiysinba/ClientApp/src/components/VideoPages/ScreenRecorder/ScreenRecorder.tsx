@@ -8,15 +8,16 @@ import { style } from "wavesurfer.js/src/util";
 interface IScreenRecorderState {
   IsAgree: boolean;
   IsShared: boolean;
+  IsRecording: boolean;
 }
 class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
   state: IScreenRecorderState = {
     IsAgree: true, //before publish change to false
     IsShared: false,
+    IsRecording: false,
   };
-  videoContainer: React.RefObject<HTMLVideoElement> =
-    React.createRef<HTMLVideoElement>();
-  captureStream?: MediaStream;
+  videoContainer: React.RefObject<HTMLVideoElement> = React.createRef<HTMLVideoElement>();
+  captureStream: MediaStream | null = null;
   // FFmpegWorker:FFmpegWorker = FFmpegWorker.get();
 
   public render() {
@@ -24,14 +25,26 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
       <div className={styles.ScreenRecorder}>
         {this.getIntroduction()}
         {this.getVideo()}
-        {this.state.IsAgree && this.getControls()}
+        {this.getControls()}
         {this.getInfo()}
       </div>
     );
   }
 
-  shareScreen = async () => {
-    try {
+  onShareScreen = async () => {
+    let stopSharing = () => {
+      this.setState({ IsShared: false });
+      (this.videoContainer.current as HTMLVideoElement).srcObject = null;
+      this.captureStream = null;
+    };
+    if(this.state.IsShared)
+    {
+      this.captureStream?.getTracks().forEach(function(track) {
+        track.stop();
+      });
+      stopSharing();
+    }
+    else {
       let displayMediaOptions: DisplayMediaStreamConstraints = {
         audio: true,
         video: true,
@@ -39,15 +52,20 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
       this.captureStream = await navigator.mediaDevices.getDisplayMedia(
         displayMediaOptions
       );
-      const [track] = this.captureStream.getVideoTracks();
-      track.onended = () => console.log("track onended");
-      //   this.captureStream.getVideoTracks().addEventListener('ended', () => console.log('track ended'));
-      (this.videoContainer.current as HTMLVideoElement).srcObject =
-        this.captureStream;
-    } catch (error) {
-      // this.captureStream=undefined;
+      this.setState({ IsShared: true });
+      this.captureStream.getVideoTracks()[0].onended = stopSharing;
+      (this.videoContainer.current as HTMLVideoElement).srcObject = this.captureStream;
     }
   };
+
+  onRecordScreen = () => {
+    if(this.state.IsRecording){
+
+    }
+    else{
+      
+    }
+  }
 
   getIntroduction = () => (
     <div className={styles.introductionContainer}>
@@ -77,7 +95,7 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
   );
 
   getVideo = () => (
-    <div className={styles.screenContainer}>
+    <div className={styles.screenContainer} hidden={!this.state.IsShared}>
       <video
         className={styles.screenVideo}
         autoPlay={true}
@@ -87,16 +105,17 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
   );
 
   getControls = () => (
-    <div className={styles.controlsContainer}>
-      <button onClick={this.shareScreen}>
+    <div className={styles.controlsContainer}  hidden={!this.state.IsAgree}>
+      <button onClick={this.onShareScreen}>
         <VideoPagesImages.ScreenBtnIcon />
       </button>
-      <p>Натисніть, щоб почати показ екрана</p>
+      <VideoPagesImages.ArrowShareAccessIcon className={styles.arrowShareAccessIcon} />
+      <p>{this.state.IsShared ? "Натисніть, щою зупинити показ екрана" : "Натисніть, щоб почати показ екрана"}</p>
       <div>
-        <button>
-          <VideoPagesImages.StartRecordBtnIcon />
+        <button disabled={!this.state.IsShared}>
+          {this.state.IsRecording ? <VideoPagesImages.StopBtnIcon /> : <VideoPagesImages.StartRecordBtnIcon />}
         </button>
-        <button>
+        <button disabled={!this.state.IsShared}>
           <VideoPagesImages.PlayBtnIcon />
         </button>
         <button>

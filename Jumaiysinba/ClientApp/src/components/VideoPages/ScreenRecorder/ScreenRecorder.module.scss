@@ -101,7 +101,14 @@
         height: 424px;
         justify-content: space-around;
         margin-top: 6.4%;
+        position: relative;
 
+        .arrowShareAccessIcon{
+            position: absolute;
+            top: 49px;
+            right: 79px;
+        }
+        
         button:disabled {
             opacity: 0.5;
         }
