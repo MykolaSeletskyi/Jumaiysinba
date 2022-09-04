@@ -103,10 +103,20 @@
         margin-top: 6.4%;
         position: relative;
 
+        .divRelative{
+            position: relative;
+        }
+
         .arrowShareAccessIcon{
             position: absolute;
-            top: 49px;
-            right: 79px;
+            top: 30px;
+            right: 54px;
+        }
+
+        .arrowStopRecordIcon{
+            position: absolute;
+            top: 73px;
+            left: 39px;
         }
         
         button:disabled {
