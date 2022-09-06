@@ -60,6 +60,7 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
   };
 
   onRecordScreen = () => {
+    console.log(this.state.IsRecording)
     if(this.state.IsRecording){
       this.setState({IsRecording:false});
     }
@@ -116,12 +117,20 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
 
   getControls = () => (
     <div className={styles.controlsContainer}  hidden={!this.state.IsAgree}>
-      <button onClick={this.onShareScreen}>
-        <VideoPagesImages.ScreenBtnIcon />
-      </button>
-      <VideoPagesImages.ArrowShareAccessIcon className={styles.arrowShareAccessIcon} />
+      <div className={styles.divRelative}>
+        <button onClick={this.onShareScreen}>
+          <VideoPagesImages.ScreenBtnIcon />
+        </button>
+        <VideoPagesImages.ArrowShareAccessIcon className={styles.arrowShareAccessIcon} />
+      </div>
       <p>{this.state.IsShared ? "Натисніть, щою зупинити показ екрана" : "Натисніть, щоб почати показ екрана"}</p>
       <div>
+        <div className={styles.divRelative}>
+          <button disabled={!this.state.IsShared} onClick={this.onRecordScreen}>
+            {this.state.IsRecording ? <VideoPagesImages.StopBtnIcon /> : <VideoPagesImages.StartRecordBtnIcon />}
+          </button>
+          <VideoPagesImages.ArrowStopRecordIcon className={styles.arrowStopRecordIcon} />
+        </div>
         <button disabled={!this.state.IsShared} onClick={this.onRecordScreen}>
           {this.state.IsRecording ? <VideoPagesImages.StopBtnIcon /> : <VideoPagesImages.StartRecordBtnIcon />}
         </button>
