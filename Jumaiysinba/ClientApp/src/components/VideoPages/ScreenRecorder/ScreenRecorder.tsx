@@ -4,7 +4,7 @@ import styles from "./ScreenRecorder.module.scss";
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 import VideoPagesImages from "../VideoPagesImages";
 import { style } from "wavesurfer.js/src/util";
-// import { FFmpegWorker } from '../../FFmpegWorker/FFmpegWorker';
+import { FFmpegWorker } from '../../FFmpegWorker/FFmpegWorker';
 interface IScreenRecorderState {
   IsAgree: boolean;
   IsShared: boolean;
@@ -18,7 +18,8 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
   };
   videoContainer: React.RefObject<HTMLVideoElement> = React.createRef<HTMLVideoElement>();
   captureStream: MediaStream | null = null;
-  // FFmpegWorker:FFmpegWorker = FFmpegWorker.get();
+  chunksCapture: Blob[] = [];
+  FFmpegWorker:FFmpegWorker = FFmpegWorker.get();
 
   public render() {
     return (
@@ -60,10 +61,19 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
 
   onRecordScreen = () => {
     if(this.state.IsRecording){
-
+      this.setState({IsRecording:false});
     }
     else{
-      
+      this.chunksCapture = [];
+      let mediaRecorder = new MediaRecorder((this.captureStream as MediaStream),{mimeType:"video/webm; codecs=vp8"});
+      mediaRecorder.ondataavailable = async (e) => {
+        this.chunksCapture.push(e.data);
+      }
+      mediaRecorder.onstop=async (e)=>{        
+        const blob = new Blob(this.chunksCapture, { 'type' : 'video/webm; codecs=vp8' });   
+      }
+      mediaRecorder.start(1000);
+      this.setState({IsRecording:true});
     }
   }
 
@@ -112,7 +122,7 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
       <VideoPagesImages.ArrowShareAccessIcon className={styles.arrowShareAccessIcon} />
       <p>{this.state.IsShared ? "Натисніть, щою зупинити показ екрана" : "Натисніть, щоб почати показ екрана"}</p>
       <div>
-        <button disabled={!this.state.IsShared}>
+        <button disabled={!this.state.IsShared} onClick={this.onRecordScreen}>
           {this.state.IsRecording ? <VideoPagesImages.StopBtnIcon /> : <VideoPagesImages.StartRecordBtnIcon />}
         </button>
         <button disabled={!this.state.IsShared}>
