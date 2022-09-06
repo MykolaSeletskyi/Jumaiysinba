@@ -131,9 +131,6 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
           </button>
           <VideoPagesImages.ArrowStopRecordIcon className={styles.arrowStopRecordIcon} />
         </div>
-        <button disabled={!this.state.IsShared} onClick={this.onRecordScreen}>
-          {this.state.IsRecording ? <VideoPagesImages.StopBtnIcon /> : <VideoPagesImages.StartRecordBtnIcon />}
-        </button>
         <button disabled={!this.state.IsShared}>
           <VideoPagesImages.PlayBtnIcon />
         </button>
