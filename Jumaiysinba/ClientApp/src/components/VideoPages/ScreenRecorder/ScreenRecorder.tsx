@@ -9,17 +9,22 @@ interface IScreenRecorderState {
   IsAgree: boolean;
   IsShared: boolean;
   IsRecording: boolean;
+  EnabledDownload: boolean;
 }
 class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
+
   state: IScreenRecorderState = {
     IsAgree: true, //before publish change to false
     IsShared: false,
     IsRecording: false,
+    EnabledDownload: false,
   };
+
   videoContainer: React.RefObject<HTMLVideoElement> = React.createRef<HTMLVideoElement>();
   captureStream: MediaStream | null = null;
   chunksCapture: Blob[] = [];
-  FFmpegWorker:FFmpegWorker = FFmpegWorker.get();
+  mediaRecorder: MediaRecorder | null = null;
+  FFmpegWorker: FFmpegWorker = FFmpegWorker.get();
 
   public render() {
     return (
@@ -32,18 +37,19 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
     );
   }
 
-  onShareScreen = async () => {
-    let stopSharing = () => {
-      this.setState({ IsShared: false });
-      (this.videoContainer.current as HTMLVideoElement).srcObject = null;
-      this.captureStream = null;
-    };
-    if(this.state.IsShared)
-    {
-      this.captureStream?.getTracks().forEach(function(track) {
+  onStopSharing = (): void => {
+    this.setState({ IsShared: false });
+    (this.videoContainer.current as HTMLVideoElement).srcObject = null;
+    this.captureStream = null;
+    this.onRecordScreen();
+  };
+
+  onShareScreen = async (): Promise<void> => {
+    if (this.state.IsShared) {
+      this.captureStream?.getTracks().forEach(function (track) {
         track.stop();
       });
-      stopSharing();
+      this.onStopSharing();
     }
     else {
       let displayMediaOptions: DisplayMediaStreamConstraints = {
@@ -54,31 +60,46 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
         displayMediaOptions
       );
       this.setState({ IsShared: true });
-      this.captureStream.getVideoTracks()[0].onended = stopSharing;
+      this.captureStream.getVideoTracks()[0].onended = this.onStopSharing;
       (this.videoContainer.current as HTMLVideoElement).srcObject = this.captureStream;
     }
   };
 
-  onRecordScreen = () => {
-    console.log(this.state.IsRecording)
-    if(this.state.IsRecording){
-      this.setState({IsRecording:false});
+  onRecordScreen = (): void => {
+    if (this.state.IsRecording) {
+      this.setState({
+        IsRecording: false,
+        EnabledDownload: true,
+      });
+      this.mediaRecorder?.stop();
     }
-    else{
+    else if (this.state.IsShared) {
       this.chunksCapture = [];
-      let mediaRecorder = new MediaRecorder((this.captureStream as MediaStream),{mimeType:"video/webm; codecs=vp8"});
+      let mediaRecorder = new MediaRecorder((this.captureStream as MediaStream), { mimeType: "video/webm; codecs=vp8" });
       mediaRecorder.ondataavailable = async (e) => {
         this.chunksCapture.push(e.data);
+        console.log("ondataavailable (MediaRecorder)")
       }
-      mediaRecorder.onstop=async (e)=>{        
-        const blob = new Blob(this.chunksCapture, { 'type' : 'video/webm; codecs=vp8' });   
+      mediaRecorder.onstop = async (e) => {
+        console.log("onstop (MediaRecorder)")
       }
       mediaRecorder.start(1000);
-      this.setState({IsRecording:true});
+      console.log("start (MediaRecorder)")
+      this.mediaRecorder = mediaRecorder;
+      this.setState({
+        IsRecording: true,
+        EnabledDownload: false
+      });
     }
   }
 
-  getIntroduction = () => (
+  onDownloadVideo = async (): Promise<void> => {
+    let blob = new Blob(this.chunksCapture, { 'type': 'video/webm; codecs=vp8' });
+    blob = await this.FFmpegWorker.FixDurationBlobWebm(blob);
+    this.FFmpegWorker.SaveBlob(blob, "ScreenRecord.webm");
+  }
+
+  getIntroduction = (): JSX.Element => (
     <div className={styles.introductionContainer}>
       <VideoPagesImages.VideoPerson className={styles.Person} />
       <div className={styles.accessContainer}>
@@ -105,7 +126,7 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
     </div>
   );
 
-  getVideo = () => (
+  getVideo = (): JSX.Element => (
     <div className={styles.screenContainer} hidden={!this.state.IsShared}>
       <video
         className={styles.screenVideo}
@@ -115,15 +136,31 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
     </div>
   );
 
-  getControls = () => (
-    <div className={styles.controlsContainer}  hidden={!this.state.IsAgree}>
+  getControls = (): JSX.Element => {
+    let shareText: string = "Натисніть, щоб почати показ екрана";
+    let recordText: string = "";
+
+    if (this.state.IsShared) {
+      shareText = "Натисніть, щою зупинити показ екрана";
+      recordText = "Натисніть, щоб почати запис екрана";
+    }
+
+    if (this.state.IsRecording) {
+      recordText = "Натисніть, щоб зупинити запис екрана"
+    }
+
+    if (this.state.EnabledDownload) {
+      recordText = "Відтворіть або завантажте записане відео або почніть запис знову"
+    }
+
+    return (<div className={styles.controlsContainer} hidden={!this.state.IsAgree}>
       <div className={styles.divRelative}>
         <button onClick={this.onShareScreen}>
           <VideoPagesImages.ScreenBtnIcon />
         </button>
         <VideoPagesImages.ArrowShareAccessIcon className={styles.arrowShareAccessIcon} />
       </div>
-      <p>{this.state.IsShared ? "Натисніть, щою зупинити показ екрана" : "Натисніть, щоб почати показ екрана"}</p>
+      <p>{shareText}</p>
       <div>
         <div className={styles.divRelative}>
           <button disabled={!this.state.IsShared} onClick={this.onRecordScreen}>
@@ -134,15 +171,16 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
         <button disabled={!this.state.IsShared}>
           <VideoPagesImages.PlayBtnIcon />
         </button>
-        <button>
+        <button disabled={!this.state.EnabledDownload} onClick={this.onDownloadVideo}>
           <VideoPagesImages.DownloadBtnIcon />
         </button>
       </div>
       <p>Відтворіть або завантажте записане відео або почніть запис знову</p>
     </div>
-  );
+    )
+  };
 
-  getInfo = () => (
+  getInfo = (): JSX.Element => (
     <div className={styles.infoContainer}>
       <div>
         <h4>

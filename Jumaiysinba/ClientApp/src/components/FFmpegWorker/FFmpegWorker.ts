@@ -9,14 +9,11 @@ export class FFmpegWorker {
     
     public static get(): any {
         if (!FFmpegWorker.ffmpegInstance) {
-            console.log("ffpmeg is creating")
             FFmpegWorker.instance = new FFmpegWorker();
             FFmpegWorker.ffmpegInstance = createFFmpeg({
                 log: false,
             });;
             FFmpegWorker.ffmpegLoadPromise = FFmpegWorker.ffmpegInstance.load();
-        }else{
-            console.log("ffpmeg is created")
         }
         return FFmpegWorker.instance;
     }
@@ -30,5 +27,16 @@ export class FFmpegWorker {
         const data = FFmpegWorker.ffmpegInstance.FS('readFile',`${tempFileName}new.webm`);
         return new Blob([data.buffer]);
     }
-
+    
+    public SaveBlob(blob:Blob, fileName:string):void {
+        let a = document.createElement("a");
+        document.body.appendChild(a);
+        a.style.display = "none";
+        var url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = fileName;
+        a.click();
+        window.URL.revokeObjectURL(url);
+    };
+    
 }
