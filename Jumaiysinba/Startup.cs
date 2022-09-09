@@ -93,11 +93,15 @@ namespace Jumaiysinba
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
-
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("Cross-Origin-Opener-Policy", "same-origin");
+                context.Response.Headers.Add("Cross-Origin-Embedder-Policy", "require-corp");
+                await next();
+            });
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
-
                 if (env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
