@@ -9,14 +9,16 @@ interface IScreenRecorderState {
   IsAgree: boolean;
   IsShared: boolean;
   IsRecording: boolean;
+  IsPlaying: boolean;
   EnabledDownload: boolean;
 }
 class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
 
   state: IScreenRecorderState = {
-    IsAgree: true, //before publish change to false
+    IsAgree: false,
     IsShared: false,
     IsRecording: false,
+    IsPlaying:false,
     EnabledDownload: false,
   };
 
@@ -37,8 +39,8 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
     );
   }
 
-  onStopSharing = (): void => {
-    this.setState({ IsShared: false });
+  onStopSharing = async (): Promise<void> => {
+    await this.setState({ IsShared: false });
     (this.videoContainer.current as HTMLVideoElement).srcObject = null;
     this.captureStream = null;
     this.onRecordScreen();
@@ -100,18 +102,34 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
   }
 
   onPlayVideo = async () => {
-    let blob:Blob = new Blob(this.chunksCapture, { 'type': 'video/webm; codecs=vp8' });
-    let video:HTMLVideoElement = (this.videoContainer.current as HTMLVideoElement);
-    console.log("video.height",video.clientHeight);
-    (video.parentElement as HTMLElement).style.height = `${video.clientHeight}px`;
-    video.srcObject = null;
-    video.src = URL.createObjectURL(blob);
-    await video.play();
-    (video.parentElement as HTMLElement).style.height = "auto"
-    video.onpause = () => {
+    if(!this.state.IsPlaying){
+      let blob:Blob = new Blob(this.chunksCapture, { 'type': 'video/webm; codecs=vp8' });
+      let video:HTMLVideoElement = (this.videoContainer.current as HTMLVideoElement);
+      console.log("video.height",video.clientHeight);
+      (video.parentElement as HTMLElement).style.height = `${video.clientHeight}px`;
+      video.srcObject = null;
+      video.src = URL.createObjectURL(blob);
+      await video.play();
+      (video.parentElement as HTMLElement).style.height = "auto"
+      video.onpause = async () => {
+        video.style.height = `${video.clientHeight}px`;
+        (video.parentElement as HTMLElement).style.height = `${video.clientHeight}px`;
+        video.src = "";
+        video.srcObject = this.captureStream;
+        (video.parentElement as HTMLElement).style.height = "auto"
+        this.setState({IsPlaying:false});
+      };
+      this.setState({IsPlaying:true});
+    }else{
+      let video:HTMLVideoElement = (this.videoContainer.current as HTMLVideoElement);
+      video.pause()
+      video.style.height = `${video.clientHeight}px`;
+      (video.parentElement as HTMLElement).style.height = `${video.clientHeight}px`;
+      video.src = "";
       video.srcObject = this.captureStream;
-    };
-    // video.src = URL.createObjectURL(blob);
+      (video.parentElement as HTMLElement).style.height = "auto"
+      this.setState({IsPlaying:false});
+    }
   }
 
   getIntroduction = (): JSX.Element => (
@@ -171,6 +189,10 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
       hideArrowStop = true;
     }
 
+    if(this.state.IsPlaying){
+      recordText = "Зупинити відтворення";
+    }
+
     return (<div className={styles.controlsContainer} hidden={!this.state.IsAgree}>
       <div className={styles.divRelative}>
         <button onClick={this.onShareScreen}>
@@ -186,9 +208,12 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
           </button>
           <VideoPagesImages.ArrowStopRecordIcon hidden={hideArrowStop} className={styles.arrowStopRecordIcon} />
         </div>
-        <button disabled={!this.state.EnabledDownload} onClick={this.onPlayVideo}>
-          <VideoPagesImages.PlayBtnIcon />
-        </button>
+        <div className={styles.divRelative}>
+          <button disabled={this.state.EnabledDownload == false || this.state.IsShared == false} onClick={this.onPlayVideo}>
+            {this.state.IsPlaying ? <VideoPagesImages.StopBtnIcon /> : <VideoPagesImages.PlayBtnIcon />}
+          </button>
+          <VideoPagesImages.ArrowStopPlayIcon hidden={!this.state.IsPlaying} className={styles.arrowStopPlayIcon} />
+        </div>
         <button disabled={!this.state.EnabledDownload} onClick={this.onDownloadVideo}>
           <VideoPagesImages.DownloadBtnIcon />
         </button>

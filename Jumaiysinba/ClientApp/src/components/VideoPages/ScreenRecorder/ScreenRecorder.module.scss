@@ -88,6 +88,7 @@
 
     .screenContainer {
         max-width: 1580px;
+        margin-top: 7%;
         .screenVideo{
             width: 100%;
         }
@@ -100,7 +101,7 @@
         width: 350px;
         height: 424px;
         justify-content: space-around;
-        margin-top: 6.4%;
+        margin-top: 3%;
         position: relative;
 
         .divRelative{
@@ -117,6 +118,12 @@
             position: absolute;
             top: 64px;
             left: 39px;
+        }
+
+        .arrowStopPlayIcon{
+            position: absolute;
+            top: 54px;
+            right: 60px;
         }
         
         button:disabled {

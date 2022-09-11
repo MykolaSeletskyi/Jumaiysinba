@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import LogoutModal from "../../auth/Logout";
 
-const HeaderMenu = () => {
+const Header = () => {
     const { isAuth } = useTypedSelector(state => state.auth);
     return (
         <nav className="navbar  navbar-expand-lg navbar-dark bg-dark">
@@ -48,4 +48,4 @@ const HeaderMenu = () => {
     );
 }
 
-export default HeaderMenu;
+export default Header;

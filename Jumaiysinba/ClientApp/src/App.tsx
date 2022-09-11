@@ -1,19 +1,18 @@
 import './App.css';
 import { Routes, Route, useLocation } from 'react-router';
-import DefaultLayout from './components/containers/DefaultLayout';
+import { useTypedSelector } from './hooks/useTypedSelector';
+import { Navigate } from "react-router";
+import { useEffect } from 'react';
 import LoginPage from './components/auth/Login';
 import RegisterPage from './components/auth/Register';
 import ScreenRecorder from './components/VideoPages/ScreenRecorder/ScreenRecorder';
 import Microphone from './components/Microphone/Microphone';
-
-import { useTypedSelector } from './hooks/useTypedSelector';
-import { Navigate } from "react-router";
-import { useEffect } from 'react';
 import CameraRecorderPage from './components/camera-access/camera-recorder-page';
 import SpeakerTest from './components/SpeakerTest/SpeakerTest';
 import WordCounter from './components/text/word-counter';
 import HomePage from './components/HomePage/HomePage';
 import GetLocation from './components/geolocation/my-location';
+import Layout from './components/containers/Layout/Layout';
 
 function App() {
   const { isAuth } = useTypedSelector(state => state.auth);
@@ -30,7 +29,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path='/' element={<DefaultLayout />}>
+      <Route path='/' element={<Layout />}>
         <Route path='/' element={<HomePage />} />
         <Route path='/microphone' element={<Microphone />} />
         <Route path='/camera-recorder' element={<CameraRecorderPage />} />
