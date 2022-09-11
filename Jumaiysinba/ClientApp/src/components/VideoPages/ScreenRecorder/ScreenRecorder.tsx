@@ -99,6 +99,21 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
     this.FFmpegWorker.SaveBlob(blob, "ScreenRecord.webm");
   }
 
+  onPlayVideo = async () => {
+    let blob:Blob = new Blob(this.chunksCapture, { 'type': 'video/webm; codecs=vp8' });
+    let video:HTMLVideoElement = (this.videoContainer.current as HTMLVideoElement);
+    console.log("video.height",video.clientHeight);
+    (video.parentElement as HTMLElement).style.height = `${video.clientHeight}px`;
+    video.srcObject = null;
+    video.src = URL.createObjectURL(blob);
+    await video.play();
+    (video.parentElement as HTMLElement).style.height = "auto"
+    video.onpause = () => {
+      video.srcObject = this.captureStream;
+    };
+    // video.src = URL.createObjectURL(blob);
+  }
+
   getIntroduction = (): JSX.Element => (
     <div className={styles.introductionContainer}>
       <VideoPagesImages.VideoPerson className={styles.Person} />
@@ -139,18 +154,21 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
   getControls = (): JSX.Element => {
     let shareText: string = "Натисніть, щоб почати показ екрана";
     let recordText: string = "";
+    let hideArrowStop: boolean = true;
 
     if (this.state.IsShared) {
       shareText = "Натисніть, щою зупинити показ екрана";
       recordText = "Натисніть, щоб почати запис екрана";
+      hideArrowStop = false;
     }
 
     if (this.state.IsRecording) {
-      recordText = "Натисніть, щоб зупинити запис екрана"
+      recordText = "Натисніть, щоб зупинити запис екрана";
     }
 
     if (this.state.EnabledDownload) {
-      recordText = "Відтворіть або завантажте записане відео або почніть запис знову"
+      recordText = "Відтворіть або завантажте записане відео або почніть запис знову";
+      hideArrowStop = true;
     }
 
     return (<div className={styles.controlsContainer} hidden={!this.state.IsAgree}>
@@ -166,16 +184,16 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
           <button disabled={!this.state.IsShared} onClick={this.onRecordScreen}>
             {this.state.IsRecording ? <VideoPagesImages.StopBtnIcon /> : <VideoPagesImages.StartRecordBtnIcon />}
           </button>
-          <VideoPagesImages.ArrowStopRecordIcon className={styles.arrowStopRecordIcon} />
+          <VideoPagesImages.ArrowStopRecordIcon hidden={hideArrowStop} className={styles.arrowStopRecordIcon} />
         </div>
-        <button disabled={!this.state.IsShared}>
+        <button disabled={!this.state.EnabledDownload} onClick={this.onPlayVideo}>
           <VideoPagesImages.PlayBtnIcon />
         </button>
         <button disabled={!this.state.EnabledDownload} onClick={this.onDownloadVideo}>
           <VideoPagesImages.DownloadBtnIcon />
         </button>
       </div>
-      <p>Відтворіть або завантажте записане відео або почніть запис знову</p>
+      <p>{recordText}</p>
     </div>
     )
   };
@@ -204,7 +222,7 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
           спочатку протестувати запис протягом такого періоду часу на пристрої
           та в браузері, які ви плануєте використовувати. Це пояснюється тим, що
           відеодані, які ви записуєте, зберігаються у вашому браузері, який має
-          обмежений обсяг пам’яті.{" "}
+          обмежений обсяг пам’яті.
         </p>
       </div>
     </div>

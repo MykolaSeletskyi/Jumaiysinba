@@ -95,7 +95,7 @@ VideoPagesImages.ArrowStopPlayIcon = class VideoPerson extends React.Component<a
 }
 VideoPagesImages.ArrowStopRecordIcon = class VideoPerson extends React.Component<any, {}> {
     render() {
-        return <svg className={this.props.className} width="66" height="53" viewBox="0 0 66 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+        return <svg className={this.props.className} {...this.props} width="66" height="53" viewBox="0 0 66 53" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2.27514 6.04525C1.42917 11.5483 1.26847 17.1825 0.866818 22.7277C0.421211 28.9396 10.0871 28.9873 10.5325 22.8044C10.5872 22.0025 10.6418 21.2007 10.6773 20.389C22.6443 36.2012 40.0494 47.6392 59.5306 52.0469C65.5805 53.4192 68.2448 44.1221 62.1756 42.7497C44.2287 38.6828 28.5452 28.3218 17.8058 13.7372C19.6701 13.8969 21.5156 13.9889 23.2547 14.0897C29.4673 14.4483 29.5343 4.78262 23.3314 4.42408C20.7614 4.27803 18.2015 4.06439 15.6528 3.66718C14.0405 3.41273 11.9056 3.25079 10.6582 2.09061C10.5814 2.02234 10.5045 1.96373 10.4373 1.9052C7.52426 -1.30777 1.83535 1.77895 2.28473 6.05499L2.27514 6.04525Z" fill="#74C8F4" />
         </svg>
     }
