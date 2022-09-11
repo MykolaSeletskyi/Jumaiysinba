@@ -1,0 +1,184 @@
+.MainDivMicroTest {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: #FAFAFA;
+}
+
+.UpperRowMicroTest {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ConfirmMicroTest {
+    display: flex;
+    width: 652px;
+    height: 216px;
+    margin-top: 283px;
+    margin-left: 707
+}
+
+.DivOfTextMicroTest {
+    display: flex;
+    margin-top: -163px;
+    margin-left: 170px;
+}
+
+.TextOfMicroTest {
+    width: 651px;
+    height: 42px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 42px;
+
+    color: #000000;
+}
+
+.DivSecurityTextMicroTest {
+    width: 622px;
+    margin-top: -81px;
+    margin-left: -650px;
+}
+
+.SecurityTextMicroTest {
+    width: 638px;
+    height: 39px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #282828;
+}
+
+.DivOfPromtTextMicroTest {
+    box-sizing: border-box;
+    width: 652px;
+    margin-top: -2px;
+    margin-left: -622px;
+    border: 3px solid #EE706C;
+    border-radius: 10px;
+}
+
+.PromptTextMicroTest {
+    width: 483.29px;
+    height: 71px;
+    margin-top: 37px;
+    margin-left: 81px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #000000;
+}
+
+.HelpClassForSecrTextMicroTest {
+    font-weight: bold;
+}
+
+.ConfirmSecurityMicroTest {
+    width: 182px;
+    height: 46px;
+    margin-left: -412px;
+    margin-top: 161px;
+}
+
+.TextOfConfirmSecrMicroTest {
+    width: 126.96px;
+    height: 24px;
+    margin-top: 149px;
+    margin-left: -414px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #000000;
+}
+
+
+.CheckBoxMicroTest {
+    margin-top: 105px;
+    margin-left: 24px;
+    width: 30px;
+    border: 2px solid #282828;
+    border-radius: 5px;
+    filter: hue-rotate(140deg);
+}
+
+.MicrophoneHeartMicroTest {
+    margin-left: 473px;
+    margin-top: 120px;
+}
+
+.MicrophoneStyleMicroTest {
+    width: 70%;
+    margin-left: 232px;
+    margin-top: 43px;
+}
+
+.ButtonsRowMicroTest {
+    margin-top: -138px;
+    margin-left: 928px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.MicroButtonMicroTest {
+    background-image: url('../../images/MicrophoneRecorder.svg');
+    width: 28px;
+    height: 45px;
+    border: 0px;
+    margin-left: 15px;
+    margin-top: 7px;
+    background-size: contain;
+    background-color: #FFFFFF;
+}
+.StopMicroButtonMicroTest {
+    background-image: url('../../images/StopRecord.svg');
+    width: 28px;
+    height: 28px;
+    border: 0px;
+    margin-left: 15px;
+    margin-top: 15px;
+    background-size: contain;
+    background-color: #FFFFFF;
+}
+
+.TextForStartTest {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #282828;
+}
+
+.DivTextForStartTest {
+    position: relative;
+    margin-left: 778px;
+    margin-top: 79px;
+}
+
+.DivDescribeOfMicro {
+    margin-left: 170px;
+    margin-top: 118px;
+}
+
+.TextOfDescribeMicro {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
+    text-align: center;
+    color: #282828;
+}

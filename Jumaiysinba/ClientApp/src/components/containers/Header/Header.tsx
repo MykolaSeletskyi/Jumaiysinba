@@ -60,7 +60,7 @@ const HeaderMenu = () => {
             Icon: SVGforLinks.SendVoiceMessagesSVG
         },
         {
-            To: "",
+            To: "/microphone-test",
             Title: "Microphone Test",
             Icon: SVGforLinks.MicrophoneTestSVG
         },

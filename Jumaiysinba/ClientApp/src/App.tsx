@@ -13,6 +13,7 @@ import CameraRecorderPage from './components/camera-access/camera-recorder-page'
 import SpeakerTest from './components/SpeakerTest/SpeakerTest';
 import WordCounter from './components/text/word-counter';
 import HomePage from './components/HomePage/HomePage';
+import MicrophoneTest from './components/MicroTest/MicrophoneTest';
 
 function App() {
   const { isAuth } = useTypedSelector(state => state.auth);
@@ -32,6 +33,7 @@ function App() {
       <Route path='/' element={<DefaultLayout />}>
         <Route path='/' element={<HomePage />} />
         <Route path='/microphone' element={<Microphone />} />
+        <Route path='/microphone-test' element={<MicrophoneTest />} />
         <Route path='/camera-recorder' element={<CameraRecorderPage />} />
         <Route path='/ScreenRecorder' element={<ScreenRecorder />} />
         <Route path='/speaker-test' element={<SpeakerTest />} />

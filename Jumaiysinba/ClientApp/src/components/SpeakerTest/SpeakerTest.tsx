@@ -2,6 +2,7 @@ import * as React from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import wavesurfer from 'wavesurfer.js';
+import MicrophonePlugin from 'wavesurfer.js/src/plugin/microphone';
 import axios from 'axios';
 
 export default function SpeakerTest() {
@@ -12,8 +13,13 @@ export default function SpeakerTest() {
 
   const Start = () => {
     console.log(waveform)
-    waveform.playPause()
+    waveform.load("https://hanzluo.s3-us-west-1.amazonaws.com/music/zhiya.mp3")
+    waveform.start();
   }
+  const Stop = () => {
+    waveform.stop(); 
+  }
+
 
   React.useEffect(() => {
     if (waveformRef.current) {
@@ -33,14 +39,16 @@ export default function SpeakerTest() {
         responsive: true
       });
 
-      currentWavesurfer.load("https://hanzluo.s3-us-west-1.amazonaws.com/music/zhiya.mp3")
+      //currentWavesurfer.load("https://hanzluo.s3-us-west-1.amazonaws.com/music/zhiya.mp3")
       setWaveform(currentWavesurfer)
     }
   }, [])
   return (
     <div>
+      {/* <div ref = {waveformRef}></div> */}
       <div ref = {waveformRef}></div>
       <button onClick={Start}>Start</button>
+      <button onClick={Stop}>Stop</button>
 
       {/* <AudioPlayer
         src = "https://hanzluo.s3-us-west-1.amazonaws.com/music/zhiya.mp3"
