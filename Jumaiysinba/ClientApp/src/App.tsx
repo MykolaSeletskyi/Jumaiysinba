@@ -38,6 +38,7 @@ function App() {
         <Route path='/ScreenRecorder' element={<ScreenRecorder />} />
         <Route path='/speaker-test' element={<SpeakerTest />} />
         <Route path='/word-counter' element={<WordCounter />} />
+        <Route path='/get-location' element={<GetLocation />} />
         {!isAuth ?
           (<>
             <Route path='/login' element={<LoginPage />} />

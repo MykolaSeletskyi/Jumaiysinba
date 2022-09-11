@@ -1,5 +1,6 @@
 import { useState } from "react";
-import Policy from "../policy";
+import Policy from "../../common/policy";
+import Logo from "../../../images/TextLogo.svg";
 import "./index.css";
 import "../index.css";
 
@@ -52,12 +53,16 @@ const WordCounter = () => {
 
     return (
         <div className="word-counter">
-            <Policy onChangePolicy={onChangePolicy}
+            <Policy
+                onChangePolicy={onChangePolicy}
                 header={"Кількість Слів І Символів"}
                 explain={
                     "Використовуйте наш лічильник слів і інструмент аналізатора тексту," +
                     " щоб підрахувати символи, слова, рядки та частоту кожного слова у вашому тексті."
-                } />
+                }
+                borderColor={"#74C8F4"}
+                logo={Logo}
+                isLeft />
             <br />
             <br />
             <br />
@@ -103,14 +108,14 @@ const WordCounter = () => {
                             words && wordDictionary && words.length > 0 ?
                                 <>
                                     <div className="row mt-5">
-                                        <h3 className="text-center">Частота слів</h3>
+                                        <h3 className="text-center mt-5">Частота слів</h3>
                                     </div>
-                                    <div className="row mt-4 justify-content-center">
-                                        <div className="text-area pt-0 row">
+                                    <div className="row mt-5 justify-content-center">
+                                        <div className="text-area row">
                                             {
-                                                words.map((word, index) => { // index bad idea
+                                                words.map((word, index) => {
                                                     return (
-                                                        <div key={index} className="col-3 mt-3 pb-2 pt-2 scrollable-y">
+                                                        <div key={index} className="col-3 pb-2 pt-2 scrollable-y mb-4">
                                                             <span>
                                                                 {word + ' : ' + wordDictionary[word]}
                                                             </span>

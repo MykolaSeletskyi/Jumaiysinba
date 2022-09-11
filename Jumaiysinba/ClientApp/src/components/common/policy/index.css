@@ -9,7 +9,7 @@ h3 {
 .policy {
     width: 652px;
     height: 218px;
-    border: 3px solid #74C8F4;
+    border: 3px solid;
     border-radius: 10px;
 }
 

@@ -1,0 +1,9 @@
+.input-info {
+    box-sizing: border-box;
+
+    border: 3px solid #74C8F4;
+    border-radius: 10px;
+
+    font-size: 2rem;
+    background-color: transparent;
+}
