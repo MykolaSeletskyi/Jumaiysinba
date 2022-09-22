@@ -24,8 +24,6 @@ async function SendRecord(record: any) {
 }
 
 export default function MicrophoneTest() {
-  let [waveform, setWaveform] = React.useState<any>()
-  const waveformRef = React.useRef<HTMLDivElement>(null);
   const [record, setRecord] = React.useState(false);
   const [recordedBlob, setRecordedBlob] = React.useState<any>();
   const [chunksCapture, setChunksCapture] = React.useState<any>([]);
@@ -33,34 +31,7 @@ export default function MicrophoneTest() {
   const [confirm, setConfirm] = React.useState<any>(false);
   const [stopPlayWaveSurfer, setStopPlayWaveSurfer] = React.useState<any>(false);
   const [waveOrFrec, setWaveOrFrec] = React.useState<any>("sinewave");
-
-
-//   React.useEffect(() => {
-//     if (waveformRef.current) {
-//       const currentWavesurfer = wavesurfer.create({
-//         container: waveformRef.current,
-//         waveColor: '#EE706C',
-//         progressColor: '#EE706C',
-//         cursorColor: '#EE706C',
-//         barWidth: 5,
-//         barRadius: 2,
-//         cursorWidth: 1,
-//         height: 100,
-//         barGap: 9.5,
-//         barHeight: 7,
-//         barMinHeight: 0.2,
-//       });
-      
-//       setWaveform(currentWavesurfer)
-//     }
-    
-//   }, [confirm])
-
-//   React.useEffect(() => {
-//     if(recordedBlob) {
-//       waveform.load(recordedBlob!.blobURL)
-//     }
-//   }, [recordedBlob])
+  let valueOfValume;
 
   const renderMicro = () => {
     return (
@@ -89,6 +60,28 @@ export default function MicrophoneTest() {
 
   const startRecording = () => {
     setRecord(true);
+    checkVolume();
+  }
+  const checkVolume = async () => {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+    const audioContext = new AudioContext();
+    const mediaStreamAudioSourceNode = audioContext.createMediaStreamSource(stream);
+    const analyserNode = audioContext.createAnalyser();
+    mediaStreamAudioSourceNode.connect(analyserNode);
+    
+    const pcmData = new Float32Array(analyserNode.fftSize);
+    const onFrame = () => {
+        analyserNode.getFloatTimeDomainData(pcmData);
+        let sumSquares = 0.0;
+        pcmData.forEach(amplitude => 
+          {
+            sumSquares += amplitude*amplitude;
+          })
+        valueOfValume = Math.sqrt(sumSquares / pcmData.length);
+        console.log("aa", valueOfValume);
+        window.requestAnimationFrame(onFrame);
+    };
+    window.requestAnimationFrame(onFrame);
   }
 
   const changeWave = () => {
@@ -112,9 +105,6 @@ export default function MicrophoneTest() {
   const onStop = (recordedBlob: any) => {
     setRecordedBlob(recordedBlob);
     console.log("RecordedBlob", recordedBlob);
-    console.log("curr", waveformRef.current);
-    console.log("wave", waveform);
-    waveform.load(recordedBlob!.blobURL);
   }
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
   return (
@@ -143,7 +133,6 @@ export default function MicrophoneTest() {
 
       {confirm ?  //If user confirmed our license than show Micro
         <>
-          <div ref={waveformRef} style={{visibility: record == false ? "visible" : "hidden", position: "absolute", width: "100%", marginTop: "130px"}}></div>
           <div style={{visibility: record == true ? "visible" : "hidden"}}>{renderMicro()}</div>
         </>
         :
@@ -152,29 +141,119 @@ export default function MicrophoneTest() {
 
       {confirm ?
       <>
-        <div className='ButtonsRowMicroTest'>
+        <div style={{visibility: record == true ? "visible" : "hidden"}} className="TextMicrophone">
+          <span>Мікрофон</span>
+        </div>
+        <div style={{marginTop: record == true ? "80px" : "-138px"}} className='ButtonsRowMicroTest'>
           <div className='DivForMicroButtonMicroTest'>
-            <button className={record == false ? 'MicroButtonMicroTest' : 'StopMicroButtonMicroTest'} onClick={record == false ? startRecording : stopRecording}></button>
+            <button style={{visibility: record == true ? "hidden" : "visible"}} className={record == false ? 'MicroButtonMicroTest' : 'StopMicroButtonMicroTest'} onClick={record == false ? startRecording : stopRecording}></button>
+            <button style={{visibility: record == true ? "visible" : "hidden"}} className={valueOfValume == 0 || valueOfValume === undefined ? 'MicrophoneDontWork' : 'MicrophoneWork'}></button>
           </div>
         </div>
         <div className='DivTextForStartTest'>
-          <span className='TextForStartTest'>Натисніть, щоб почати тестування мікрофона</span>
+          <span style={{visibility: record == true ? "hidden" : "visible"}} className='TextForStartTest'>Натисніть, щоб почати тестування мікрофона</span>
+          <span style={{visibility: record == true ? "visible" : "hidden"}} className='TextForStartTest'>{valueOfValume == 0 || valueOfValume === undefined ? <span>Помилка <br /> Проблема з мікрофоном. Нижче ви знайдете інструкції щодо виправлення мікрофона на різних пристроях.</span> : <span style={{marginLeft: "-250px"}}>Мікрофон працює</span>}</span>
         </div>
         <div className='DivDescribeOfMicro'>
             <span className='TextOfDescribeMicro'>Опис властивостей мікрофона</span>
         </div>
-        <div className='ToolTip'>
-            <div className='FirstRow'>
-                <div></div>
-                <div></div>
-                <div></div>
+
+        <div className='FooterRowMicroTest'>
+          <div className='FirstHintMicroTest'>
+            <div className='Div1'>
+              <span className='MainHintMicroTest'>Частота вибірки</span>
+              <img style={{marginLeft: "20px"}} src={require('../../images/MicroTestSmileOne.svg').default} alt="Smile:)" />
             </div>
-            <div className='SecondRow'>
-                <div></div>
-                <div></div>
-                <div></div>
+            <div className='DivOfFirstHint'>
+              <p className='TextOfHint'>Частота дискретизації вказує, скільки аудіо семплів береться кожну секунду. Типовими значеннями є 44 100 (CD-аудіо), 48 000 (цифрове аудіо), 96 000 (мастеринг аудіо та пост-продакшн) і 192 000 (аудіо з високою роздільною здатністю).</p>
             </div>
+          </div>
+          <div className='SecondHintMicroTest'>
+            <div className='Div1'>
+              <span className='MainHintMicroTest'>Обсяг вибірки</span>
+              <img style={{marginLeft: "29px"}} src={require('../../images/MicroTestSmileTwo.svg').default} alt="Smile:)" />
+            </div>
+            <div className='DivOfSecondHint'>
+              <p className='TextOfHint'>Розмір вибірки вказує, скільки бітів використовується для представлення кожного звукового зразка. Типовими значеннями є 16 біт (аудіо CD та інші), 8 біт (зменшена пропускна здатність) і 24 біти (аудіо високої роздільної здатності).</p>
+            </div>
+          </div>
+          <div className='ThirdHintMicroTest'>
+            <div className='Div1'>
+              <span className='MainHintMicroTest'>Затримка</span>
+              <img style={{marginLeft: "43px", marginTop: "-4px"}} src={require('../../images/MicroTestSmileThree.svg').default} alt="Smile:)" />
+            </div>
+            <div className='DivOfThirdHint'>
+              <p className='TextOfHint'>Затримка — це оцінка затримки між моментом, коли звуковий сигнал надходить до мікрофона, і моментом, коли аудіосигнал готовий до використання пристроєм захоплення. Наприклад, час, необхідний для перетворення аналогового аудіо в цифровий, сприяє затримці.</p>
+            </div>
+          </div>
+          <div className='FourHintMicroTest'>
+            <div className='Div1'>
+              <span className='MainHintMicroTest'>Відлуння</span>
+              <img style={{marginLeft: "35px", marginTop: "-3px"}} src={require('../../images/MicroTestSmileFour.svg').default} alt="Smile:)" />
+            </div>
+            <div className='DivOfFourHint'>
+              <p className='TextOfHint'>Відлуння — це функція мікрофона, яка намагається обмежити ефект відлуння або реверберації, коли звук, записаний мікрофоном, відтворюється в динаміках, а потім знову записується мікрофоном у нескінченному циклі.</p>
+            </div>
+          </div>
+          <div className='FiveHintMicroTest'>
+            <div className='Div1'>
+              <span className='MainHintMicroTest'>Придушення шуму</span>
+              <img style={{marginLeft: "31px", marginTop: "-10px"}} src={require('../../images/MicroTestSmileFive.svg').default} alt="Smile:)" />
+            </div>
+            <div className='DivOfFiveHint'>
+              <p className='TextOfHint'>Придушення шуму – це функція мікрофона, яка усуває фоновий шум із звуку.</p>
+            </div>
+          </div>
+          <div className='SixHintMicroTest'>
+            <div className='Div2'>
+              <span className='MainHintMicroTest'>Автоматичне регулювання посилення</span>
+              <img style={{marginLeft: "193px", marginTop: "-131px"}} src={require('../../images/MicroTestSmileSix.svg').default} alt="Smile:)" />
+            </div>
+            <div className='DivOfSixHint'>
+              <p className='TextOfHint'>Автоматичне підсилення — це функція мікрофона, яка автоматично керує гучністю вхідного аудіо, щоб підтримувати стабільний рівень гучності.</p>
+            </div>
+          </div>
+
+          <div className='DivLinkOnDevicesText'>
+            <p className='LinkOnDevicesText'>Посилання на тестування та вказівки щодо виправлення вашого мікрофон за допомогою пристроїв</p>
+          </div>
+
+
+        <div className='LinkOnDevices'>
+          <div className='FirstLink'>
+              <div style={{marginTop: "40px", marginLeft: "31px"}}>
+                <span className='DeviceName'>iPhone та iPad</span>
+              </div>
+              <div style={{marginTop: "17px", marginLeft: "33px"}}>
+                <span className='DeviceText'>Рішення щодо усунення проблем з мікрофоном на iPhone та iPad →</span>
+              </div>
+          </div>
+          <div className='SecondLink'>
+            <div style={{marginTop: "40px", marginLeft: "31px"}}>
+              <span className='DeviceName'>Mac</span>
+            </div>
+            <div style={{marginTop: "17px", marginLeft: "33px", width: "190px"}}>
+                <span className='DeviceText'>Рішення щодо усунення проблем з мікрофоном на Mac →</span>
+            </div>
+          </div>
+          <div className='ThirdLink'>
+            <div style={{marginTop: "40px", marginLeft: "31px"}}>
+              <span className='DeviceName'>Android</span>
+            </div>
+            <div style={{marginTop: "17px", marginLeft: "33px", width: "190px"}}>
+              <span className='DeviceText'>Рішення щодо усунення проблем з мікрофоном на Android →</span>
+            </div>
+          </div>
+          <div className='FourLink'>
+            <div style={{marginTop: "40px", marginLeft: "31px"}}>
+              <span className='DeviceName'>Windows</span>
+            </div>
+            <div style={{marginTop: "17px", marginLeft: "33px", width: "190px"}}>
+              <span className='DeviceText'>Рішення щодо усунення проблем з мікрофоном на Windows →</span>
+            </div>
+          </div>
         </div>
+      </div>
      </>
         :
         null

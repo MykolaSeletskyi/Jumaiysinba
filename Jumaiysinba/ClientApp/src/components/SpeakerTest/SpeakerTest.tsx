@@ -10,16 +10,28 @@ export default function SpeakerTest() {
 
   const [waveform, setWaveform] = React.useState<any>()
   const waveformRef = React.useRef<HTMLDivElement>(null);
+  const [confirm, setConfirm] = React.useState<any>(false);
+  const [stopPlayWaveSurfer, setStopPlayWaveSurfer] = React.useState<any>(false);
+
+  const onConfirm = () => {
+    if (confirm == false) {
+      setConfirm(true);
+    }
+    else {
+      setConfirm(false);
+    }
+    console.log(confirm);
+  }
 
   const Start = () => {
-    console.log(waveform)
-    waveform.load("https://hanzluo.s3-us-west-1.amazonaws.com/music/zhiya.mp3")
-    waveform.start();
+    waveform.playPause();
+    if(stopPlayWaveSurfer == true) {
+      setStopPlayWaveSurfer(false);
+    }
+    else{
+      setStopPlayWaveSurfer(true)
+    }
   }
-  const Stop = () => {
-    waveform.stop(); 
-  }
-
 
   React.useEffect(() => {
     if (waveformRef.current) {
@@ -39,26 +51,50 @@ export default function SpeakerTest() {
         responsive: true
       });
 
-      //currentWavesurfer.load("https://hanzluo.s3-us-west-1.amazonaws.com/music/zhiya.mp3")
+      currentWavesurfer.load("https://hanzluo.s3-us-west-1.amazonaws.com/music/zhiya.mp3")
       setWaveform(currentWavesurfer)
     }
   }, [])
   return (
+    <div className='MainDivMicroTest'>
     <div>
-      {/* <div ref = {waveformRef}></div> */}
-      <div ref = {waveformRef}></div>
-      <button onClick={Start}>Start</button>
-      <button onClick={Stop}>Stop</button>
-
-      {/* <AudioPlayer
-        src = "https://hanzluo.s3-us-west-1.amazonaws.com/music/zhiya.mp3"
-        autoPlay = {false}
-        layout="stacked-reverse"
-        style={{ width: "400px" }}
-        onPlay={() => console.log("onPlay")}
-        /> */}
-
     </div>
-  );
+    <div className='UpperRowMicroTest'>
+      <div className='ConfirmMicroTest'>
+        <div className='DivOfTextMicroTest'>
+          <span className='TextOfMicroTest'>Тест мікрофону</span>
+        </div>
+        <div className='DivSecurityTextMicroTest'>
+          <p className='SecurityTextMicroTest'>Використовуйте цей онлайн -інструмент, щоб перевірити свій мікрофон і знайти рішення, щоб його виправити.</p>
+        </div>
+        <div className='DivOfPromtTextMicroTest'>
+          <p className='PromptTextMicroTest'>Щоб використовувати цей інструмент, ви повинні погодитися з нашими <br /> <span className='HelpClassForSecrTextMicroTest'>Умовами обслуговування і Політикою конфіденційності.</span></p>
+        </div>
+        <p className='TextOfConfirmSecrMicroTest'>Погоджуюсь</p>
+        <input type="checkbox" className='CheckBox' onClick={onConfirm} />
+      </div>
+
+      <div className='MicrophoneHeartMicroTest'>
+        <img src={require('../../images/MicrophoneHeart.svg').default} alt="MicroHeart" />
+      </div>
+    </div>
+
+    {confirm ?  //If user confirmed our license than show Micro
+        <>
+          <div ref={waveformRef} style={{position: "absolute", width: "100%", marginTop: "130px"}}></div>
+        </>
+        :
+        null
+    }
+
+    {/* <div className='ButtonsRowMicroTest'>
+      <div className='DivForMicroButtonMicroTest'>
+        <button  className={stopPlayWaveSurfer == true ? 'StartButton' : 'PauseButton'} onClick={Start}></button>
+      </div>
+    </div> */}
+
+
+  </div>
+);
 
 }
