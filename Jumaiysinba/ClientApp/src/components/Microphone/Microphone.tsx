@@ -4,24 +4,8 @@ import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import axios from 'axios';
 import wavesurfer from 'wavesurfer.js';
-import './Microphone.scss'
-
-async function SendRecord(record: any) {
-
-  const formData = new FormData();
-  formData.append("Record", record);
-
-  const http = axios.create({
-    baseURL: "https://jumaiysinba.azurewebsites.net/"
-  });
-
-  await http.post("api/Microphone/downloadrecord", formData,
-    {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
-}
+import './Microphone.scss';
+import { FFmpegWorker } from '../FFmpegWorker/FFmpegWorker';
 
 export default function Microphone() {
   let [waveform, setWaveform] = React.useState<any>()
@@ -33,7 +17,6 @@ export default function Microphone() {
   const [confirm, setConfirm] = React.useState<any>(false);
   const [stopPlayWaveSurfer, setStopPlayWaveSurfer] = React.useState<any>(false);
   const [waveOrFrec, setWaveOrFrec] = React.useState<any>("sinewave");
-
 
   React.useEffect(() => {
     if (waveformRef.current) {
@@ -118,10 +101,8 @@ export default function Microphone() {
 
   const stopRecording = async () => {
     setRecord(false);
-    // await waveform.loadBlob(recordedBlob.blobURL);
   }
   const onData = (recordedBlob: any) => {
-    // console.log('chunk of real-time data is: ', recordedBlob);
     setChunksCapture(recordedBlob);
   }
 
@@ -163,7 +144,7 @@ export default function Microphone() {
             <p className='PromptText'>Щоб використовувати цей інструмент, ви повинні погодитися з нашими <br /> <span className='HelpClassForSecrText'>Умовами обслуговування і Політикою конфіденційності.</span></p>
           </div>
           <p className='TextOfConfirmSecr'>Погоджуюсь</p>
-          <input type="checkbox" className='CheckBox' onClick={onConfirm} />
+          <input disabled={confirm == true ? true : false} type="checkbox" className='CheckBox' onClick={onConfirm} />
         </div>
 
         <div className='MicrophoneHeart'>
@@ -232,35 +213,4 @@ export default function Microphone() {
       </div>
     </div>
   );
-
-
-  {/* <ReactMic
-        record={record}
-        className="sound-wave"
-        onStop={onStop}
-        onData={onData}
-        mimeType="audio/webm"    // defaults -> "audio/webm".  you can set it to "audio/wav"
-        visualSetting="frequencyBars"
-        strokeColor="#fdbb2d" />
-      <button onClick={startRecording} type="button">Start</button>
-      <button onClick={stopRecording} type="button">Stop</button>
-
-      {recordedBlob ?
-        <button onClick={() => onDownload(recordedBlob.blob, recordedBlob.blobURL)} type="button">Download</button>
-      :
-        null
-      }
-      <div>
-
-      {recordedBlob ?
-        <AudioPlayer
-        src = {recordedBlob!.blobURL}
-        style={{ width: "400px" }}
-        onPlay={() => console.log("onPlay")}
-      />
-      :
-        null
-      }
-      </div> */}
-
 }
