@@ -6,23 +6,6 @@ import axios from 'axios';
 import wavesurfer from 'wavesurfer.js';
 import './MicrophoneTest.scss'
 
-async function SendRecord(record: any) {
-
-  const formData = new FormData();
-  formData.append("Record", record);
-
-  const http = axios.create({
-    baseURL: "https://jumaiysinba.azurewebsites.net/"
-  });
-
-  await http.post("api/Microphone/downloadrecord", formData,
-    {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
-}
-
 export default function MicrophoneTest() {
   const [record, setRecord] = React.useState(false);
   const [recordedBlob, setRecordedBlob] = React.useState<any>();
@@ -31,7 +14,7 @@ export default function MicrophoneTest() {
   const [confirm, setConfirm] = React.useState<any>(false);
   const [stopPlayWaveSurfer, setStopPlayWaveSurfer] = React.useState<any>(false);
   const [waveOrFrec, setWaveOrFrec] = React.useState<any>("sinewave");
-  let valueOfValume;
+  const [valueOfValume, setValueOfValume] = React.useState<any>(0);
 
   const renderMicro = () => {
     return (
@@ -77,8 +60,7 @@ export default function MicrophoneTest() {
           {
             sumSquares += amplitude*amplitude;
           })
-        valueOfValume = Math.sqrt(sumSquares / pcmData.length);
-        console.log("aa", valueOfValume);
+          setValueOfValume(Math.sqrt(sumSquares / pcmData.length) * 100);
         window.requestAnimationFrame(onFrame);
     };
     window.requestAnimationFrame(onFrame);
@@ -123,7 +105,7 @@ export default function MicrophoneTest() {
             <p className='PromptTextMicroTest'>Щоб використовувати цей інструмент, ви повинні погодитися з нашими <br /> <span className='HelpClassForSecrTextMicroTest'>Умовами обслуговування і Політикою конфіденційності.</span></p>
           </div>
           <p className='TextOfConfirmSecrMicroTest'>Погоджуюсь</p>
-          <input type="checkbox" className='CheckBox' onClick={onConfirm} />
+          <input disabled={confirm == true ? true : false} type="checkbox" className='CheckBox' onClick={onConfirm} />
         </div>
 
         <div className='MicrophoneHeartMicroTest'>
@@ -147,12 +129,12 @@ export default function MicrophoneTest() {
         <div style={{marginTop: record == true ? "80px" : "-138px"}} className='ButtonsRowMicroTest'>
           <div className='DivForMicroButtonMicroTest'>
             <button style={{visibility: record == true ? "hidden" : "visible"}} className={record == false ? 'MicroButtonMicroTest' : 'StopMicroButtonMicroTest'} onClick={record == false ? startRecording : stopRecording}></button>
-            <button style={{visibility: record == true ? "visible" : "hidden"}} className={valueOfValume == 0 || valueOfValume === undefined ? 'MicrophoneDontWork' : 'MicrophoneWork'}></button>
+            <button style={{visibility: record == true ? "visible" : "hidden"}} className={valueOfValume == 0 || valueOfValume == undefined ? 'MicrophoneDontWork' : 'MicrophoneWork'}></button>
           </div>
         </div>
         <div className='DivTextForStartTest'>
           <span style={{visibility: record == true ? "hidden" : "visible"}} className='TextForStartTest'>Натисніть, щоб почати тестування мікрофона</span>
-          <span style={{visibility: record == true ? "visible" : "hidden"}} className='TextForStartTest'>{valueOfValume == 0 || valueOfValume === undefined ? <span>Помилка <br /> Проблема з мікрофоном. Нижче ви знайдете інструкції щодо виправлення мікрофона на різних пристроях.</span> : <span style={{marginLeft: "-250px"}}>Мікрофон працює</span>}</span>
+          <span style={{visibility: record == true ? "visible" : "hidden"}} className='TextForStartTest'>{valueOfValume == 0 || valueOfValume == undefined ? <span style={{marginLeft: "-220px"}}>Помилка <br />{<span style={{marginLeft: "-216px"}}>Проблема з мікрофоном. Нижче ви знайдете інструкції щодо виправлення мікрофона на різних пристроях.</span>}</span> : <span style={{marginLeft: "-252px"}}>Мікрофон працює</span>}</span>
         </div>
         <div className='DivDescribeOfMicro'>
             <span className='TextOfDescribeMicro'>Опис властивостей мікрофона</span>

@@ -165,7 +165,7 @@
 .DivTextForStartTest {
     position: relative;
     margin-left: 778px;
-    margin-top: 79px;
+    margin-top: 69px;
 }
 
 .DivDescribeOfMicro {
@@ -361,13 +361,14 @@
 }
 
 .TextMicrophone {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
     text-align: center;
     color: #282828;
+    margin-left: 18px;
 }
 
 .MicrophoneWork {
@@ -383,11 +384,14 @@
 
 .MicrophoneDontWork {
     background-image: url('../../images/MicrophoneNONE.svg');
-    width: 28px;
-    height: 45px;
+    width: 55px;
+    height: 54px;
     border: 0px;
-    margin-left: 15px;
-    margin-top: 7px;
+    margin-left: -41px;
     background-size: contain;
     background-color: #FFFFFF;
+}
+
+.DivForMicroButtonMicroTest {
+    margin-left: 4px;
 }

@@ -483,3 +483,82 @@ BookingUser: {
 
                 @{formatDateTime(addDays(variables('Date2'),variables('CountOfdays')),'MM.dd.yyyy HH:mm')}
                 @{formatDateTime(variables('Date2'),'MM.dd.yyyy HH:mm')}
+
+
+
+
+                Київ Робоче місце №31{"Ініціалізуватизмінну2_Значення":" 00:30"
+                ,"Ініціалізуватизмінну3_Значення":1
+                ,"Умовазавершенняциклу_Значення":"30"
+                ,"Умовазавершенняциклу_Кількість":30
+                ,"Створитиелемент_Title":"Київ Робоче місце №31"
+                ,"Створитиелемент_Description":"Київ Робоче місце №31"
+                ,"Створитиелемент_BookingDatetimeTo":"2022-09-16T23:45:00.000Z"
+                ,"Створитиелемент_WorkSpaceId":80} 
+
+
+
+
+
+
+                            Concatenate(
+            Text(
+                varDateTimeForCalendar;
+                "mm/dd/yyyy"
+            );
+            " ";
+            Text(
+                Dropdown1.Selected.Value;
+                "HH:mm"
+            )
+            );
+
+
+
+
+
+ Concatenate(
+            Text(
+                varTestDate;
+                "mm/dd/yyyy"
+            );
+            " ";
+            Text(
+                Dropdown1.Selected.Value;
+                "HH:mm"
+            )
+            );
+
+
+triggerBody()['Створитиелемент_BookingDatetimeTo']
+@{triggerBody()['Створитиелемент_BookingDatetimeTo']}
+formatDateTime(addDays(variables('DateToList'),variables('CountOfdays')),'MM.dd.yyyy HH:mm')
+
+
+
+
+
+
+
+ Concatenate(
+            Text(
+                varTestDate;
+                "mm/dd/yyyy"
+            );
+            " ";
+            Text(
+                Dropdown1.Selected.Value;
+                "HH:mm"
+            )
+            );
+            7;
+            DateDiff(varDateTimeF;varMaxTime;Days) / 7;
+            DateDiff(varDateTimeF;varMaxTime;Days) / 7;
+            DataCardValue4.Text;
+            DataCardValue2.Text;
+            varDateTimeT;
+            LookUp(
+                'Робочі місця';
+                'Ід-тор' = Value(ID_room.Text);
+                'Ід-тор'
+            )
