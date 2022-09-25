@@ -21,17 +21,17 @@ const HeaderMenu = () => {
     ];
     const videoLinks: IDropDownLink[] = [
         {
-            To: "",
+            To: "/video-recorder",
             Title: "Video Recorder",
             Icon: SVGforLinks.VideoRecorderSVG
         },
         {
-            To: "/camera-recorder",
+            To: "/camera-test",
             Title: "Webcam Test",
             Icon: SVGforLinks.WebcamTestSVG
         },
         {
-            To: "/ScreenRecorder",
+            To: "/screen-recorder",
             Title: "Screen Recorder",
             Icon: SVGforLinks.ScreenRecorderSVG
         }
@@ -55,7 +55,7 @@ const HeaderMenu = () => {
             Icon: SVGforLinks.VoiceRecorderSVG
         },
         {
-            To: "",
+            To: "/",
             Title: "Send Voice Messages",
             Icon: SVGforLinks.SendVoiceMessagesSVG
         },

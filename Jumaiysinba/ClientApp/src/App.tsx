@@ -6,6 +6,8 @@ import { useEffect } from 'react';
 import LoginPage from './components/auth/Login';
 import RegisterPage from './components/auth/Register';
 import ScreenRecorder from './components/VideoPages/ScreenRecorder/ScreenRecorder';
+import VideoRecorder from './components/VideoPages/VideoRecorder/VideoRecorder';
+import WebCamTest from './components/VideoPages/CameraTest/CameraTest';
 import Microphone from './components/Microphone/Microphone';
 import CameraRecorderPage from './components/camera-access/camera-recorder-page';
 import SpeakerTest from './components/SpeakerTest/SpeakerTest';
@@ -35,7 +37,9 @@ function App() {
         <Route path='/microphone' element={<Microphone />} />
         <Route path='/microphone-test' element={<MicrophoneTest />} />
         <Route path='/camera-recorder' element={<CameraRecorderPage />} />
-        <Route path='/ScreenRecorder' element={<ScreenRecorder />} />
+        <Route path='/screen-recorder' element={<ScreenRecorder />} />
+        <Route path='/video-recorder' element={<VideoRecorder />} />
+        <Route path='/camera-test' element={<WebCamTest />} />
         <Route path='/speaker-test' element={<SpeakerTest />} />
         <Route path='/word-counter' element={<WordCounter />} />
         <Route path='/get-location' element={<GetLocation />} />
