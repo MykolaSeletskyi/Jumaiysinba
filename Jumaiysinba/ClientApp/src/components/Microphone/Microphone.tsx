@@ -3,30 +3,49 @@ import { ReactMic } from 'react-mic';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import axios from 'axios';
-import './Microphone.scss'
-
-async function SendRecord(record: any) {
-
-  const formData = new FormData();
-  formData.append("Record", record);
-
-  const http = axios.create({
-    baseURL: "https://jumaiysinba.azurewebsites.net/"
-  });
-
-  await http.post("api/Microphone/downloadrecord", formData,
-    {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
-}
+import wavesurfer from 'wavesurfer.js';
+import './Microphone.scss';
+import { FFmpegWorker } from '../FFmpegWorker/FFmpegWorker';
 
 export default function Microphone() {
+  let [waveform, setWaveform] = React.useState<any>()
+  const waveformRef = React.useRef<HTMLDivElement>(null);
   const [record, setRecord] = React.useState(false);
   const [recordedBlob, setRecordedBlob] = React.useState<any>();
   const [chunksCapture, setChunksCapture] = React.useState<any>([]);
+  const [recordedAudio, setRecordedAudio] = React.useState<any>([]);
   const [confirm, setConfirm] = React.useState<any>(false);
+  const [stopPlayWaveSurfer, setStopPlayWaveSurfer] = React.useState<any>(false);
+  const [waveOrFrec, setWaveOrFrec] = React.useState<any>("sinewave");
+
+  React.useEffect(() => {
+    if (waveformRef.current) {
+      const currentWavesurfer = wavesurfer.create({
+        container: waveformRef.current,
+        waveColor: '#EE706C',
+        progressColor: '#EE706C',
+        cursorColor: '#EE706C',
+        barWidth: 5,
+        barRadius: 2,
+        cursorWidth: 1,
+        height: 100,
+        barGap: 9.5,
+        barHeight: 7,
+        barMinHeight: 0.2,
+      });
+      
+      setWaveform(currentWavesurfer)
+    }
+    
+  }, [confirm])
+
+  React.useEffect(() => {
+    if(recordedBlob) {
+      waveform.load(recordedBlob!.blobURL)
+    }
+  }, [recordedBlob])
+
+
 
   const saveBlob = (recordedAudio: Blob, fileName: string) => {
     let a: HTMLAnchorElement = document.createElement("a");
@@ -36,8 +55,25 @@ export default function Microphone() {
     a.href = url;
     a.download = fileName + ".mp3";
     console.log(a);
+    setRecordedAudio(url);
     a.click();
     window.URL.revokeObjectURL(url);
+
+  }
+
+  const renderMicro = () => {
+    return (
+      <ReactMic
+        key={waveOrFrec}
+        record={record}
+        className="MicrophoneStyle"
+        onStop={onStop}
+        onData={onData}
+        mimeType="audio/webm"    // defaults -> "audio/webm".  you can set it to "audio/wav"
+        visualSetting={waveOrFrec}
+        strokeColor="#EE706C"
+      />
+    )
   }
 
   const onConfirm = () => {
@@ -54,26 +90,48 @@ export default function Microphone() {
     setRecord(true);
   }
 
-  const stopRecording = () => {
+  const changeWave = () => {
+    if (waveOrFrec == "sinewave") {
+      setWaveOrFrec("frequencyBars")
+    }
+    else {
+      setWaveOrFrec("sinewave")
+    }
+  }
+
+  const stopRecording = async () => {
     setRecord(false);
   }
   const onData = (recordedBlob: any) => {
-    console.log('chunk of real-time data is: ', recordedBlob);
     setChunksCapture(recordedBlob);
   }
+
   const onStop = (recordedBlob: any) => {
-    console.log('recordedBlob is:', recordedBlob.blobURL);
     setRecordedBlob(recordedBlob);
+    console.log("RecordedBlob", recordedBlob);
+    console.log("curr", waveformRef.current);
+    console.log("wave", waveform);
+    waveform.load(recordedBlob!.blobURL);
   }
   const onDownload = (recordedAudio: Blob, fileName: string) => {
     console.log('Download', recordedAudio);
     saveBlob(recordedAudio, fileName)
   }
+  const Start = () => {
+    waveform.playPause();
+    if(stopPlayWaveSurfer == true) {
+      setStopPlayWaveSurfer(false);
+    }
+    else{
+      setStopPlayWaveSurfer(true)
+    }
+  }
+
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
   return (
     <div className='MainDivMicro'>
-       <div>
-    </div>
+      <div>
+      </div>
       <div className='UpperRow'>
         <div className='Confirm'>
           <div className='DivOfTextMicro'>
@@ -86,23 +144,36 @@ export default function Microphone() {
             <p className='PromptText'>Щоб використовувати цей інструмент, ви повинні погодитися з нашими <br /> <span className='HelpClassForSecrText'>Умовами обслуговування і Політикою конфіденційності.</span></p>
           </div>
           <p className='TextOfConfirmSecr'>Погоджуюсь</p>
-          <input type="checkbox" className='CheckBox' onClick={onConfirm} />
+          <input disabled={confirm == true ? true : false} type="checkbox" className='CheckBox' onClick={onConfirm} />
         </div>
 
         <div className='MicrophoneHeart'>
           <img src={require('../../images/MicrophoneHeart.svg').default} alt="MicroHeart" />
         </div>
       </div>
+
+      {confirm ?  //If user confirmed our license than show Micro
+        <>
+          <div ref={waveformRef} style={{visibility: record == false ? "visible" : "hidden", position: "absolute", width: "100%", marginTop: "130px"}}></div>
+          <div style={{visibility: record == true ? "visible" : "hidden"}}>{renderMicro()}</div>
+        </>
+        :
+        null
+      }
+
       {confirm ?
         <div className='ButtonsRow'>
           <div className='DivForMicroButton'>
-            <button className='MicroButton'></button>
+            <button className={record == false ? 'MicroButton' : 'StopMicroButton'} onClick={record == false ? startRecording : stopRecording}></button>
           </div>
           <div className='DivForStartButton'>
-            <button className='StartButton'></button>
+            <button className={stopPlayWaveSurfer == true ? 'StartButton' : 'PauseButton'} disabled={record == true || recordedBlob == null ? true : false} onClick={() => Start()}
+            style = {{opacity: record == true || recordedBlob == null ? "0.5" : "1"}}
+            ></button>
           </div>
-          <div className='DivForDownloadButton'>
-            <button className='DownloadButton'></button>
+          <div className='DivForDownloadButton' aria-disabled={recordedBlob == null ? true : false}>
+            <button onClick={() => onDownload(recordedBlob.blob, recordedBlob.blobURL)} disabled={recordedBlob == null || record == true ? true : false} className='DownloadButton' 
+            style={{opacity: recordedBlob == null || record == true ? "0.5" : "1"}}></button>
           </div>
         </div>
         :
@@ -113,8 +184,8 @@ export default function Microphone() {
         <div className='DivOfSwithcer'>
           <img src={require('../../images/WaveText.svg').default} alt="Форма хвилі" className='WaveText' />
           <label className="switch">
-            <input type="checkbox" />
-            <span className="slider-red round"></span>
+            <input type="checkbox" disabled={record == false ? false : true} defaultChecked={waveOrFrec} />
+            <span aria-disabled={record == false ? false : true} onClick={record == false ? changeWave : undefined} className="slider-red round"></span>
           </label>
           <img src={require('../../images/FrequencyText.svg').default} alt="Частота" className='FrequencyText' />
         </div>
@@ -142,35 +213,4 @@ export default function Microphone() {
       </div>
     </div>
   );
-
-
-  {/* <ReactMic
-        record={record}
-        className="sound-wave"
-        onStop={onStop}
-        onData={onData}
-        mimeType="audio/webm"    // defaults -> "audio/webm".  you can set it to "audio/wav"
-        visualSetting="frequencyBars"
-        strokeColor="#fdbb2d" />
-      <button onClick={startRecording} type="button">Start</button>
-      <button onClick={stopRecording} type="button">Stop</button>
-
-      {recordedBlob ?
-        <button onClick={() => onDownload(recordedBlob.blob, recordedBlob.blobURL)} type="button">Download</button>
-      :
-        null
-      }
-      <div>
-
-      {recordedBlob ?
-        <AudioPlayer
-        src = {recordedBlob!.blobURL}
-        style={{ width: "400px" }}
-        onPlay={() => console.log("onPlay")}
-      />
-      :
-        null
-      }
-      </div> */}
-
 }

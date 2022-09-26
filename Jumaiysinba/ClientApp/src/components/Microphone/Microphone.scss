@@ -15,8 +15,8 @@
     display: flex;
     width: 654px;
     height: 216px;
-    margin-top: 322px;
-    margin-left: 145px;
+    margin-top: 283px;
+    margin-left: 169px;
 }
 
 .DivOfTextMicro {
@@ -115,12 +115,18 @@
 
 .MicrophoneHeart {
     margin-left: 303px;
-    margin-top: 160px;
+    margin-top: 120px;
+}
+
+.MicrophoneStyle {
+    width: 70%;
+    margin-left: 232px;
+    margin-top: 43px;
 }
 
 .ButtonsRow {
-    margin-top: 126px;
-    margin-left: 832px;
+    margin-top: 107px;
+    margin-left: 846px;
     display: flex;
     flex-wrap: wrap;
 }
@@ -146,6 +152,27 @@
     background-size: contain;
     background-color: #FFFFFF;
 }
+.StopMicroButton {
+    background-image: url('../../images/StopRecord.svg');
+    width: 28px;
+    height: 28px;
+    border: 0px;
+    margin-left: 15px;
+    margin-top: 15px;
+    background-size: contain;
+    background-color: #FFFFFF;
+}
+
+// .MicroUnvButton {
+//     background-image: url('../../images/');
+//     width: 28px;
+//     height: 45px;
+//     border: 0px;
+//     margin-left: 15px;
+//     margin-top: 7px;
+//     background-size: contain;
+//     background-color: #FFFFFF;
+// }
 
 .DivForStartButton {
     filter: drop-shadow(-3px 4px 4px rgba(0, 0, 0, 0.1));
@@ -161,6 +188,17 @@
     background-image: url('../../images/PauseMicrophone.svg');
     width: 21px;
     height: 26px;
+    margin-top: 16px;
+    margin-left: 19px;
+    border: 0px;
+    background-size: contain;
+    background-color: #FFFFFF;
+}
+
+.PauseButton {
+    background-image: url('../../images/UnvailablePlay.svg');
+    width: 25px;
+    height: 28px;
     margin-top: 16px;
     margin-left: 19px;
     border: 0px;
@@ -193,7 +231,7 @@
 .DivOfSwithcer {
     display: flex;
     margin-top: 83px;
-    margin-left: 798px;
+    margin-left: 824px;
 }
 
 .Switcher {
@@ -280,7 +318,7 @@ input:checked+.slider-red:before {
 
 .FirstHint {
     margin-top: 151px;
-    margin-left: 140px;
+    margin-left: 164px;
     width: 569px;
     height: 240px;
 }

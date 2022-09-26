@@ -1,25 +1,30 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import styles from "./ScreenRecorder.module.scss";
+import styles from "./VideoRecorder.module.scss";
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 import VideoPagesImages from "../VideoPagesImages";
 import { style } from "wavesurfer.js/src/util";
 import { FFmpegWorker } from '../../FFmpegWorker/FFmpegWorker';
-interface IScreenRecorderState {
+import DropDown, { IDropDownItem } from "../../DropDown/DropDown";
+interface IVideoRecorderState {
   IsAgree: boolean;
   IsShared: boolean;
   IsRecording: boolean;
   IsPlaying: boolean;
   EnabledDownload: boolean;
+  SelectedVideoDevice?: IDropDownItem;
+  VideoDevices: IDropDownItem[];
 }
-class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
 
-  state: IScreenRecorderState = {
+class VideoRecorder extends React.PureComponent<{}, IVideoRecorderState> {
+
+  state: IVideoRecorderState = {
     IsAgree: false,
     IsShared: false,
     IsRecording: false,
-    IsPlaying:false,
+    IsPlaying: false,
     EnabledDownload: false,
+    VideoDevices: [],
   };
 
   videoContainer: React.RefObject<HTMLVideoElement> = React.createRef<HTMLVideoElement>();
@@ -30,13 +35,18 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
 
   public render() {
     return (
-      <div className={styles.ScreenRecorder}>
+      <div className={styles.VideoRecorder}>
         {this.getIntroduction()}
         {this.getVideo()}
         {this.getControls()}
         {this.getInfo()}
       </div>
     );
+  }
+
+  getConnectedDevices = async (type: string):Promise<MediaDeviceInfo[]> => {
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    return devices.filter(device => device.kind === type)
   }
 
   onStopSharing = async (): Promise<void> => {
@@ -54,14 +64,29 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
       this.onStopSharing();
     }
     else {
+      let deviceId:any = true;
+      if(this.state.SelectedVideoDevice!=undefined){
+        deviceId = this.state.SelectedVideoDevice?.Value.deviceId
+      }
       let displayMediaOptions: DisplayMediaStreamConstraints = {
         audio: true,
-        video: true,
+        video: {deviceId:deviceId},
       };
-      this.captureStream = await navigator.mediaDevices.getDisplayMedia(
+      this.captureStream = await navigator.mediaDevices.getUserMedia(
         displayMediaOptions
       );
       this.setState({ IsShared: true });
+      var devices: MediaDeviceInfo[] = await this.getConnectedDevices("videoinput");
+      var VideoDevices: IDropDownItem[] = devices.map(d => {
+        let videoDevice: IDropDownItem = { Title: d.label, Value: d };
+        return videoDevice
+      });
+      if (devices.length > 0) {
+        this.setState({
+          SelectedVideoDevice: VideoDevices[0],
+          VideoDevices: VideoDevices,
+        })
+      }
       this.captureStream.getVideoTracks()[0].onended = this.onStopSharing;
       (this.videoContainer.current as HTMLVideoElement).srcObject = this.captureStream;
     }
@@ -98,14 +123,13 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
   onDownloadVideo = async (): Promise<void> => {
     let blob = new Blob(this.chunksCapture, { 'type': 'video/webm; codecs=vp8' });
     blob = await this.FFmpegWorker.FixDurationBlobWebm(blob);
-    this.FFmpegWorker.SaveBlob(blob, "ScreenRecord.webm");
+    this.FFmpegWorker.SaveBlob(blob, "VideoRecord.webm");
   }
 
   onPlayVideo = async () => {
     if(!this.state.IsPlaying){
       let blob:Blob = new Blob(this.chunksCapture, { 'type': 'video/webm; codecs=vp8' });
       let video:HTMLVideoElement = (this.videoContainer.current as HTMLVideoElement);
-      console.log("video.height",video.clientHeight);
       (video.parentElement as HTMLElement).style.height = `${video.clientHeight}px`;
       video.srcObject = null;
       video.src = URL.createObjectURL(blob);
@@ -136,8 +160,8 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
     <div className={styles.introductionContainer}>
       <VideoPagesImages.VideoPerson className={styles.Person} />
       <div className={styles.accessContainer}>
-        <h4>Запис екрану</h4>
-        <p>Записуйте та діліться вашими відео</p>
+        <h4>Онлайн відеозапис</h4>
+        <p>Записуйте відео з браузера</p>
         <div className={styles.borderDiv}>
           <p>
             Щоб використовувати цей інструмент, ви повинні
@@ -160,24 +184,27 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
   );
 
   getVideo = (): JSX.Element => (
-    <div className={styles.screenContainer} hidden={!this.state.IsShared}>
+    <div className={styles.videoContainer} hidden={!this.state.IsShared}>
       <video
-        muted
-        className={styles.screenVideo}
+        className={styles.video}
         autoPlay={true}
         ref={this.videoContainer}
+        muted
       />
     </div>
   );
 
   getControls = (): JSX.Element => {
-    let shareText: string = "Натисніть, щоб почати показ екрана";
+    let shareText: string = "Натисніть, щоб запустити камеру";
     let recordText: string = "";
     let hideArrowStop: boolean = true;
-
+    let devicesList:IDropDownItem[] = this.state.VideoDevices;
+    let onChangeDeviceVideo=(item:IDropDownItem)=>{
+      this.setState({SelectedVideoDevice:item})
+    }
     if (this.state.IsShared) {
-      shareText = "Натисніть, щою зупинити показ екрана";
-      recordText = "Натисніть, щоб почати запис екрана";
+      shareText = "Натисніть, щоб зупинити камеру";
+      recordText = "Натисніть, щоб почати запис";
       hideArrowStop = false;
     }
 
@@ -195,32 +222,34 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
     }
 
     return (<div className={styles.controlsContainer} hidden={!this.state.IsAgree}>
-      <div className={styles.divRelative}>
-        <button className={styles.btn} onClick={this.onShareScreen}>
-          <VideoPagesImages.ScreenBtnIcon />
-        </button>
-        <VideoPagesImages.ArrowShareAccessIcon className={styles.arrowShareAccessIcon} />
-      </div>
-      <p>{shareText}</p>
-      <div>
+      <DropDown disabled={this.state.IsRecording} hidden={!this.state.IsShared} items={devicesList} onChange={onChangeDeviceVideo}></DropDown>
+      <div className={styles.buttons}>
         <div className={styles.divRelative}>
-          <button className={styles.btn} disabled={!this.state.IsShared} onClick={this.onRecordScreen}>
-            {this.state.IsRecording ? <VideoPagesImages.StopBtnIcon /> : <VideoPagesImages.StartRecordBtnIcon />}
+          <button className={styles.btn} onClick={this.onShareScreen}>
+            {this.state.IsShared ? <VideoPagesImages.StopBtnIcon /> : <VideoPagesImages.PlayBtnIcon />}
           </button>
-          <VideoPagesImages.ArrowStopRecordIcon hidden={hideArrowStop} className={styles.arrowStopRecordIcon} />
+          <VideoPagesImages.ArrowShareAccessIcon className={styles.arrowShareAccessIcon} />
         </div>
-        <div className={styles.divRelative}>
-          <button className={styles.btn} disabled={this.state.EnabledDownload == false || this.state.IsShared == false} onClick={this.onPlayVideo}>
-            {this.state.IsPlaying ? <VideoPagesImages.StopBtnIcon /> : <VideoPagesImages.PlayBtnIcon />}
+        <p>{shareText}</p>
+        <div>
+          <div className={styles.divRelative}>
+            <button className={styles.btn} disabled={!this.state.IsShared} onClick={this.onRecordScreen}>
+              {this.state.IsRecording ? <VideoPagesImages.StopBtnIcon /> : <VideoPagesImages.StartRecordBtnIcon />}
+            </button>
+            <VideoPagesImages.ArrowStopRecordIcon hidden={hideArrowStop} className={styles.arrowStopRecordIcon} />
+          </div>
+          <div className={styles.divRelative}>
+            <button className={styles.btn} disabled={this.state.EnabledDownload == false || this.state.IsShared == false} onClick={this.onPlayVideo}>
+              {this.state.IsPlaying ? <VideoPagesImages.StopBtnIcon /> : <VideoPagesImages.PlayBtnIcon />}
+            </button>
+            <VideoPagesImages.ArrowStopPlayIcon hidden={!this.state.IsPlaying} className={styles.arrowStopPlayIcon} />
+          </div>
+          <button className={styles.btn} disabled={!this.state.EnabledDownload} onClick={this.onDownloadVideo}>
+            <VideoPagesImages.DownloadBtnIcon />
           </button>
-          <VideoPagesImages.ArrowStopPlayIcon hidden={!this.state.IsPlaying} className={styles.arrowStopPlayIcon} />
         </div>
-        <button className={styles.btn} disabled={!this.state.EnabledDownload} onClick={this.onDownloadVideo}>
-          <VideoPagesImages.DownloadBtnIcon />
-        </button>
-      </div>
-      <p>{recordText}</p>
-    </div>
+        <p>{recordText}</p>
+      </div></div>
     )
   };
 
@@ -254,4 +283,4 @@ class ScreenRecorder extends React.PureComponent<{}, IScreenRecorderState> {
     </div>
   );
 }
-export default connect()(ScreenRecorder);
+export default connect()(VideoRecorder);

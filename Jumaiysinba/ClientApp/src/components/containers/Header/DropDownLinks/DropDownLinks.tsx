@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import SVGforLinks from '../SvgForDropDownLinks';
 import styles from './DropDownLinks.module.scss'
 export interface IDropDownLink {
   To: string,

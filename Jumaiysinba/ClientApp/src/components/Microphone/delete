@@ -1,0 +1,564 @@
+Set(
+            varTrueSection1;
+            true
+        );;
+Set(varBookingLoader;true);;
+Set(
+    varDateTimeF;
+    DateTimeValue(
+        Concatenate(
+            Text(
+                Start_Date_Picker.SelectedDate;
+                "mm/dd/yyyy"
+            );
+            " ";
+            Text(
+                Dropdown1.Selected.Value;
+                "HH:mm"
+            )
+        );
+        "uk-UA"
+    )
+);;
+Set(
+    varDateTimeForCalendar;
+    DateTimeValue(
+        Concatenate(
+            Text(
+                Start_Date_Picker.SelectedDate;
+                "dd/mm/yyyy"
+            );
+            " ";
+            Text(
+                Dropdown1.Selected.Value;
+                "HH:mm"
+            )
+        );
+        "uk-UA"
+    )
+);;
+Set(varDateTimeT;
+    DateTimeValue(
+        Concatenate(
+            Text(
+                DatePicker3.SelectedDate;
+                "dd/mm/yyyy"
+            );
+            " ";
+            Text(
+                Dropdown1_1.Selected.Value;
+                "HH:mm"
+            )
+        );
+        "uk-UA"
+    )
+);;
+
+Set(varBookedWorkSpace;Filter('Бронювання робочих місць';WorkSpace.Id=Value(ID_room.Text)));;
+Set(varFromColection;Filter('Бронювання робочих місць';BookingDatetimeFrom<=varDateTimeForCalendar;BookingDatetimeTo>=varDateTimeForCalendar));;
+Set(varToColection;Filter('Бронювання робочих місць';BookingDatetimeFrom<=varDateTimeT;BookingDatetimeTo>=varDateTimeT));;
+If(CountRows(varFromColection)>0 Or CountRows(varToColection)>0;
+    Set(varBookingLoader;false)&
+    Set(
+        varTrueSection1;
+        true
+    )&
+    Set(
+        varIsBookedScreen;
+        true
+    );
+    If(
+        Dropdown2.Selected.Value = "Тільки один раз";
+        Patch(
+            'Бронювання робочих місць';
+            {
+                Title: DataCardValue4.Text;
+                Description: DataCardValue2.Text;
+                BookingDatetimeFrom: varDateTimeForCalendar;
+                BookingDatetimeTo: varDateTimeT;
+                WorkSpace: {
+                    Id: Value(ID_room.Text);
+                    Value: LookUp(
+                        'Бронювання робочих місць';
+                        'Ід-тор' = Value(ID_room.Text);
+                        Title
+                    )
+                }
+            }
+        );;
+        If(
+            varIsChecked;
+            Office365Outlook.V2CalendarPostItem(
+                LookUp(
+                    Office365Outlook.CalendarGetTables().value;
+                    DisplayName = "Календарь"
+                ).Name;
+                DataCardValue4.Text;
+                varDateTimeForCalendar;
+                varDateTimeT
+            )
+        );;
+        Set(varBookingLoader;false);;
+        Set(
+            varTrueSection1;
+            true
+        );;
+        Set(
+            varTrueSection2;
+            true
+        );;
+        Set(
+            varTrueSection3;
+            true
+        );;
+        Set(
+            varTrueSection4;
+            true
+        );;
+    );;
+    Set(
+        varRestriction;
+        Filter(
+            BranchOfices;
+            Title = LookUp(
+                'Робочі місця';
+                'Ід-тор' = Value(ID_room.Text);
+                Adress
+            )
+        )
+    );;
+    If(
+        Dropdown2.Selected.Value = "Щоденно";
+        If(
+            First(varRestriction).Restriction.Value = "Місяць";
+            Set(
+                varMaxTime;
+                Text(
+                    DateAdd(
+                        varDateTimeF;
+                        1;
+                        Months
+                    );
+                    "dd/mm/yyyy hh:mm"
+                )
+            )
+        );;
+        If(
+            First(varRestriction).Restriction.Value = "3 Міяці";
+            Set(
+                varMaxTime;
+                Text(
+                    DateAdd(
+                        varDateTimeF;
+                        3;
+                        Months
+                    );
+                    "dd/mm/yyyy hh:mm"
+                )
+            )
+        );;
+        If(
+            First(varRestriction).Restriction.Value = "Пів року";
+            Set(
+                varMaxTime;
+                Text(
+                    DateAdd(
+                        varDateTimeF;
+                        6;
+                        Months
+                    );
+                    "dd/mm/yyyy hh:mm"
+                )
+            )
+        );;
+        If(
+            First(varRestriction).Restriction.Value = "Рік";
+            Set(
+                varMaxTime;
+                Text(
+                    DateAdd(
+                        varDateTimeF;
+                        12;
+                        Months
+                    );
+                    "dd/mm/yyyy hh:mm"
+                )
+            )
+        );;
+        CreateBooking.Run(
+            varDateTimeF;
+            1;
+            DateDiff(varDateTimeF;varMaxTime;Days);
+            DateDiff(varDateTimeF;varMaxTime;Days);
+            DataCardValue4.Text;
+            DataCardValue2.Text;
+            varDateTimeT;
+            LookUp(
+                'Робочі місця';
+                'Ід-тор' = Value(ID_room.Text);
+                'Ід-тор'
+            )
+        );;
+        If(
+            varIsChecked;
+            Office365Outlook.V2CalendarPostItem(
+                LookUp(
+                    Office365Outlook.CalendarGetTables().value;
+                    DisplayName = "Календарь"
+                ).Name;
+                DataCardValue4.Text;
+                varDateTimeForCalendar;
+                varDateTimeT
+            )
+        );;
+        Set(varBookingLoader;false);;
+        Set(
+            varTrueSection1;
+            true
+        );;
+        Set(
+            varTrueSection2;
+            true
+        );;
+        Set(
+            varTrueSection3;
+            true
+        );;
+        Set(
+            varTrueSection4;
+            true
+        );;
+    );;
+    If(
+        Dropdown2.Selected.Value = "Щотижня";
+        If(
+            First(varRestriction).Restriction.Value = "Місяць";
+            Set(
+                varMaxTime;
+                Text(
+                    DateAdd(
+                        varDateTimeF;
+                        1;
+                        Months
+                    );
+                    "dd/mm/yyyy hh:mm"
+                )
+            )
+        );;
+        If(
+            First(varRestriction).Restriction.Value = "3 Міяці";
+            Set(
+                varMaxTime;
+                Text(
+                    DateAdd(
+                        varDateTimeF;
+                        3;
+                        Months
+                    );
+                    "dd/mm/yyyy hh:mm"
+                )
+            )
+        );;
+        If(
+            First(varRestriction).Restriction.Value = "Пів року";
+            Set(
+                varMaxTime;
+                Text(
+                    DateAdd(
+                        varDateTimeF;
+                        6;
+                        Months
+                    );
+                    "dd/mm/yyyy hh:mm"
+                )
+            )
+        );;
+        If(
+            First(varRestriction).Restriction.Value = "Рік";
+            Set(
+                varMaxTime;
+                Text(
+                    DateAdd(
+                        varDateTimeF;
+                        12;
+                        Months
+                    );
+                    "dd-mm-yyyy hh:mm"
+                )
+            )
+        );;
+        CreateBooking.Run(
+            varDateTimeF;
+            7;
+            DateDiff(varDateTimeF;varMaxTime;Days/7);
+            DateDiff(varDateTimeF;varMaxTime;Days/7);
+            DataCardValue4.Text;
+            DataCardValue2.Text;
+            varDateTimeT;
+            LookUp(
+                'Робочі місця';
+                'Ід-тор' = Value(ID_room.Text);
+                'Ід-тор'
+            )
+        );;
+        If(
+            varIsChecked;
+            Office365Outlook.V2CalendarPostItem(
+                LookUp(
+                    Office365Outlook.CalendarGetTables().value;
+                    DisplayName = "Календарь"
+                ).Name;
+                DataCardValue4.Text;
+                varDateTimeForCalendar;
+                varDateTimeT
+            )
+        );;
+        Set(varBookingLoader;false);;
+        Set(
+            varTrueSection1;
+            true
+        );;
+        Set(
+            varTrueSection2;
+            true
+        );;
+        Set(
+            varTrueSection3;
+            true
+        );;
+        Set(
+            varTrueSection4;
+            true
+        );;
+    );;
+    If(
+        Dropdown2.Selected.Value = "Щомісяця";
+        If(
+            First(varRestriction).Restriction.Value = "Місяць";
+            Set(
+                varMaxTime;
+                Text(
+                    DateAdd(
+                        varDateTimeF;
+                        1;
+                        Months
+                    );
+                    "dd/mm/yyyy hh:mm"
+                )
+            )
+        );;
+        If(
+            First(varRestriction).Restriction.Value = "3 Міяці";
+            Set(
+                varMaxTime;
+                Text(
+                    DateAdd(
+                        varDateTimeF;
+                        3;
+                        Months
+                    );
+                    "dd/mm/yyyy hh:mm"
+                )
+            )
+        );;
+        If(
+            First(varRestriction).Restriction.Value = "Пів року";
+            Set(
+                varMaxTime;
+                Text(
+                    DateAdd(
+                        varDateTimeF;
+                        6;
+                        Months
+                    );
+                    "dd/mm/yyyy hh:mm"
+                )
+            )
+        );;
+        If(
+            First(varRestriction).Restriction.Value = "Рік";
+            Set(
+                varMaxTime;
+                Text(
+                    DateAdd(
+                        varDateTimeF;
+                        12;
+                        Months
+                    );
+                    "dd-mm-yyyy hh:mm"
+                )
+            )
+        );;
+        BookingAllMonth.Run(
+            varDateTimeF;
+            DateDiff(varDateTimeF;varMaxTime;Months);
+            DateDiff(varDateTimeF;varMaxTime;Months);
+            DataCardValue4.Text;
+            DataCardValue2.Text;
+            varDateTimeT;
+            LookUp(
+                'Робочі місця';
+                'Ід-тор' = Value(ID_room.Text);
+                'Ід-тор'
+            )
+        );;
+        If(
+            varIsChecked;
+            Office365Outlook.V2CalendarPostItem(
+                LookUp(
+                    Office365Outlook.CalendarGetTables().value;
+                    DisplayName = "Календарь"
+                ).Name;
+                DataCardValue4.Text;
+                varDateTimeForCalendar;
+                varDateTimeT
+            )
+        );;
+        Set(varBookingLoader;false);;
+        Set(
+            varTrueSection1;
+            true
+        );;
+        Set(
+            varTrueSection2;
+            true
+        );;
+        Set(
+            varTrueSection3;
+            true
+        );;
+        Set(
+            varTrueSection4;
+            true
+        );;
+    );;
+    If(
+        Dropdown2.Selected.Value = "Вибрати";
+        Set(varBookingLoader;false);;
+        Set(
+            varTrueSection1;
+            true
+        );;
+        Set(
+            varSelectTransition1;
+            true
+        );;
+    )
+)
+
+
+
+Set(varFilteredCollectionFrom;Filter(varToColection;WorkSpace.Id=Value(ID_room.Text)));;
+Set(varFilteredCollectionTo;Filter(varFromColection;WorkSpace.Id=Value(ID_room.Text)));;
+
+
+BookingUser: {
+                    '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser";  
+                    DisplayName:User().FullName;
+                    Claims:"i:0#.f|membership|" & Lower(User().Email);  
+                    Department:"";  
+                    Email:User().Email;  
+                    JobTitle:"";  
+                    Picture:""
+                };
+
+
+                If(varWorkSpace.BookingUser.Email=User().Email And varWorkSpace.Status.Value="Активно";
+                If(varWorkSpace.BookingUser.Email=User().Email; ButtonS11.BorderColor = Color.Red; ButtonS11.BorderColor = Color.Red);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                @{formatDateTime(addDays(variables('Date2'),variables('CountOfdays')),'MM.dd.yyyy HH:mm')}
+                @{formatDateTime(variables('Date2'),'MM.dd.yyyy HH:mm')}
+
+
+
+
+                Київ Робоче місце №31{"Ініціалізуватизмінну2_Значення":" 00:30"
+                ,"Ініціалізуватизмінну3_Значення":1
+                ,"Умовазавершенняциклу_Значення":"30"
+                ,"Умовазавершенняциклу_Кількість":30
+                ,"Створитиелемент_Title":"Київ Робоче місце №31"
+                ,"Створитиелемент_Description":"Київ Робоче місце №31"
+                ,"Створитиелемент_BookingDatetimeTo":"2022-09-16T23:45:00.000Z"
+                ,"Створитиелемент_WorkSpaceId":80} 
+
+
+
+
+
+
+                            Concatenate(
+            Text(
+                varDateTimeForCalendar;
+                "mm/dd/yyyy"
+            );
+            " ";
+            Text(
+                Dropdown1.Selected.Value;
+                "HH:mm"
+            )
+            );
+
+
+
+
+
+ Concatenate(
+            Text(
+                varTestDate;
+                "mm/dd/yyyy"
+            );
+            " ";
+            Text(
+                Dropdown1.Selected.Value;
+                "HH:mm"
+            )
+            );
+
+
+triggerBody()['Створитиелемент_BookingDatetimeTo']
+@{triggerBody()['Створитиелемент_BookingDatetimeTo']}
+formatDateTime(addDays(variables('DateToList'),variables('CountOfdays')),'MM.dd.yyyy HH:mm')
+
+
+
+
+
+
+
+ Concatenate(
+            Text(
+                varTestDate;
+                "mm/dd/yyyy"
+            );
+            " ";
+            Text(
+                Dropdown1.Selected.Value;
+                "HH:mm"
+            )
+            );
+            7;
+            DateDiff(varDateTimeF;varMaxTime;Days) / 7;
+            DateDiff(varDateTimeF;varMaxTime;Days) / 7;
+            DataCardValue4.Text;
+            DataCardValue2.Text;
+            varDateTimeT;
+            LookUp(
+                'Робочі місця';
+                'Ід-тор' = Value(ID_room.Text);
+                'Ід-тор'
+            )

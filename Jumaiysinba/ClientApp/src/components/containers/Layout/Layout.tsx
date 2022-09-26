@@ -1,15 +1,12 @@
+import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router";
-import HeaderMenu from "../Header/Header";
+import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-
-
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import ReCaptcha from "../../common/ReCaptcha";
+import styles from "./Layout.module.scss"
 
-import styles from "./DefaultLayout.module.scss"
-import { useEffect, useState } from "react";
-
-const DefaultLayout = () => {
+const Layout = () => {
     const { isAuth } = useTypedSelector(state => state.auth);
     const [authLocation, setAuthLocation] = useState<boolean>(false);
     const [rootLocation, setRootLocation] = useState<boolean>(false);
@@ -21,23 +18,23 @@ const DefaultLayout = () => {
             setAuthLocation(true);
             setRootLocation(true);
         }
-        else setAuthLocation(false) ;
+        else setAuthLocation(false);
         if (pathname === "/") {
             setRootLocation(true);
         }
         else setRootLocation(false);
     }, [location.pathname])
-    
+
     return (
         <>
-            { !authLocation && <HeaderMenu/>}
+            {!authLocation && <Header />}
             <div className={styles.layout}>
-                {!isAuth && <ReCaptcha/>}
+                {!isAuth && <ReCaptcha />}
                 <Outlet />
             </div>
-            { !authLocation && <Footer/>}
+            {!authLocation && <Footer />}
         </>
     );
 }
 
-export default DefaultLayout;
+export default Layout;
